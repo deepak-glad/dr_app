@@ -66,15 +66,19 @@ class AppColors extends MaterialColor {
   static const colorLightYellow = Color(0xFFffd049);
   static const dark_grey_blue = Color(0xff2c3551);
   static const light_green = Color(0x0c48b352);
+  // ignore: non_constant_identifier_names
   static final dark_grey_blue_40 = Color(0xff2c3551).withOpacity(0.4);
+  // ignore: non_constant_identifier_names
   static final dark_grey_blue_20 = Color(0xff2c3551).withOpacity(0.2);
+  // ignore: non_constant_identifier_names
   static final dark_grey_blue_08 = Color(0x142c3551);
 
   static const training_color_1 = Color(0xFFaa9cf7);
   static const training_color_2 = Color(0xff9cb7f7);
   static const training_color_3 = Color(0xfff7a89c);
 
-  static const Color primary_color = MaterialColor(primaryColorValue, <int, Color>{
+  static const Color primary_color =
+      MaterialColor(primaryColorValue, <int, Color>{
     50: Color(primaryColorValue),
     100: Color(primaryColorValue),
     200: Color(primaryColorValue),

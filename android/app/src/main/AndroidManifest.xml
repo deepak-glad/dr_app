@@ -4,8 +4,8 @@
 >
 
     <application
-    android:icon="@mipmap/ic_launcher"
-    android:label="drkashikajain"
+    android:icon="@mipmap/launcher_icon"
+    android:label="Dr kashika jain"
     android:usesCleartextTraffic="true"
   >
         <activity

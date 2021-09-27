@@ -32,7 +32,7 @@ class KApiResponseCodes {
 }
 
 class KApiBase {
-  static const BASE_URL = 'http://www.counsellorinmeerut.com/admin/';
+  static const BASE_URL = 'http://www.counsellorinmeerut.com/admin/user_api/';
   static const SERVICE_BASE_URL =
       'http://www.counsellorinmeerut.com/admin/Service_api/';
   static const API_ORDER_PAY = BASE_URL + 'OrderPay.php?id=';

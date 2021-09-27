@@ -14,6 +14,7 @@ import 'app_colors.dart';
 import 'model/plans.dart';
 
 class ChoosePlanScreen extends StatefulWidget {
+  // ignore: non_constant_identifier_names
   String service_id;
   String lang;
   String type;
