@@ -299,6 +299,8 @@ class RegistrationScreenState extends State<RegistrationScreen> {
     setState(() {
       _isLoaded = true;
     });
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var deviceToken = prefs.getString('device_token');
     print('deviceType>>>+' + deviceType);
     print("email_or_phone>>>>>>>>>>>" + _emailTextController.text.toString());
     print("password>>>>>>>>>>>" + _passwordTextController.text.toString());
@@ -311,7 +313,7 @@ class RegistrationScreenState extends State<RegistrationScreen> {
       'user_password': _passwordTextController.text.toString(),
       'user_phone': _mobileTextController.text.toString(),
       'city_id': _cityTextController.text.toString(),
-      'device_token': identifier,
+      'device_token': deviceToken,
       'device_type': deviceType,
     };
     if (internet != null && internet) {
@@ -349,6 +351,8 @@ class RegistrationScreenState extends State<RegistrationScreen> {
     String deviceVersion;
     String identifier;
     final DeviceInfoPlugin deviceInfoPlugin = new DeviceInfoPlugin();
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var deviceToken = prefs.getString('device_token');
     try {
       if (Platform.isAndroid) {
         var build = await deviceInfoPlugin.androidInfo;
@@ -376,7 +380,7 @@ class RegistrationScreenState extends State<RegistrationScreen> {
     Map<String, String> body = {
       'user_email': _emailTextController.text.toString(),
       'password': _passwordTextController.text.toString(),
-      'device_token': identifier,
+      'device_token': deviceToken,
       'device_type': deviceType,
       'device_name': deviceName,
       'device_id': identifier,
@@ -395,7 +399,6 @@ class RegistrationScreenState extends State<RegistrationScreen> {
             });
 
             Utils.showErrorMessage(context, mapRes['message']);
-            SharedPreferences prefs = await SharedPreferences.getInstance();
             prefs.setString(KPrefs.USER_ID,
                 mapRes['user_details'][0]['user_id'].toString());
             prefs.setString(

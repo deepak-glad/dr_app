@@ -204,6 +204,8 @@ class LoginScreenState extends State<LoginScreen> {
     String deviceVersion;
     String identifier;
     final DeviceInfoPlugin deviceInfoPlugin = new DeviceInfoPlugin();
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var deviceToken = prefs.getString('device_token');
     try {
       if (Platform.isAndroid) {
         var build = await deviceInfoPlugin.androidInfo;
@@ -229,13 +231,14 @@ class LoginScreenState extends State<LoginScreen> {
     print('devicetype' + deviceType);
     print('deviceversion' + deviceVersion);
     print('identifier' + identifier);
+    print('devicetoken' + deviceToken);
     print("email_or_phone>>>>>>>>>>>" + _emailTextController.text.toString());
     print("password>>>>>>>>>>>" + _passwordTextController.text.toString());
 
     Map<String, String> body = {
       'user_email': _emailTextController.text.toString(),
       'password': _passwordTextController.text.toString(),
-      'device_token': identifier,
+      'device_token': deviceToken,
       'device_type': deviceType,
       'device_name': deviceName,
       'device_id': identifier,
@@ -256,7 +259,7 @@ class LoginScreenState extends State<LoginScreen> {
           });
 
           Utils.showErrorMessage(context, mapRes['message']);
-          SharedPreferences prefs = await SharedPreferences.getInstance();
+
           prefs.setString(
               KPrefs.USER_ID, mapRes['user_details'][0]['user_id'].toString());
           prefs.setString(

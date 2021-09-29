@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "718560632992",
+    "project_id": "drapp-fc6cf",
+    "storage_bucket": "drapp-fc6cf.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:718560632992:android:6da7699469b6d892ce29c5",
+        "android_client_info": {
+          "package_name": "com.drkashikajain"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "718560632992-0o8i0d5s2q3o010kq9f5tblppc85rh3c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC_fP3dW6PwODLbCRlaQlG_W-frtJq4mVk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "718560632992-0o8i0d5s2q3o010kq9f5tblppc85rh3c.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
