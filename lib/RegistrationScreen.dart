@@ -32,6 +32,7 @@ class RegistrationScreenState extends State<RegistrationScreen> {
   var _nameTextController;
   var _emailTextController;
   var _cityTextController;
+  var _countryTextController;
   var _passwordTextController;
   var _mobileTextController;
   static final RegExp _emailRegex =
@@ -44,6 +45,7 @@ class RegistrationScreenState extends State<RegistrationScreen> {
     _nameTextController = TextEditingController();
     _emailTextController = TextEditingController();
     _cityTextController = TextEditingController();
+    _countryTextController = TextEditingController();
     _passwordTextController = TextEditingController();
     _mobileTextController = TextEditingController();
   }
@@ -157,6 +159,31 @@ class RegistrationScreenState extends State<RegistrationScreen> {
             inputFormatters: <TextInputFormatter>[
               FilteringTextInputFormatter.allow(RegExp("[a-zA-Z]")),
             ],
+            controller: _countryTextController,
+            decoration: new InputDecoration(
+              contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(15),
+                borderSide: BorderSide(color: Colors.white, width: 2.0),
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(15),
+                borderSide: BorderSide(color: Colors.white, width: 2.0),
+              ),
+              fillColor: Colors.white,
+              filled: true,
+              hintStyle: TextStyle(color: Colors.black),
+              hintText: 'Country Name',
+            ),
+          ),
+        ),
+        SizedBox(height: 15),
+        new Container(
+          margin: EdgeInsets.symmetric(horizontal: 20.0),
+          child: TextFormField(
+            inputFormatters: <TextInputFormatter>[
+              FilteringTextInputFormatter.allow(RegExp("[a-zA-Z]")),
+            ],
             controller: _cityTextController,
             decoration: new InputDecoration(
               contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
@@ -249,17 +276,20 @@ class RegistrationScreenState extends State<RegistrationScreen> {
     } else if (_nameTextController.text.toString().contains(_number)) {
       Utils.showErrorMessage(context, 'Enter only characters');
       return;
+    } else if (_mobileTextController.text.isEmpty) {
+      Utils.showErrorMessage(context, 'Enter  mobile number');
+      return;
+    } else if (_countryTextController.text.toString().isEmpty) {
+      Utils.showErrorMessage(context, 'Enter country');
+      return;
+    } else if (_cityTextController.text.toString().isEmpty) {
+      Utils.showErrorMessage(context, 'Enter City');
+      return;
     } else if (!isValidEmail(_emailTextController.text.toString())) {
       Utils.showErrorMessage(context, 'Enter valid email Id');
       return;
     } else if (_passwordTextController.text.toString().isEmpty) {
       Utils.showErrorMessage(context, 'Enter Password');
-      return;
-    } else if (_mobileTextController.text.isEmpty) {
-      Utils.showErrorMessage(context, 'Enter  mobile number');
-      return;
-    } else if (_cityTextController.text.toString().isEmpty) {
-      Utils.showErrorMessage(context, 'Enter City');
       return;
     } else {
       apihit();
@@ -313,6 +343,7 @@ class RegistrationScreenState extends State<RegistrationScreen> {
       'user_password': _passwordTextController.text.toString(),
       'user_phone': _mobileTextController.text.toString(),
       'city_id': _cityTextController.text.toString(),
+      'country_name': _countryTextController.text.toString(),
       'device_token': deviceToken,
       'device_type': deviceType,
     };

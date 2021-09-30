@@ -418,7 +418,7 @@ class _ChoosePlanScreenState extends State<ChoosePlanScreen> {
     print("response body" + mapRes.toString());
 
     if (response.statusCode == 200) {
-      if (mapRes['code'] == 200) {
+      if (mapRes['code'] == '200') {
         setState(() {
           _isLoaded = false;
 
@@ -426,9 +426,10 @@ class _ChoosePlanScreenState extends State<ChoosePlanScreen> {
           discount = double.parse(mapRes['amount']);
 
           if (amount < promo_amount) {
-            amount = 0.0;
+            amount = amount;
           } else {
-            amount = amount = promo_amount;
+            amount = amount - promo_amount;
+            print('amount_d' + amount.toString());
           }
         });
       } else {

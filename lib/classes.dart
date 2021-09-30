@@ -51,7 +51,7 @@ class ClassesScreenState extends State<ClassesScreen> {
       appBar: new AppBar(
         centerTitle: true,
         backgroundColor: AppColors.primary_color,
-        title: Text("CLASSES"),
+        // title: Text("CLASSES"),
       ),
       body: Container(
         decoration: BoxDecoration(
