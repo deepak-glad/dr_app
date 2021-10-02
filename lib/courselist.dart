@@ -51,6 +51,9 @@ class CourseListScreenState extends State<CourseListScreen> {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
+        appBar: AppBar(
+          elevation: 0,
+        ),
         body: _isLoaded
             ? Center(
                 child: CircularProgressIndicator(),

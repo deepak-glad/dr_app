@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:drkashikajain/app_colors.dart';
 import 'package:drkashikajain/splash_page.dart';
@@ -31,10 +33,12 @@ void main() async {
   ]);
   FirebaseMessaging.onMessage.listen((RemoteMessage message) {
     print("message recieved");
+    // var id = new DateTime.now().millisecondsSinceEpoch.remainder(1);
+    int id = Random().nextInt(pow(2, 31) - 1);
     AwesomeNotifications().createNotification(
         content: NotificationContent(
             displayOnForeground: true,
-            id: message.ttl,
+            id: id,
             channelKey: 'basic_channel',
             title: message.data['title'],
             body: message.data['body']));
@@ -58,11 +62,12 @@ void main() async {
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   print("Handling a background message: ${message.messageId}");
   print(message.data);
+  int id = Random().nextInt(pow(2, 31) - 1);
   //firebase push notification
   // AwesomeNotifications().createNotificationFromJsonData(message.data);
   AwesomeNotifications().createNotification(
       content: NotificationContent(
-          id: message.ttl,
+          id: id,
           channelKey: 'basic_channel',
           title: message.data['title'],
           body: message.data['body']));

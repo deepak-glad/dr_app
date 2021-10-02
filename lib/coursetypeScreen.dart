@@ -270,117 +270,117 @@ class CourseTypeScreenState extends State<CourseTypeScreen> {
         SizedBox(
           height: 20,
         ),
-        Visibility(
-          visible: true,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Visibility(
-                visible: fb.toString().isEmpty ? false : true,
-                child: GestureDetector(
-                  onTap: () {
-                    launchURL(fb);
-                  },
-                  child: new Container(
-                    margin: EdgeInsets.only(top: 50, left: 0),
-                    height: 30.0,
-                    width: 30.0,
-                    child: Image.asset("images/fb.png"),
-                  ),
-                ),
-              ),
-              Visibility(
-                visible: twitter.toString().isEmpty ? false : true,
-                child: GestureDetector(
-                  onTap: () {
-                    launchURL(twitter);
-                  },
-                  child: new Container(
-                    margin: EdgeInsets.only(top: 50, left: 30),
-                    height: 30.0,
-                    width: 30.0,
-                    child: Image.asset("images/twitter.png"),
-                  ),
-                ),
-              ),
-              Visibility(
-                visible: insta.toString().isEmpty ? false : true,
-                child: GestureDetector(
-                  onTap: () {
-                    launchURL(insta);
-                  },
-                  child: new Container(
-                    margin: EdgeInsets.only(top: 50, left: 30),
-                    height: 30.0,
-                    width: 30.0,
-                    child: Image.asset("images/instagram.png"),
-                  ),
-                ),
-              ),
-              Visibility(
-                visible: youtube.toString().isEmpty ? false : true,
-                child: GestureDetector(
-                  onTap: () {
-                    launchURL(youtube);
-                  },
-                  child: new Container(
-                    margin: EdgeInsets.only(top: 50, left: 30),
-                    height: 30.0,
-                    width: 30.0,
-                    child: Image.asset("images/youtube.png"),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-        SizedBox(
-          height: 20,
-        ),
-        Container(
-            width: double.infinity,
-            height: 40,
-            margin: EdgeInsets.only(top: 30, left: 70, right: 70),
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(5)),
-                border: Border.all(color: Colors.white, width: 2)),
-            child: Center(
-              child: Text(
-                "Call/Whatsapp",
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18,
-                    color: Colors.white),
-              ),
-            )),
-        SizedBox(height: 20),
-        Row(
-          children: [
-            Container(
-              padding: const EdgeInsets.only(left: 20),
-              width: 80,
-              child: Text(
-                'ENGLISH',
-                style: TextStyle(color: AppColors.white),
-              ),
-            ),
-            continueButton(hindiMobile),
-          ],
-        ),
-        SizedBox(height: 15),
-        Row(
-          children: [
-            Container(
-              padding: const EdgeInsets.only(left: 20),
-              width: 80,
-              child: Text(
-                'HINDI',
-                style: TextStyle(color: AppColors.white),
-              ),
-            ),
-            continueButton(englishmobile),
-          ],
-        )
+        // Visibility(
+        //   visible: true,
+        //   child: Row(
+        //     mainAxisAlignment: MainAxisAlignment.center,
+        //     children: [
+        //       Visibility(
+        //         visible: fb.toString().isEmpty ? false : true,
+        //         child: GestureDetector(
+        //           onTap: () {
+        //             launchURL(fb);
+        //           },
+        //           child: new Container(
+        //             margin: EdgeInsets.only(top: 50, left: 0),
+        //             height: 30.0,
+        //             width: 30.0,
+        //             child: Image.asset("images/fb.png"),
+        //           ),
+        //         ),
+        //       ),
+        //       Visibility(
+        //         visible: twitter.toString().isEmpty ? false : true,
+        //         child: GestureDetector(
+        //           onTap: () {
+        //             launchURL(twitter);
+        //           },
+        //           child: new Container(
+        //             margin: EdgeInsets.only(top: 50, left: 30),
+        //             height: 30.0,
+        //             width: 30.0,
+        //             child: Image.asset("images/twitter.png"),
+        //           ),
+        //         ),
+        //       ),
+        //       Visibility(
+        //         visible: insta.toString().isEmpty ? false : true,
+        //         child: GestureDetector(
+        //           onTap: () {
+        //             launchURL(insta);
+        //           },
+        //           child: new Container(
+        //             margin: EdgeInsets.only(top: 50, left: 30),
+        //             height: 30.0,
+        //             width: 30.0,
+        //             child: Image.asset("images/instagram.png"),
+        //           ),
+        //         ),
+        //       ),
+        //       Visibility(
+        //         visible: youtube.toString().isEmpty ? false : true,
+        //         child: GestureDetector(
+        //           onTap: () {
+        //             launchURL(youtube);
+        //           },
+        //           child: new Container(
+        //             margin: EdgeInsets.only(top: 50, left: 30),
+        //             height: 30.0,
+        //             width: 30.0,
+        //             child: Image.asset("images/youtube.png"),
+        //           ),
+        //         ),
+        //       ),
+        //     ],
+        //   ),
+        // ),
+        // SizedBox(
+        //   height: 20,
+        // ),
+        // Container(
+        //     width: double.infinity,
+        //     height: 40,
+        //     margin: EdgeInsets.only(top: 30, left: 70, right: 70),
+        //     decoration: BoxDecoration(
+        //         borderRadius: BorderRadius.all(Radius.circular(5)),
+        //         border: Border.all(color: Colors.white, width: 2)),
+        //     child: Center(
+        //       child: Text(
+        //         "Call/Whatsapp",
+        //         style: TextStyle(
+        //             fontWeight: FontWeight.bold,
+        //             fontSize: 18,
+        //             color: Colors.white),
+        //       ),
+        //     )),
+        // SizedBox(height: 20),
+        // Row(
+        //   children: [
+        //     Container(
+        //       padding: const EdgeInsets.only(left: 20),
+        //       width: 80,
+        //       child: Text(
+        //         'ENGLISH',
+        //         style: TextStyle(color: AppColors.white),
+        //       ),
+        //     ),
+        //     continueButton(hindiMobile),
+        //   ],
+        // ),
+        // SizedBox(height: 15),
+        // Row(
+        //   children: [
+        //     Container(
+        //       padding: const EdgeInsets.only(left: 20),
+        //       width: 80,
+        //       child: Text(
+        //         'HINDI',
+        //         style: TextStyle(color: AppColors.white),
+        //       ),
+        //     ),
+        //     continueButton(englishmobile),
+        //   ],
+        // )
         /*Positioned(
           bottom: 0,
           child: Container(child: continueButton()),

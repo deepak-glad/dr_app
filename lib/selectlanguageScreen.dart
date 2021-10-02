@@ -121,7 +121,7 @@ class SelectLanguageScreenState extends State<SelectLanguageScreen> {
         Container(
           margin: EdgeInsets.only(top: 50.0),
           child: Center(
-              child: Text('SELECT LANGUAGE',
+              child: Text('SELECT VIDEO LANGUAGE',
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 18.0,
@@ -241,50 +241,31 @@ class SelectLanguageScreenState extends State<SelectLanguageScreen> {
         SizedBox(
           height: 40,
         ),
-        Container(
-            width: double.infinity,
-            height: 40,
-            margin: EdgeInsets.only(top: 30, left: 70, right: 70),
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(5)),
-                border: Border.all(color: Colors.white, width: 2)),
-            child: Center(
-              child: Text(
-                "Call/Whatsapp",
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18,
-                    color: Colors.white),
-              ),
-            )),
-        SizedBox(height: 50),
-        Row(
-          children: [
-            Container(
-              padding: const EdgeInsets.only(left: 20),
-              width: 80,
-              child: Text(
-                'ENGLISH',
-                style: TextStyle(color: AppColors.white),
-              ),
-            ),
-            continueButton(hindiMobile),
-          ],
+        Center(
+          child: Text(
+            "CONTACT US",
+            style: TextStyle(
+                fontWeight: FontWeight.bold, fontSize: 19, color: Colors.white),
+          ),
+        ),
+        SizedBox(height: 20),
+        Center(
+          child: Text(
+            "( Call/Whatsapp )",
+            style: TextStyle(
+                fontWeight: FontWeight.bold, fontSize: 17, color: Colors.white),
+          ),
         ),
         SizedBox(height: 15),
-        Row(
-          children: [
-            Container(
-              padding: const EdgeInsets.only(left: 20),
-              width: 80,
-              child: Text(
-                'HINDI',
-                style: TextStyle(color: AppColors.white),
-              ),
-            ),
-            continueButton(englishmobile),
-          ],
+        Center(
+          child: continueButton(hindiMobile, 'HINDI'),
+        ),
+        SizedBox(height: 15),
+
+        Center(
+          child: continueButton(englishmobile, 'ENGLISH'),
         )
+
         // Positioned(
         //   bottom: 0,
         //   child: Container(child: continueButton()),
@@ -293,11 +274,11 @@ class SelectLanguageScreenState extends State<SelectLanguageScreen> {
     );
   }
 
-  Widget continueButton(String mobile) {
+  Widget continueButton(String mobile, String lan) {
     return Padding(
       padding: const EdgeInsets.only(left: 20.0),
       child: PrimaryButton(
-          buttonText: 'Call +91 $mobile',
+          buttonText: '$lan  +91 $mobile',
           onButtonPressed: () {
             _makePhoneCall('tel:$mobile');
           }),
