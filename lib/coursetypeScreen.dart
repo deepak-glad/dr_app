@@ -48,7 +48,8 @@ class CourseTypeScreenState extends State<CourseTypeScreen> {
   bool internet = true;
   bool _isLoaded = false;
   bool paidvisible = false;
-
+  var hindiMobile;
+  var englishmobile;
   var fb;
   var twitter;
   var insta;
@@ -121,54 +122,6 @@ class CourseTypeScreenState extends State<CourseTypeScreen> {
             child: Column(
               children: [
                 GestureDetector(
-                  onTap: () => {
-                    if (active == "yes")
-                      {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    ClassesScreen(service_id, lang, "advance")))
-                      }
-                    else
-                      {
-                        Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => ChoosePlanScreen(
-                                        service_id, lang, "advance")))
-                            .then((value) => getPlanStatus())
-                      }
-                  },
-                  child: Card(
-                    margin: EdgeInsets.only(
-                        top: 30, left: 70, right: 70, bottom: 30),
-                    color: AppColors.primary_color,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(10))),
-                    child: Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Column(
-                        children: [
-                          Icon(
-                            Icons.play_circle_outline,
-                            color: AppColors.white,
-                          ),
-                          Container(
-                              margin: EdgeInsets.only(top: 8),
-                              child: Center(
-                                child: Text(
-                                  "Advance Videos",
-                                  style: TextStyle(
-                                      fontSize: 14, color: AppColors.white),
-                                ),
-                              )),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-                GestureDetector(
                   onTap: () {
                     Navigator.push(
                         context,
@@ -177,7 +130,8 @@ class CourseTypeScreenState extends State<CourseTypeScreen> {
                                 ClassesScreen(service_id, lang, "basic")));
                   },
                   child: Card(
-                    margin: EdgeInsets.only(left: 70, right: 70, bottom: 30),
+                    margin: EdgeInsets.only(
+                        top: 30, left: 70, right: 70, bottom: 30),
                     color: AppColors.primary_color,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(Radius.circular(10))),
@@ -203,6 +157,54 @@ class CourseTypeScreenState extends State<CourseTypeScreen> {
                     ),
                   ),
                 ),
+                GestureDetector(
+                  onTap: () => {
+                    if (active == "yes")
+                      {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    ClassesScreen(service_id, lang, "advance")))
+                      }
+                    else
+                      {
+                        Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => ChoosePlanScreen(
+                                        service_id, lang, "advance")))
+                            .then((value) => getPlanStatus())
+                      }
+                  },
+                  child: Card(
+                    margin: EdgeInsets.only(left: 70, right: 70, bottom: 30),
+                    color: AppColors.primary_color,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(10))),
+                    child: Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Column(
+                        children: [
+                          Icon(
+                            Icons.play_circle_outline,
+                            color: AppColors.white,
+                          ),
+                          Container(
+                              margin: EdgeInsets.only(top: 8),
+                              child: Center(
+                                child: Text(
+                                  "Advance Videos",
+                                  style: TextStyle(
+                                      fontSize: 14, color: AppColors.white),
+                                ),
+                              )),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+
                 // Visibility(
                 //   visible: paidvisible,
                 //   child: GestureDetector(
@@ -333,9 +335,52 @@ class CourseTypeScreenState extends State<CourseTypeScreen> {
           ),
         ),
         SizedBox(
-          height: 40,
+          height: 20,
         ),
-        continueButton()
+        Container(
+            width: double.infinity,
+            height: 40,
+            margin: EdgeInsets.only(top: 30, left: 70, right: 70),
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(5)),
+                border: Border.all(color: Colors.white, width: 2)),
+            child: Center(
+              child: Text(
+                "Call/Whatsapp",
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18,
+                    color: Colors.white),
+              ),
+            )),
+        SizedBox(height: 20),
+        Row(
+          children: [
+            Container(
+              padding: const EdgeInsets.only(left: 20),
+              width: 80,
+              child: Text(
+                'ENGLISH',
+                style: TextStyle(color: AppColors.white),
+              ),
+            ),
+            continueButton(hindiMobile),
+          ],
+        ),
+        SizedBox(height: 15),
+        Row(
+          children: [
+            Container(
+              padding: const EdgeInsets.only(left: 20),
+              width: 80,
+              child: Text(
+                'HINDI',
+                style: TextStyle(color: AppColors.white),
+              ),
+            ),
+            continueButton(englishmobile),
+          ],
+        )
         /*Positioned(
           bottom: 0,
           child: Container(child: continueButton()),
@@ -344,13 +389,13 @@ class CourseTypeScreenState extends State<CourseTypeScreen> {
     );
   }
 
-  Widget continueButton() {
+  Widget continueButton(String mobile) {
     return Padding(
-      padding: EdgeInsets.only(top: 70, left: 70, right: 70),
+      padding: const EdgeInsets.only(left: 20.0),
       child: PrimaryButton(
-          buttonText: 'Call +91 7017088338',
+          buttonText: 'Call +91 $mobile',
           onButtonPressed: () {
-            _makePhoneCall('tel:7017088338');
+            _makePhoneCall('tel:$mobile');
           }),
     );
   }
@@ -388,7 +433,8 @@ class CourseTypeScreenState extends State<CourseTypeScreen> {
             setState(() {
               _isLoaded = false;
             });
-
+            hindiMobile = mapRes['app_dynamic_setting']['hindiuser_mobile'];
+            englishmobile = mapRes['app_dynamic_setting']['englishuser_mobile'];
             fb = mapRes['app_dynamic_setting']['fb'];
             twitter = mapRes['app_dynamic_setting']['twitter'];
             insta = mapRes['app_dynamic_setting']['insta'];

@@ -201,7 +201,6 @@ class LoginScreenState extends State<LoginScreen> {
     internet = await Method.check();
     var deviceType;
     String deviceName;
-    String deviceVersion;
     String identifier;
     final DeviceInfoPlugin deviceInfoPlugin = new DeviceInfoPlugin();
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -211,13 +210,11 @@ class LoginScreenState extends State<LoginScreen> {
         var build = await deviceInfoPlugin.androidInfo;
         deviceType = 'android';
         deviceName = build.model;
-        deviceVersion = build.version.toString();
         identifier = build.androidId; //UUID for Android
       } else if (Platform.isIOS) {
         var data = await deviceInfoPlugin.iosInfo;
         deviceType = 'ios';
         deviceName = data.name;
-        deviceVersion = data.systemVersion;
         identifier = data.identifierForVendor; //UUID for iOS
       }
     } on PlatformException {
@@ -229,7 +226,6 @@ class LoginScreenState extends State<LoginScreen> {
     });
     print('devicename' + deviceName);
     print('devicetype' + deviceType);
-    print('deviceversion' + deviceVersion);
     print('identifier' + identifier);
     print('devicetoken' + deviceToken);
     print("email_or_phone>>>>>>>>>>>" + _emailTextController.text.toString());

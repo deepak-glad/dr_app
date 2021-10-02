@@ -379,7 +379,6 @@ class RegistrationScreenState extends State<RegistrationScreen> {
     internet = await Method.check();
     var deviceType;
     String deviceName;
-    String deviceVersion;
     String identifier;
     final DeviceInfoPlugin deviceInfoPlugin = new DeviceInfoPlugin();
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -389,13 +388,11 @@ class RegistrationScreenState extends State<RegistrationScreen> {
         var build = await deviceInfoPlugin.androidInfo;
         deviceType = 'android';
         deviceName = build.model;
-        deviceVersion = build.version.toString();
         identifier = build.androidId; //UUID for Android
       } else if (Platform.isIOS) {
         var data = await deviceInfoPlugin.iosInfo;
         deviceType = 'ios';
         deviceName = data.name;
-        deviceVersion = data.systemVersion;
         identifier = data.identifierForVendor; //UUID for iOS
       }
     } on PlatformException {

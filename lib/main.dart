@@ -1,9 +1,9 @@
 import 'package:awesome_notifications/awesome_notifications.dart';
+import 'package:drkashikajain/app_colors.dart';
 import 'package:drkashikajain/splash_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {
@@ -18,15 +18,39 @@ void main() async {
     print(value);
     prefs.setString('device_token', value);
   });
-
-  AwesomeNotifications().initialize(null, [
+  messaging.setForegroundNotificationPresentationOptions();
+  AwesomeNotifications().initialize('resource://drawable/launcher_icon', [
     NotificationChannel(
         channelKey: 'basic_channel',
         channelName: 'Basic notifications',
-        channelDescription: 'Notification channel for basic tests',
-        defaultColor: Color(0xFF9D50DD),
+        defaultColor: AppColors.colorTransparent,
+        importance: NotificationImportance.Max,
+        channelShowBadge: true,
+        playSound: true,
         ledColor: Colors.white)
   ]);
+  FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+    print("message recieved");
+    AwesomeNotifications().createNotification(
+        content: NotificationContent(
+            displayOnForeground: true,
+            id: message.ttl,
+            channelKey: 'basic_channel',
+            title: message.data['title'],
+            body: message.data['body']));
+  });
+
+  // FirebaseMessaging.onMessageOpenedApp.listen((message) {
+  //   print('Message clicked!');
+  // });
+  // AwesomeNotifications().createdStream.listen((message) {
+  //   AwesomeNotifications().createNotification(
+  //       content: NotificationContent(
+  //           id: message.id,
+  //           channelKey: message.channelKey,
+  //           title: message.title,
+  //           body: message.body));
+  // });
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   runApp(MyApp());
 }
@@ -35,23 +59,16 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   print("Handling a background message: ${message.messageId}");
   print(message.data);
   //firebase push notification
-  AwesomeNotifications().createNotificationFromJsonData(message.data);
+  // AwesomeNotifications().createNotificationFromJsonData(message.data);
   AwesomeNotifications().createNotification(
       content: NotificationContent(
           id: message.ttl,
           channelKey: 'basic_channel',
           title: message.data['title'],
-          body: message.data['body'])
-      // bigPicture: 'assets://images/protocoderlogo.png')
-      );
+          body: message.data['body']));
 }
 
-class MyApp extends StatefulWidget {
-  @override
-  _MyAppState createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
+class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(debugShowCheckedModeBanner: false, home: SplashPage());

@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:ffi';
 
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:drkashikajain/HomeScreen.dart';
 import 'package:drkashikajain/primary_button.dart';
 import 'package:drkashikajain/utils/constants.dart';
@@ -26,7 +27,8 @@ class SelectLanguageScreen extends StatefulWidget {
 class SelectLanguageScreenState extends State<SelectLanguageScreen> {
   bool internet = true;
   bool _isLoaded = false;
-
+  var hindiMobile;
+  var englishmobile;
   var fb;
   var twitter;
   var insta;
@@ -34,9 +36,38 @@ class SelectLanguageScreenState extends State<SelectLanguageScreen> {
 
   @override
   void initState() {
-    disableCapture();
     super.initState();
     getData();
+    disableCapture();
+    AwesomeNotifications().isNotificationAllowed().then((isAllowed) {
+      if (!isAllowed) {
+        showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+                  title: Text('Allow Notifications'),
+                  content: Text('Our app would like to send notifications'),
+                  actions: [
+                    TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: Text(
+                          'Don\'t allow',
+                          style: TextStyle(color: Colors.grey, fontSize: 18),
+                        )),
+                    TextButton(
+                        onPressed: () => AwesomeNotifications()
+                            .requestPermissionToSendNotifications()
+                            .then((_) => Navigator.of(context).pop()),
+                        child: Text('Allow',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18,
+                                color: Colors.teal)))
+                  ],
+                ));
+      }
+    });
   }
 
   Future disableCapture() async {
@@ -210,7 +241,50 @@ class SelectLanguageScreenState extends State<SelectLanguageScreen> {
         SizedBox(
           height: 40,
         ),
-        continueButton(),
+        Container(
+            width: double.infinity,
+            height: 40,
+            margin: EdgeInsets.only(top: 30, left: 70, right: 70),
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(5)),
+                border: Border.all(color: Colors.white, width: 2)),
+            child: Center(
+              child: Text(
+                "Call/Whatsapp",
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18,
+                    color: Colors.white),
+              ),
+            )),
+        SizedBox(height: 50),
+        Row(
+          children: [
+            Container(
+              padding: const EdgeInsets.only(left: 20),
+              width: 80,
+              child: Text(
+                'ENGLISH',
+                style: TextStyle(color: AppColors.white),
+              ),
+            ),
+            continueButton(hindiMobile),
+          ],
+        ),
+        SizedBox(height: 15),
+        Row(
+          children: [
+            Container(
+              padding: const EdgeInsets.only(left: 20),
+              width: 80,
+              child: Text(
+                'HINDI',
+                style: TextStyle(color: AppColors.white),
+              ),
+            ),
+            continueButton(englishmobile),
+          ],
+        )
         // Positioned(
         //   bottom: 0,
         //   child: Container(child: continueButton()),
@@ -219,13 +293,13 @@ class SelectLanguageScreenState extends State<SelectLanguageScreen> {
     );
   }
 
-  Widget continueButton() {
+  Widget continueButton(String mobile) {
     return Padding(
-      padding: EdgeInsets.only(top: 70, left: 70, right: 70),
+      padding: const EdgeInsets.only(left: 20.0),
       child: PrimaryButton(
-          buttonText: 'Call +91 7017088338',
+          buttonText: 'Call +91 $mobile',
           onButtonPressed: () {
-            _makePhoneCall('tel:7017088338');
+            _makePhoneCall('tel:$mobile');
           }),
     );
   }
@@ -263,7 +337,8 @@ class SelectLanguageScreenState extends State<SelectLanguageScreen> {
             setState(() {
               _isLoaded = false;
             });
-
+            hindiMobile = mapRes['app_dynamic_setting']['hindiuser_mobile'];
+            englishmobile = mapRes['app_dynamic_setting']['englishuser_mobile'];
             fb = mapRes['app_dynamic_setting']['fb'];
             twitter = mapRes['app_dynamic_setting']['twitter'];
             insta = mapRes['app_dynamic_setting']['insta'];

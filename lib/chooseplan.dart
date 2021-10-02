@@ -426,7 +426,7 @@ class _ChoosePlanScreenState extends State<ChoosePlanScreen> {
           discount = double.parse(mapRes['amount']);
 
           if (amount < promo_amount) {
-            amount = amount;
+            amount = 0;
           } else {
             amount = amount - promo_amount;
             print('amount_d' + amount.toString());
@@ -504,7 +504,7 @@ class _ChoosePlanScreenState extends State<ChoosePlanScreen> {
     print("title" + ">>" + title);
     print("amount" + ">>" + amount.toString());
     print("valid_from" + ">>" + valid);
-    print("transection_id" + ">>" + transectionId);
+    print("transection_id" + ">>" + transectionId.toString());
 
     Map<String, String> body = {
       'access_token': prefs.getString(KPrefs.TOKEN).toString(),
@@ -513,7 +513,7 @@ class _ChoosePlanScreenState extends State<ChoosePlanScreen> {
       'title': title,
       'amount': amount.toString(),
       'valid_from': valid,
-      'transection_id': transectionId,
+      'transection_id': amount == 0 ? 'full_promocode_applied' : transectionId,
     };
 
     final response = await http.post(
@@ -553,6 +553,8 @@ class _ChoosePlanScreenState extends State<ChoosePlanScreen> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     if (plan_id.isEmpty) {
       Utils.showErrorMessage(context, "Please Select Offer");
+    } else if (amount == 0) {
+      confirmPayment();
     } else {
       openCheckout(
           amount * 100,

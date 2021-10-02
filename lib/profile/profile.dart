@@ -37,11 +37,13 @@ class ProfileScreenState extends State<ProfileScreen> {
   var mobile;
   var email;
   var city;
+  var country;
 
   var _textName = TextEditingController();
   var _textEmail = TextEditingController();
   var _textMobile = TextEditingController();
   var _textCity = TextEditingController();
+  var _textCountry = TextEditingController();
 
   @override
   void initState() {
@@ -174,6 +176,26 @@ class ProfileScreenState extends State<ProfileScreen> {
               hintStyle: TextStyle(color: Colors.white),
               labelStyle: TextStyle(color: Colors.white),
               hintText: 'Enter Email Address',
+            ),
+          ),
+        ),
+        new Container(
+          margin: EdgeInsets.only(top: 20.0, left: 20.0, right: 20.0),
+          child: TextFormField(
+            enabled: isEdit,
+            controller: _textCountry,
+            style: TextStyle(color: Colors.white),
+            keyboardType: TextInputType.visiblePassword,
+            decoration: new InputDecoration(
+              focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.white, width: 2.0),
+              ),
+              enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.white, width: 2.0)),
+              labelText: 'Country',
+              hintStyle: TextStyle(color: Colors.white),
+              labelStyle: TextStyle(color: Colors.white),
+              hintText: 'Enter Country',
             ),
           ),
         ),
@@ -440,10 +462,12 @@ class ProfileScreenState extends State<ProfileScreen> {
           mobile = mapRes['user_details']['user_phone'];
           email = mapRes['user_details']['user_email'];
           city = mapRes['user_details']['city_id'];
+          country = mapRes['user_details']['country_id'];
           _textName.text = name;
           _textMobile.text = mobile;
           _textEmail.text = email;
           _textCity.text = city;
+          _textCountry.text = country;
           /* } else {
             setState(() {
               _isLoaded = false;
@@ -474,6 +498,7 @@ class ProfileScreenState extends State<ProfileScreen> {
           'first_name': _textName.text.toString(),
           'user_phone': _textMobile.text.toString(),
           'city_id': _textCity.text.toString(),
+          'country_name': _textCountry.text.toString(),
         };
         final response = await http.post(
             KApiBase.BASE_URL + KApiEndPoints.user_update_profile,
