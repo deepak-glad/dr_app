@@ -62,7 +62,7 @@ class _MyHomePageState extends State<MyHomePage> {
     String url = getVideoID(urls);
     print(url);
     _controller = YoutubePlayerController(
-      initialVideoId: '$url',
+      initialVideoId: '$url?modestbranding=1&amp;rel=0&amp;showinfo=0',
       flags: const YoutubePlayerFlags(
         mute: false,
         autoPlay: false,

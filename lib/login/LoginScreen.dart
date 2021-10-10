@@ -81,16 +81,16 @@ class LoginScreenState extends State<LoginScreen> {
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 18.0,
-                      color: Colors.white))),
+                      color: Colors.blue))),
         ),
         new Container(
           margin: EdgeInsets.only(top: 10.0),
           child: Center(
-              child: Text('For New Customers',
+              child: Text('For New User',
                   style: TextStyle(
                       fontWeight: FontWeight.normal,
                       fontSize: 16.0,
-                      color: Colors.white))),
+                      color: Colors.blue))),
         ),
         GestureDetector(
           onTap: () {
@@ -99,8 +99,8 @@ class LoginScreenState extends State<LoginScreen> {
           },
           child: new Container(
             margin: EdgeInsets.only(top: 15.0),
-            padding:
-                const EdgeInsets.only(top: 6.0, bottom: 6, left: 25, right: 25),
+            padding: const EdgeInsets.only(
+                top: 6.0, bottom: 10, left: 25, right: 25),
             decoration: myBoxDecoration(),
             child: Text('CREATE AN ACCOUNT',
                 style: TextStyle(
@@ -110,13 +110,13 @@ class LoginScreenState extends State<LoginScreen> {
           ),
         ),
         new Container(
-          margin: EdgeInsets.only(top: 25.0),
+          margin: EdgeInsets.only(top: 30.0),
           child: Center(
-              child: Text('For Existing Customers',
+              child: Text('For Existing User',
                   style: TextStyle(
                       fontWeight: FontWeight.normal,
                       fontSize: 16.0,
-                      color: Colors.white))),
+                      color: Colors.blue))),
         ),
         new Container(
           margin: EdgeInsets.only(top: 15.0, left: 20.0, right: 20.0),
@@ -175,7 +175,7 @@ class LoginScreenState extends State<LoginScreen> {
           child: FlatButton(
               onPressed: () => _forgetButtonTapped(),
               child: new Text(
-                'Forgor Password?',
+                'Forget Password?',
                 style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,

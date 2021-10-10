@@ -105,11 +105,11 @@ class ClassesScreenState extends State<ClassesScreen> {
                                 style: TextStyle(
                                     fontSize: 16.0,
                                     fontWeight: FontWeight.bold,
-                                    color: Colors.white),
+                                    color: Colors.blue),
                               ),
                               trailing: Icon(
                                 Icons.keyboard_arrow_right,
-                                color: Colors.white,
+                                color: Colors.blue,
                               ),
                               onTap: () => Navigator.push(
                                 context,

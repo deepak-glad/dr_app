@@ -79,6 +79,7 @@ class SelectLanguageScreenState extends State<SelectLanguageScreen> {
   Widget build(BuildContext context) {
     return new Scaffold(
       body: Container(
+        height: MediaQuery.of(context).size.height,
         decoration: BoxDecoration(
           image: DecorationImage(
             image: AssetImage("images/back.png"),
@@ -125,7 +126,7 @@ class SelectLanguageScreenState extends State<SelectLanguageScreen> {
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 18.0,
-                      color: Colors.white))),
+                      color: Colors.blue))),
         ),
         GestureDetector(
           onTap: () {
@@ -248,23 +249,35 @@ class SelectLanguageScreenState extends State<SelectLanguageScreen> {
                 fontWeight: FontWeight.bold, fontSize: 19, color: Colors.white),
           ),
         ),
-        SizedBox(height: 20),
+        SizedBox(height: 10),
         Center(
           child: Text(
-            "( Call/Whatsapp )",
+            "(Call/Whatsapp)",
             style: TextStyle(
                 fontWeight: FontWeight.bold, fontSize: 17, color: Colors.white),
           ),
         ),
-        SizedBox(height: 15),
-        Center(
-          child: continueButton(hindiMobile, 'HINDI'),
-        ),
-        SizedBox(height: 15),
+        Container(
+            width: double.infinity,
+            height: 40,
+            margin: EdgeInsets.only(top: 30, left: 70, right: 70),
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(5)),
+                border: Border.all(color: Colors.white, width: 2)),
+            child: Center(
+              child: continueButton(hindiMobile, 'HINDI'),
+            )),
 
-        Center(
-          child: continueButton(englishmobile, 'ENGLISH'),
-        )
+        Container(
+            width: double.infinity,
+            height: 40,
+            margin: EdgeInsets.only(top: 30, left: 70, right: 70),
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(5)),
+                border: Border.all(color: Colors.white, width: 2)),
+            child: Center(
+              child: continueButton(englishmobile, 'ENGLISH'),
+            ))
 
         // Positioned(
         //   bottom: 0,
@@ -275,14 +288,14 @@ class SelectLanguageScreenState extends State<SelectLanguageScreen> {
   }
 
   Widget continueButton(String mobile, String lan) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 20.0),
-      child: PrimaryButton(
-          buttonText: '$lan  +91 $mobile',
-          onButtonPressed: () {
-            _makePhoneCall('tel:$mobile');
-          }),
-    );
+    return TextButton(
+        child: Text(
+          '$lan:  +91 $mobile',
+          style: TextStyle(color: AppColors.white),
+        ),
+        onPressed: () {
+          _makePhoneCall('tel:$mobile');
+        });
   }
 
   Future<void> _makePhoneCall(String url) async {

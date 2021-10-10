@@ -29,7 +29,7 @@ dependencies:
   flutter_radio_button_group: ^0.0.2+3
   shared_preferences:
   http: ^0.12.0+1
-  url_launcher: ^5.7.10
+  url_launcher:
   video_player: ^2.0.0
   chewie: ^1.0.0
   youtube_player_flutter: ^8.0.0
@@ -51,7 +51,7 @@ dependencies:
   firebase_core:
   firebase_analytics:
   awesome_notifications:
-  flutter_local_notifications: ^4.0.1+2
+  youtube_player_iframe:
 
 flutter_icons:
   android: 'launcher_icon'

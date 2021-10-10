@@ -112,7 +112,7 @@ class CourseTypeScreenState extends State<CourseTypeScreen> {
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 18.0,
-                      color: Colors.white))),
+                      color: Colors.blue))),
         ),
         Card(
           margin: EdgeInsets.only(top: 30, left: 40, right: 40),

@@ -114,7 +114,7 @@ class HomeScreenState extends State<HomeScreen> {
           margin: EdgeInsets.only(bottom: 10),
           child: Center(
             child: Text(
-                "we hold your hand & take you from darkness towards light!",
+                "We hold your hand & take you from darkness towards light!",
                 style: TextStyle(fontSize: 13, color: Colors.white)),
           ),
         ),

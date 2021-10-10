@@ -6,11 +6,13 @@ import 'package:drkashikajain/splash_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 
   //setting device_token for pushNotification
   FirebaseMessaging messaging;
@@ -21,13 +23,13 @@ void main() async {
     prefs.setString('device_token', value);
   });
   messaging.setForegroundNotificationPresentationOptions();
-  AwesomeNotifications().initialize('resource://drawable/launcher_icon', [
+  AwesomeNotifications().initialize('resource://drawable/launcher_n', [
     NotificationChannel(
         channelKey: 'basic_channel',
         channelName: 'Basic notifications',
-        defaultColor: AppColors.colorTransparent,
-        importance: NotificationImportance.Max,
+        importance: NotificationImportance.High,
         channelShowBadge: true,
+        defaultColor: AppColors.pinkColor,
         playSound: true,
         ledColor: Colors.white)
   ]);
@@ -67,6 +69,7 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   // AwesomeNotifications().createNotificationFromJsonData(message.data);
   AwesomeNotifications().createNotification(
       content: NotificationContent(
+          displayOnForeground: true,
           id: id,
           channelKey: 'basic_channel',
           title: message.data['title'],
@@ -76,6 +79,14 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(debugShowCheckedModeBanner: false, home: SplashPage());
+    return MaterialApp(
+        builder: (context, child) {
+          return MediaQuery(
+            child: child,
+            data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
+          );
+        },
+        debugShowCheckedModeBanner: false,
+        home: SplashPage());
   }
 }
