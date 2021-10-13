@@ -6,6 +6,7 @@ import 'package:drkashikajain/primary_button.dart';
 import 'package:drkashikajain/selectlanguageScreen.dart';
 import 'package:drkashikajain/utils/constants.dart';
 import 'package:drkashikajain/utils/method.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -30,8 +31,14 @@ class LoginScreenState extends State<LoginScreen> {
   var _emailTextController;
   var _passwordTextController;
   bool _showPassword = false;
+  var deviceToken;
   @override
   void initState() {
+    FirebaseMessaging messaging;
+    messaging = FirebaseMessaging.instance;
+    messaging.getToken().then((value) {
+      deviceToken = value;
+    });
     super.initState();
     _emailTextController = TextEditingController();
     _passwordTextController = TextEditingController();
@@ -88,8 +95,8 @@ class LoginScreenState extends State<LoginScreen> {
           child: Center(
               child: Text('For New User',
                   style: TextStyle(
-                      fontWeight: FontWeight.normal,
-                      fontSize: 16.0,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 17.0,
                       color: Colors.blue))),
         ),
         GestureDetector(
@@ -114,8 +121,8 @@ class LoginScreenState extends State<LoginScreen> {
           child: Center(
               child: Text('For Existing User',
                   style: TextStyle(
-                      fontWeight: FontWeight.normal,
-                      fontSize: 16.0,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 17.0,
                       color: Colors.blue))),
         ),
         new Container(
@@ -204,7 +211,7 @@ class LoginScreenState extends State<LoginScreen> {
     String identifier;
     final DeviceInfoPlugin deviceInfoPlugin = new DeviceInfoPlugin();
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    var deviceToken = prefs.getString('device_token');
+    // var deviceToken = prefs.getString('device_token');
     try {
       if (Platform.isAndroid) {
         var build = await deviceInfoPlugin.androidInfo;

@@ -173,7 +173,7 @@ class SelectLanguageScreenState extends State<SelectLanguageScreen> {
               )),
         ),
         SizedBox(
-          height: 20,
+          height: 10,
         ),
         Visibility(
           visible: true,
@@ -240,7 +240,7 @@ class SelectLanguageScreenState extends State<SelectLanguageScreen> {
           ),
         ),
         SizedBox(
-          height: 40,
+          height: 30,
         ),
         Center(
           child: Text(
@@ -260,7 +260,7 @@ class SelectLanguageScreenState extends State<SelectLanguageScreen> {
         Container(
             width: double.infinity,
             height: 40,
-            margin: EdgeInsets.only(top: 30, left: 70, right: 70),
+            margin: EdgeInsets.only(top: 10, left: 70, right: 70),
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.all(Radius.circular(5)),
                 border: Border.all(color: Colors.white, width: 2)),
@@ -271,7 +271,7 @@ class SelectLanguageScreenState extends State<SelectLanguageScreen> {
         Container(
             width: double.infinity,
             height: 40,
-            margin: EdgeInsets.only(top: 30, left: 70, right: 70),
+            margin: EdgeInsets.only(top: 10, left: 70, right: 70),
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.all(Radius.circular(5)),
                 border: Border.all(color: Colors.white, width: 2)),

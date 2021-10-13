@@ -23,7 +23,7 @@ void main() async {
     prefs.setString('device_token', value);
   });
   messaging.setForegroundNotificationPresentationOptions();
-  AwesomeNotifications().initialize('resource://drawable/launcher_n', [
+  AwesomeNotifications().initialize('resource://drawable/new_logo', [
     NotificationChannel(
         channelKey: 'basic_channel',
         channelName: 'Basic notifications',

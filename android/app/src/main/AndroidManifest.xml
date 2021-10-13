@@ -10,7 +10,7 @@
   >
     <meta-data
       android:name="com.google.firebase.messaging.default_notification_icon"
-      android:resource="@drawable/launcher_n"
+      android:resource="@drawable/launcher"
     />
     <meta-data
       android:name="com.google.firebase.messaging.default_notification_color"

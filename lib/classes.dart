@@ -83,6 +83,7 @@ class ClassesScreenState extends State<ClassesScreen> {
                       itemBuilder: (context, index) {
                         return Container(
                             decoration: BoxDecoration(
+                                color: Colors.white,
                                 border:
                                     Border.all(color: Colors.white, width: 2),
                                 borderRadius:
@@ -92,9 +93,13 @@ class ClassesScreenState extends State<ClassesScreen> {
                             child: ListTile(
                               leading: Container(
                                 height: 40.0,
-                                child: FadeInImage.assetNetwork(
-                                    placeholder: 'images/logo.png',
-                                    image: snapshot.data.data[index].image),
+                                child: Image.asset(
+                                  'images/logo.png',
+                                  color: Colors.pink,
+                                ),
+                                // FadeInImage.assetNetwork(
+                                //     placeholder: 'images/logo.png',
+                                //     image: snapshot.data.data[index].image),
                                 /* child: Image.network(snapshot.data.data[index].image,
                                 width: 20,
                                 height: 20,
@@ -105,11 +110,11 @@ class ClassesScreenState extends State<ClassesScreen> {
                                 style: TextStyle(
                                     fontSize: 16.0,
                                     fontWeight: FontWeight.bold,
-                                    color: Colors.blue),
+                                    color: Colors.black),
                               ),
                               trailing: Icon(
                                 Icons.keyboard_arrow_right,
-                                color: Colors.blue,
+                                color: Colors.black,
                               ),
                               onTap: () => Navigator.push(
                                 context,

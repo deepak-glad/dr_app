@@ -9,6 +9,7 @@ import 'package:drkashikajain/primary_button.dart';
 import 'package:drkashikajain/selectlanguageScreen.dart';
 import 'package:drkashikajain/utils/constants.dart';
 import 'package:drkashikajain/utils/method.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
@@ -38,10 +39,15 @@ class RegistrationScreenState extends State<RegistrationScreen> {
   static final RegExp _emailRegex =
       RegExp(r'^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+');
   static final RegExp _number = RegExp("[0-9]");
-
+  var deviceToken;
   @override
   void initState() {
     super.initState();
+    FirebaseMessaging messaging;
+    messaging = FirebaseMessaging.instance;
+    messaging.getToken().then((value) {
+      deviceToken = value;
+    });
     _nameTextController = TextEditingController();
     _emailTextController = TextEditingController();
     _cityTextController = TextEditingController();
@@ -329,8 +335,7 @@ class RegistrationScreenState extends State<RegistrationScreen> {
     setState(() {
       _isLoaded = true;
     });
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    var deviceToken = prefs.getString('device_token');
+
     print('deviceType>>>+' + deviceType);
     print("email_or_phone>>>>>>>>>>>" + _emailTextController.text.toString());
     print("password>>>>>>>>>>>" + _passwordTextController.text.toString());
@@ -382,7 +387,7 @@ class RegistrationScreenState extends State<RegistrationScreen> {
     String identifier;
     final DeviceInfoPlugin deviceInfoPlugin = new DeviceInfoPlugin();
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    var deviceToken = prefs.getString('device_token');
+
     try {
       if (Platform.isAndroid) {
         var build = await deviceInfoPlugin.androidInfo;
