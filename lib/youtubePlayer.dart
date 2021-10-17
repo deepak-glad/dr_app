@@ -100,7 +100,6 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void dispose() {
     _controller.dispose();
-    SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
     // SystemChrome.setPreferredOrientations([
     //   DeviceOrientation.portraitDown,
     //   DeviceOrientation.portraitUp,
