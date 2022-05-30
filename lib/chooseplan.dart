@@ -227,8 +227,11 @@ class _ChoosePlanScreenState extends State<ChoosePlanScreen> {
               child: FutureBuilder<PlanModel>(
                   future: planlist,
                   builder: (context, snapshot) {
+                    // print(widget.service_id);
+
                     if (!_isLoaded) {
                       if (snapshot.hasData) {
+                        // print(snapshot.data.data);
                         return RefreshIndicator(
                             onRefresh: getPlanData,
                             child: ListView.builder(
@@ -264,6 +267,8 @@ class _ChoosePlanScreenState extends State<ChoosePlanScreen> {
                                                             .data
                                                             .data[index]
                                                             .amount);
+                                                    print(valid);
+
                                                     /*    address_id = snapshot
                                               .data
                                               .data[index]
@@ -364,6 +369,7 @@ class _ChoosePlanScreenState extends State<ChoosePlanScreen> {
   }
 
   Future<PlanModel> getPlanData() async {
+    print(lang);
     internet = await Method.check();
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
@@ -376,6 +382,7 @@ class _ChoosePlanScreenState extends State<ChoosePlanScreen> {
     Map<String, String> body = {
       'access_token': prefs.getString(KPrefs.TOKEN).toString(),
       'service_id': service_id,
+      'language': lang
     };
     final response = await http.post(
         KApiBase.SERVICE_BASE_URL + KApiEndPoints.Get_Plan_Package,

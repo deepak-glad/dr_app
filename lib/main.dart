@@ -31,7 +31,8 @@ void main() async {
         channelShowBadge: true,
         defaultColor: AppColors.pinkColor,
         playSound: true,
-        ledColor: Colors.white)
+        ledColor: Colors.white,
+        channelDescription: '')
   ]);
   FirebaseMessaging.onMessage.listen((RemoteMessage message) {
     print("message recieved");
