@@ -205,7 +205,8 @@ class HomeScreenState extends State<HomeScreen> {
         prefs.getString(KPrefs.TOKEN).toString());
 
     Map<String, String> body = {
-      'access_token': "",
+      'access_token': prefs.getString(KPrefs.TOKEN).toString(),
+      'language': lang
     };
     final response = await http.post(
         KApiBase.SERVICE_BASE_URL + KApiEndPoints.Get_services,
