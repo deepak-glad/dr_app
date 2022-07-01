@@ -118,35 +118,56 @@ class _MyHomePageState extends State<MyHomePage> {
           children: <Widget>[
             SizedBox.expand(
               child: YoutubePlayer(
+                liveUIColor: Colors.transparent,
+                progressColors:
+                    ProgressBarColors(backgroundColor: Colors.transparent),
                 onEnded: (_videoMetaData) {
                   Navigator.of(context).pop();
                 },
                 bottomActions: <Widget>[
-                  RemainingDuration(),
-                  ProgressBar(isExpanded: true),
-                  CurrentPosition(),
-                  IconButton(
-                    icon: Icon(
-                      _rotation == 0 ? Icons.fullscreen : Icons.fullscreen_exit,
-                      color: Colors.white,
-                    ),
-                    onPressed: () async {
-                      _controller.pause();
-                      if (_rotation == 0) {
-                        setState(() {
-                          _rotation = 1;
-                        });
-                      } else {
-                        setState(() {
-                          _rotation = 0;
-                        });
-                      }
-                    },
-                  ),
+                  Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        SizedBox(
+                          width: _rotation == 0
+                              ? MediaQuery.of(context).size.width - 50
+                              : MediaQuery.of(context).size.height - 50,
+                          height: 100,
+                          child: Row(children: [
+                            RemainingDuration(),
+                            ProgressBar(isExpanded: true),
+                            CurrentPosition(),
+                          ]),
+                        ),
+                        TextButton.icon(
+                          label: Text(
+                            _rotation == 0 ? 'FullScreen' : 'Exit fullscreen',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                          icon: Icon(
+                            _rotation == 0
+                                ? Icons.fullscreen
+                                : Icons.fullscreen_exit,
+                            color: Colors.white,
+                          ),
+                          onPressed: () async {
+                            _controller.pause();
+                            if (_rotation == 0) {
+                              setState(() {
+                                _rotation = 1;
+                              });
+                            } else {
+                              setState(() {
+                                _rotation = 0;
+                              });
+                            }
+                          },
+                        ),
+                      ]),
                 ],
                 controller: _controller,
-                showVideoProgressIndicator: true,
-                progressIndicatorColor: Theme.of(context).primaryColor,
+                // showVideoProgressIndicator: false,
+                progressIndicatorColor: Colors.transparent,
               ),
             ),
             Padding(
