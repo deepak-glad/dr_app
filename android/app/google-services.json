@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "651554446067",
+    "firebase_url": "https://dr-kashika-jain.firebaseio.com",
+    "project_id": "dr-kashika-jain",
+    "storage_bucket": "dr-kashika-jain.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:651554446067:android:2988b5de7aabbb246bf586",
+        "android_client_info": {
+          "package_name": "com.dr.kashika"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "651554446067-mja7naasrirk75n05qedidphk110qcrh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.dr.kashika",
+            "certificate_hash": "f43691c4efe5e5fae859cece2e511601b292bf5c"
+          }
+        },
+        {
+          "client_id": "651554446067-4v7t8a67nb3rmbchnecqtdmoinvqg67e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC35h7O8GojOf9CTXp2Jz_nWeeokkpWO4U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "651554446067-4v7t8a67nb3rmbchnecqtdmoinvqg67e.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
