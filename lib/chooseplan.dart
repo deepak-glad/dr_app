@@ -12,10 +12,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'app_colors.dart';
 import 'model/plans.dart';
+import 'terms_condition.dart';
 
 // ignore: must_be_immutable
 class ChoosePlanScreen extends StatefulWidget {
-  // ignore: non_constant_identifier_names
   String service_id;
   String lang;
   String type;
@@ -39,6 +39,7 @@ class _ChoosePlanScreenState extends State<ChoosePlanScreen> {
   var _promocodeTextFormField;
   double promo_amount;
   var transectionId;
+  bool isTermsSelected = false;
 
   _ChoosePlanScreenState(this.service_id, this.lang, this.type);
 
@@ -105,7 +106,7 @@ class _ChoosePlanScreenState extends State<ChoosePlanScreen> {
               Container(
                 margin: EdgeInsets.only(top: 15.0, left: 20.0, right: 20.0),
                 child: Text(
-                  'Apply Promocode',
+                  'Apply Promocode  (if any)',
                   style: TextStyle(
                       color: Colors.white,
                       fontSize: 20,
@@ -135,7 +136,7 @@ class _ChoosePlanScreenState extends State<ChoosePlanScreen> {
                       filled: true,
                       hintStyle: TextStyle(color: Colors.black),
                       labelStyle: TextStyle(color: Colors.black),
-                      hintText: 'Enter Promo Code',
+                      hintText: 'Enter Promo Code  (Optional)',
                     ),
                   ),
                 ),
@@ -155,6 +156,7 @@ class _ChoosePlanScreenState extends State<ChoosePlanScreen> {
                 ),
               ),
               continueButton(),
+              termsConditionWidget(),
               PayButton()
             ],
           ),
@@ -175,6 +177,64 @@ class _ChoosePlanScreenState extends State<ChoosePlanScreen> {
             buttonText: 'Apply', onButtonPressed: () => _continueButtonTap()),
       ),
     );
+  }
+
+  Widget termsConditionWidget() {
+    return Padding(
+        padding: EdgeInsets.only(top: 25.0),
+        child: Container(
+          color: Colors.white,
+          child: Row(
+            children: [
+              Checkbox(
+                  checkColor: Color(0xFFF394A8B),
+                  activeColor: Color(0xFFFFFFFF),
+                  focusColor: Color(0xFFF394A8B),
+                  hoverColor: Color(0xFFF394A8B),
+                  value: isTermsSelected,
+                  onChanged: (newValue) async {
+                    FocusScope.of(context).unfocus();
+                    setState(() {
+                      isTermsSelected = !isTermsSelected;
+                    });
+                  }),
+              Expanded(
+                child: GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => TermsAndConditionScreen()));
+                    },
+                    child: RichText(
+                      text: TextSpan(
+                        text: 'I agree to the ',
+                        style: TextStyle(
+                            fontWeight: FontWeight.w400, color: Colors.black),
+                        children: const <TextSpan>[
+                          TextSpan(
+                              text: 'Terms of Service, ',
+                              style: TextStyle(
+                                  color: Colors.blue,
+                                  fontWeight: FontWeight.bold)),
+                          TextSpan(
+                              text: 'Privacy Policy ',
+                              style: TextStyle(
+                                  color: Colors.blue,
+                                  fontWeight: FontWeight.bold)),
+                          TextSpan(text: '&'),
+                          TextSpan(
+                              text: ' Refund Policy. ',
+                              style: TextStyle(
+                                  color: Colors.blue,
+                                  fontWeight: FontWeight.bold)),
+                        ],
+                      ),
+                    )),
+              )
+            ],
+          ),
+        ));
   }
 
   Widget PayButton() {
@@ -561,6 +621,9 @@ class _ChoosePlanScreenState extends State<ChoosePlanScreen> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     if (plan_id.isEmpty) {
       Utils.showErrorMessage(context, "Please Select Offer");
+    } else if (!isTermsSelected) {
+      Utils.showErrorMessage(context,
+          "Terms of Service, Privacy Policy & Refund Policy field should be checked before payment");
     } else if (amount == 0) {
       confirmPayment();
     } else {
