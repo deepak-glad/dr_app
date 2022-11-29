@@ -179,7 +179,7 @@ class LoginScreenState extends State<LoginScreen> {
         new Container(
           alignment: Alignment.topRight,
           margin: EdgeInsets.only(right: 10.0),
-          child: FlatButton(
+          child: TextButton(
               onPressed: () => _forgetButtonTapped(),
               child: new Text(
                 'Forget Password?',

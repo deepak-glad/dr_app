@@ -406,7 +406,7 @@ class _ChoosePlanScreenState extends State<ChoosePlanScreen> {
             "Are you sure to delete this Address",
           ),
           actions: <Widget>[
-            FlatButton(
+            TextButton(
               child: Text(
                 "No",
               ),
@@ -414,7 +414,7 @@ class _ChoosePlanScreenState extends State<ChoosePlanScreen> {
                 Navigator.of(context).pop();
               },
             ),
-            FlatButton(
+            TextButton(
               child: Text(
                 "Yes",
               ),

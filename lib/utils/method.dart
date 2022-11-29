@@ -1,9 +1,7 @@
 import 'dart:io';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 class Method {
   static Future<bool> check() async {
@@ -62,7 +60,7 @@ class Method {
           title: new Text(title),
           actions: <Widget>[
             // usually buttons at the bottom of the dialog
-            new FlatButton(
+            new TextButton(
               child: new Text(MsgString.exit,
                   style: new TextStyle(color: blue10)),
               onPressed: () {
@@ -86,7 +84,7 @@ class Method {
           title: new Text(title),
           actions: <Widget>[
             // usually buttons at the bottom of the dialog
-            new FlatButton(
+            new TextButton(
               child: new Text(MsgString.yes,
                   style: new TextStyle(color: blue10)),
               onPressed: () async {
@@ -96,7 +94,7 @@ class Method {
 
               },
             ),
-            new FlatButton(
+            new TextButton(
               child: new Text(MsgString.dismiss,
                   style: new TextStyle(color: errorRed)),
               onPressed: () {

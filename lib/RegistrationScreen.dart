@@ -2,9 +2,6 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:device_info_plus/device_info_plus.dart';
-import 'package:drkashikajain/HomeScreen.dart';
-import 'package:drkashikajain/login/LoginScreen.dart';
-import 'package:drkashikajain/app_colors.dart';
 import 'package:drkashikajain/primary_button.dart';
 import 'package:drkashikajain/selectlanguageScreen.dart';
 import 'package:drkashikajain/utils/constants.dart';
@@ -15,7 +12,6 @@ import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'RaisedGradientButton.dart';
 import 'custom_view/route_animations.dart';
 import 'custom_view/utils.dart';
 
@@ -58,15 +54,12 @@ class RegistrationScreenState extends State<RegistrationScreen> {
 
   @override
   Widget build(BuildContext context) {
-    print(_number);
+    print(internet);
     return new Scaffold(
         body: Container(
           decoration: BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage("images/back.png"),
-              fit: BoxFit.cover,
-            ),
-          ),
+              image: DecorationImage(
+                  image: AssetImage("images/back.png"), fit: BoxFit.cover)),
           child: Center(
             child: Form(
               child: ListView(
@@ -113,7 +106,8 @@ class RegistrationScreenState extends State<RegistrationScreen> {
           child: TextFormField(
             controller: _nameTextController,
             inputFormatters: <TextInputFormatter>[
-              FilteringTextInputFormatter.allow(RegExp("[a-zA-Z]")),
+              FilteringTextInputFormatter.allow(RegExp("[a-zA-Z ]")),
+              NoLeadingSpaceFormatter(),
             ],
             style: TextStyle(color: Colors.black),
             decoration: new InputDecoration(
@@ -349,7 +343,7 @@ class RegistrationScreenState extends State<RegistrationScreen> {
       'user_phone': _mobileTextController.text.toString(),
       'city_id': _cityTextController.text.toString(),
       'country_name': _countryTextController.text.toString(),
-      'device_token': deviceToken,
+      'device_token': deviceToken.toString(),
       'device_type': deviceType,
     };
     if (internet != null && internet) {
@@ -357,7 +351,8 @@ class RegistrationScreenState extends State<RegistrationScreen> {
         final response = await http.post(
             Uri.parse(KApiBase.BASE_URL + KApiEndPoints.API_SIGN_UP),
             body: body);
-        Map mapRes = json.decode(response.body.toString());
+        print(response.body);
+        Map mapRes = json.decode(response.body);
         print("responseBody>>>>>>>>>>>" + mapRes.toString());
 
         if (response.statusCode == 200) {
@@ -414,7 +409,7 @@ class RegistrationScreenState extends State<RegistrationScreen> {
     Map<String, String> body = {
       'user_email': _emailTextController.text.toString(),
       'password': _passwordTextController.text.toString(),
-      'device_token': deviceToken,
+      'device_token': deviceToken.toString(),
       'device_type': deviceType,
       'device_name': deviceName,
       'device_id': identifier,
@@ -463,5 +458,27 @@ class RegistrationScreenState extends State<RegistrationScreen> {
         print("Exception rest api: " + e);
       }
     }
+  }
+}
+
+class NoLeadingSpaceFormatter extends TextInputFormatter {
+  @override
+  TextEditingValue formatEditUpdate(
+    TextEditingValue oldValue,
+    TextEditingValue newValue,
+  ) {
+    if (newValue.text.startsWith(' ')) {
+      final String trimedText = newValue.text.trimLeft();
+
+      return TextEditingValue(
+        text: trimedText,
+        selection: TextSelection(
+          baseOffset: trimedText.length,
+          extentOffset: trimedText.length,
+        ),
+      );
+    }
+
+    return newValue;
   }
 }

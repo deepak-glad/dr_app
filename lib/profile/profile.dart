@@ -10,7 +10,6 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
-import '../HomeScreen.dart';
 import '../app_colors.dart';
 import '../mysubscriptionscreen.dart';
 import '../styles.dart';
@@ -354,7 +353,7 @@ class ProfileScreenState extends State<ProfileScreen> {
               style: tsMediumTextGrey40Primary16),
           contentTextStyle: tsMediumTextGrey40Primary16,
           actions: <Widget>[
-            FlatButton(
+            TextButton(
                 child: Text('Yes', style: tsMediumTextDarkGrey16),
                 onPressed: () async {
                   SharedPreferences preferences =
@@ -363,7 +362,7 @@ class ProfileScreenState extends State<ProfileScreen> {
                   //await preferences.commit();
                   navigateToPage();
                 }),
-            FlatButton(
+            TextButton(
               child: Text('No', style: tsMediumTextDarkGrey16),
               onPressed: () {
                 Navigator.of(context).pop();

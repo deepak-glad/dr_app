@@ -153,8 +153,8 @@ class Utils {
   }
 
   openSnackBar(
-      BuildContext context, String message, ScaffoldState currentState) {
-    currentState.showSnackBar(SnackBar(
+      BuildContext context, String message, ScaffoldMessenger currentState) {
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
       duration: const Duration(seconds: 1),
       content: Text(
         message,
