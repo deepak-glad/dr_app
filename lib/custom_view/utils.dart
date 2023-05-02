@@ -44,21 +44,19 @@ class Utils {
     showCustomToast(context, message);
   }
 
-
   static void showCustomToast(BuildContext context, String message,
       {Color bgColor = AppColors.snackBarRed}) {
-   /* if (toastTimer == null || !toastTimer.isActive) {*/
-      _overlayEntry = createOverlayEntry(context, message, bgColor);
-      Overlay.of(context).insert(_overlayEntry);
-      toastTimer = Timer(const Duration(seconds: 5), () {
-        if (_overlayEntry != null) {
-          _overlayEntry.remove();
-        }
-      });
-
+    /* if (toastTimer == null || !toastTimer.isActive) {*/
+    _overlayEntry = createOverlayEntry(context, message, bgColor);
+    Overlay.of(context).insert(_overlayEntry);
+    toastTimer = Timer(const Duration(seconds: 2), () {
+      if (_overlayEntry != null) {
+        _overlayEntry.remove();
+      }
+    });
   }
 
- /* static void showLoader(BuildContext context) {
+  /* static void showLoader(BuildContext context) {
     if (!_isLoaderShowing) {
       _isLoaderShowing = true;
       _loaderContext = context;
@@ -127,7 +125,7 @@ class Utils {
   static ThemeData getAppThemeData() {
     return ThemeData(
       appBarTheme: const AppBarTheme(
-        brightness: Brightness.light,
+        systemOverlayStyle: SystemUiOverlayStyle.dark,
       ),
       canvasColor: Colors.transparent,
       primarySwatch: AppColors.primary_color,
@@ -152,6 +150,4 @@ class Utils {
     }
     return Future.value(true);
   }
-
-
 }

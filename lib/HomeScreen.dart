@@ -9,10 +9,6 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
-import 'DetailScreen.dart';
-import 'ForgetPasswordScreen.dart';
-import 'RaisedGradientButton.dart';
-import 'RegistrationScreen.dart';
 import 'app_colors.dart';
 import 'coursetypeScreen.dart';
 import 'model/services.dart';
@@ -147,9 +143,11 @@ class HomeScreenState extends State<HomeScreen> {
                             child: ListTile(
                               leading: Container(
                                 height: 40.0,
-                                child: FadeInImage.assetNetwork(
-                                    placeholder: 'images/logo.png',
-                                    image: snapshot.data.data[index].image),
+                                width: 50,
+                                child: Image.asset(
+                                  'images/logo.png',
+                                  // image: snapshot.data.data[index].image
+                                ),
                                 /* child: Image.network(snapshot.data.data[index].image,
                                 width: 20,
                                 height: 20,

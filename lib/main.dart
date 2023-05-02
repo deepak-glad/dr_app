@@ -1,5 +1,4 @@
 import 'dart:math';
-
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:drkashikajain/app_colors.dart';
 import 'package:drkashikajain/splash_page.dart';

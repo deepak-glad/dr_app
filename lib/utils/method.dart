@@ -22,6 +22,12 @@ class Method {
     }
   }
 
+  static String getYoutubeVideoIdByURL(String url) {
+    url = url.replaceAll("https://youtu.be/", "");
+    url = url.replaceAll("https://youtu.be/", "");
+    return url;
+  }
+
 //   static Future getDeviceDetails() async {
 //     String deviceName;
 //     String deviceVersion;
@@ -237,5 +243,13 @@ class Method {
           child: Text(
         "No Data Found",
         style: TextStyle(color: Colors.black),
+      )));
+  static Widget novideodatafound(BuildContext buildContext) => new Container(
+      height: MediaQuery.of(buildContext).size.height - 80,
+      child: new Center(
+          child: Text(
+        "There Is No Video Uploaded \n In This Section",
+        textAlign: TextAlign.center,
+        style: TextStyle(fontSize: 18, height: 1.5, color: Colors.white),
       )));
 }

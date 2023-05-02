@@ -1,7 +1,5 @@
 import 'dart:convert';
 import 'package:drkashikajain/VideoPlayer.dart';
-import 'package:drkashikajain/styles.dart';
-import 'package:drkashikajain/transparent_inkwell.dart';
 import 'package:drkashikajain/utils/constants.dart';
 import 'package:drkashikajain/utils/method.dart';
 import 'package:drkashikajain/youtubePlayer.dart';
@@ -92,11 +90,14 @@ class _DemoVideosScreenState extends State<DemoVideosScreen> {
                                     builder: (context) => ChewieDemo(
                                         snapshot.data.data[index].video)));
                           } else {
+                            // print(Method.getYoutubeVideoIdByURL(
+                            //     snapshot.data.data[index].video));
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => PlayVideoFromYoutube(
-                                        snapshot.data.data[index].video)));
+                                        Method.getYoutubeVideoIdByURL(
+                                            snapshot.data.data[index].video))));
                           }
                         },
                         child: Card(

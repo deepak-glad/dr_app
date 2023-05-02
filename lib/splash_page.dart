@@ -1,13 +1,13 @@
 import 'dart:async';
+import 'dart:io';
 
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:drkashikajain/login/LoginScreen.dart';
+import 'package:drkashikajain/no_data_found.dart';
 import 'package:drkashikajain/selectlanguageScreen.dart';
 import 'package:drkashikajain/utils/constants.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import 'custom_view/route_animations.dart';
 
 class SplashPage extends StatefulWidget {
@@ -23,6 +23,7 @@ class _SplashPageState extends State<SplashPage> {
   @override
   Future<void> initState() {
     super.initState();
+    _checkRealDevice();
     startCountdownTimer();
   }
 
@@ -73,11 +74,30 @@ class _SplashPageState extends State<SplashPage> {
     //navigateToPage();
   }
 
+  bool isRealDevice = true;
+
+  _checkRealDevice() async {
+    if (Platform.isAndroid) {
+      AndroidDeviceInfo androidInfo = await DeviceInfoPlugin().androidInfo;
+      setState(() {
+        isRealDevice = androidInfo.isPhysicalDevice;
+      });
+    } else if (Platform.isIOS) {
+      IosDeviceInfo iosDeviceInfo = await DeviceInfoPlugin().iosInfo;
+      setState(() {
+        isRealDevice = iosDeviceInfo.isPhysicalDevice;
+      });
+    }
+  }
+
   Future<void> navigateToPage() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-
-    // print("userid>>>>>>>"+prefs.getString(KPrefs.USER_ID));
-    if (prefs.getString(KPrefs.USER_ID) != null) {
+    if (!isRealDevice) {
+      Navigator.pushAndRemoveUntil(
+          context,
+          RouteAnimationSlideFromRight(widget: RealDevice(), routeName: ""),
+          (Route<dynamic> route) => false);
+    } else if (prefs.getString(KPrefs.USER_ID) != null) {
       Navigator.pushAndRemoveUntil(
           context,
           RouteAnimationSlideFromRight(

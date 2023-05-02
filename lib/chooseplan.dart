@@ -75,6 +75,7 @@ class _ChoosePlanScreenState extends State<ChoosePlanScreen> {
   @override
   Widget build(BuildContext context) {
     print(value);
+    print(_isEmpty);
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
@@ -83,84 +84,141 @@ class _ChoosePlanScreenState extends State<ChoosePlanScreen> {
             fit: BoxFit.cover,
           ),
         ),
-        child: Form(
-          child: ListView(
-            shrinkWrap: false,
-            physics: const AlwaysScrollableScrollPhysics(),
-            children: <Widget>[
-              addressList(),
-              Visibility(
-                visible: value != null ? true : false,
-                child: Container(
-                  margin: EdgeInsets.only(right: 20, top: 5),
-                  alignment: Alignment.topRight,
-                  child: Text(
-                    "Total Price : $amount",
-                    style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: AppColors.white),
-                  ),
-                ),
-              ),
-              Container(
-                margin: EdgeInsets.only(top: 15.0, left: 20.0, right: 20.0),
-                child: Text(
-                  'Apply Promocode  (if any)',
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold),
-                ),
-              ),
-              Visibility(
-                visible: true,
-                child: new Container(
-                  margin: EdgeInsets.only(top: 10.0, left: 20.0, right: 20.0),
-                  child: TextFormField(
-                    controller: _promocodeTextFormField,
-                    style: TextStyle(color: Colors.black),
-                    keyboardType: TextInputType.emailAddress,
-                    decoration: new InputDecoration(
-                      contentPadding:
-                          EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(15),
-                        borderSide: BorderSide(color: Colors.white, width: 2.0),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(15),
-                        borderSide: BorderSide(color: Colors.white, width: 2.0),
-                      ),
-                      fillColor: Colors.white,
-                      filled: true,
-                      hintStyle: TextStyle(color: Colors.black),
-                      labelStyle: TextStyle(color: Colors.black),
-                      hintText: 'Enter Promo Code  (Optional)',
+        child: _isEmpty
+            ? ListView(
+                shrinkWrap: false,
+                physics: const AlwaysScrollableScrollPhysics(),
+                children: [
+                    Row(
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.pop(context);
+                          },
+                          child: Container(
+                            margin: EdgeInsets.only(top: 20, left: 15),
+                            alignment: Alignment.topLeft,
+                            child: Icon(
+                              Icons.arrow_back,
+                              color: AppColors.black,
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          child: Container(
+                            alignment: Alignment.center,
+                            margin: EdgeInsets.only(top: 15, right: 20),
+                            child: Center(
+                              child: Text(
+                                "Advance Video",
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 22,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                          ),
+                        )
+                      ],
                     ),
-                  ),
+                    Method.novideodatafound(context)
+                  ])
+            : Form(
+                child: ListView(
+                  shrinkWrap: false,
+                  physics: const AlwaysScrollableScrollPhysics(),
+                  children: <Widget>[
+                    addressList(),
+                    Visibility(
+                      visible: value != null ? true : false,
+                      child: Container(
+                        margin: EdgeInsets.only(right: 20, top: 5),
+                        alignment: Alignment.topRight,
+                        child: Text(
+                          "Total Price : $amount",
+                          style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              color: AppColors.white),
+                        ),
+                      ),
+                    ),
+                    Container(
+                      margin:
+                          EdgeInsets.only(top: 15.0, left: 20.0, right: 20.0),
+                      child: Text(
+                        'Apply Promocode  (if any)',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    Visibility(
+                      visible: true,
+                      child: new Container(
+                        margin:
+                            EdgeInsets.only(top: 10.0, left: 20.0, right: 20.0),
+                        child: TextFormField(
+                          controller: _promocodeTextFormField,
+                          style: TextStyle(color: Colors.black),
+                          keyboardType: TextInputType.emailAddress,
+                          decoration: new InputDecoration(
+                            contentPadding:
+                                EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(15),
+                              borderSide:
+                                  BorderSide(color: Colors.white, width: 2.0),
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(15),
+                              borderSide:
+                                  BorderSide(color: Colors.white, width: 2.0),
+                            ),
+                            fillColor: Colors.white,
+                            filled: true,
+                            hintStyle: TextStyle(color: Colors.black),
+                            labelStyle: TextStyle(color: Colors.black),
+                            hintText: 'Enter Promo Code  (Optional)',
+                          ),
+                        ),
+                      ),
+                    ),
+                    Visibility(
+                      visible: discount > 0 ? true : false,
+                      child: Container(
+                        margin: EdgeInsets.only(right: 20, top: 5),
+                        alignment: Alignment.topRight,
+                        child: Text(
+                          "Discount : $discount",
+                          style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              color: AppColors.white),
+                        ),
+                      ),
+                    ),
+                    continueButton(),
+                    termsConditionWidget(),
+                    Visibility(
+                      visible: value != null ? true : false,
+                      child: Container(
+                        margin: EdgeInsets.only(right: 20, top: 15),
+                        alignment: Alignment.bottomRight,
+                        child: Text(
+                          "Total Price : $amount",
+                          style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              color: AppColors.colorLightYellow),
+                        ),
+                      ),
+                    ),
+                    PayButton()
+                  ],
                 ),
               ),
-              Visibility(
-                visible: discount > 0 ? true : false,
-                child: Container(
-                  margin: EdgeInsets.only(right: 20, top: 5),
-                  alignment: Alignment.topRight,
-                  child: Text(
-                    "Discount : $discount",
-                    style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: AppColors.white),
-                  ),
-                ),
-              ),
-              continueButton(),
-              termsConditionWidget(),
-              PayButton()
-            ],
-          ),
-        ),
       ),
     );
   }
@@ -171,10 +229,11 @@ class _ChoosePlanScreenState extends State<ChoosePlanScreen> {
       child: Padding(
         padding: EdgeInsets.only(
           top: 25,
-          left: MediaQuery.of(context).size.width - 100,
+          left: MediaQuery.of(context).size.width - 200,
         ),
         child: PrimaryButton(
-            buttonText: 'Apply', onButtonPressed: () => _continueButtonTap()),
+            buttonText: 'Apply Promo Code',
+            onButtonPressed: () => _continueButtonTap()),
       ),
     );
   }
@@ -262,7 +321,7 @@ class _ChoosePlanScreenState extends State<ChoosePlanScreen> {
                   alignment: Alignment.topLeft,
                   child: Icon(
                     Icons.arrow_back,
-                    color: AppColors.white,
+                    color: AppColors.black,
                   ),
                 ),
               ),
@@ -301,62 +360,61 @@ class _ChoosePlanScreenState extends State<ChoosePlanScreen> {
                                 physics: AlwaysScrollableScrollPhysics(),
                                 itemBuilder: (BuildContext context, int index) {
                                   return Container(
-                                    margin: EdgeInsets.all(5),
-                                    child: Card(
-                                      shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(10))),
-                                      child: Row(
-                                        children: [
-                                          Expanded(
-                                            child: RadioListTile(
-                                                value: index,
-                                                title: Text(snapshot
-                                                    .data.data[index].title),
-                                                groupValue: value,
-                                                onChanged: (ind) {
-                                                  setState(() {
-                                                    value = ind;
-                                                    plan_id = snapshot
-                                                        .data.data[index].id;
-                                                    valid = snapshot.data
-                                                        .data[index].valid_from;
-                                                    title = snapshot
-                                                        .data.data[index].title;
-                                                    amount = double.parse(
-                                                        snapshot
-                                                            .data
-                                                            .data[index]
-                                                            .amount);
-                                                    print(valid);
+                                      margin: EdgeInsets.all(5),
+                                      child: Card(
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(10))),
+                                          child: Row(children: [
+                                            Expanded(
+                                              child: RadioListTile(
+                                                  value: index,
+                                                  title: Text(snapshot
+                                                      .data.data[index].title),
+                                                  groupValue: value,
+                                                  onChanged: (ind) {
+                                                    setState(() {
+                                                      value = ind;
+                                                      plan_id = snapshot
+                                                          .data.data[index].id;
+                                                      valid = snapshot
+                                                          .data
+                                                          .data[index]
+                                                          .valid_from;
+                                                      title = snapshot.data
+                                                          .data[index].title;
+                                                      amount = double.parse(
+                                                          snapshot
+                                                              .data
+                                                              .data[index]
+                                                              .amount);
+                                                      print(valid);
 
-                                                    /*    address_id = snapshot
+                                                      /*    address_id = snapshot
                                               .data
                                               .data[index]
                                               .id;
                                         print(snapshot.data
                                               .data[index].id);*/
-                                                  });
-                                                  // setState(() => ,)
-                                                }),
-                                          ),
-                                          Container(
-                                            margin: EdgeInsets.only(right: 15),
-                                            child: Text(
-                                              "Rs. " +
-                                                  snapshot
-                                                      .data.data[index].amount,
-                                              style: TextStyle(
-                                                  fontSize: 16,
-                                                  color:
-                                                      AppColors.primary_color,
-                                                  fontWeight: FontWeight.bold),
+                                                    });
+                                                    // setState(() => ,)
+                                                  }),
                                             ),
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                  );
+                                            Container(
+                                                margin:
+                                                    EdgeInsets.only(right: 15),
+                                                child: Text(
+                                                  "Rs. " +
+                                                      snapshot.data.data[index]
+                                                          .amount,
+                                                  style: TextStyle(
+                                                      fontSize: 16,
+                                                      color: AppColors
+                                                          .primary_color,
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                ))
+                                          ])));
                                 }));
                       } else {
                         return Method.loadingView(context);
@@ -429,6 +487,8 @@ class _ChoosePlanScreenState extends State<ChoosePlanScreen> {
     );
   }
 
+  bool _isEmpty = false;
+
   Future<PlanModel> getPlanData() async {
     print(lang);
     internet = await Method.check();
@@ -451,8 +511,13 @@ class _ChoosePlanScreenState extends State<ChoosePlanScreen> {
     print("mapres" + response.toString());
     Map mapRes = json.decode(response.body);
     print("response body" + mapRes.toString());
-
-    if (response.statusCode == 200) {
+    if (mapRes["PackageList"].length == 0) {
+      setState(() {
+        _isEmpty = true;
+        _isLoaded = false;
+      });
+      return PlanModel.fromJson(json.decode(response.body));
+    } else if (response.statusCode == 200) {
       setState(() {
         _isLoaded = false;
       });
@@ -460,6 +525,9 @@ class _ChoosePlanScreenState extends State<ChoosePlanScreen> {
       return PlanModel.fromJson(json.decode(response.body));
     }
   }
+
+  // bool _isPromoCodeApplied = false;
+  var codeName = '';
 
   Future<void> applyPromoCode() async {
     internet = await Method.check();
@@ -485,6 +553,11 @@ class _ChoosePlanScreenState extends State<ChoosePlanScreen> {
     print("response body" + mapRes.toString());
 
     if (response.statusCode == 200) {
+      // if (codeName == _promocodeTextFormField.text) {
+      //   setState(() {
+      //     _isPromoCodeApplied = true;
+      //   });
+      // }
       if (mapRes['code'] == '200') {
         setState(() {
           _isLoaded = false;
@@ -495,6 +568,7 @@ class _ChoosePlanScreenState extends State<ChoosePlanScreen> {
           if (amount < promo_amount) {
             amount = 0;
           } else {
+            codeName = _promocodeTextFormField.text;
             amount = amount - promo_amount;
             print('amount_d' + amount.toString());
           }
@@ -612,6 +686,8 @@ class _ChoosePlanScreenState extends State<ChoosePlanScreen> {
       Utils.showErrorMessage(context, "Please Select Offer");
     } else if (_promocodeTextFormField.text.isEmpty) {
       Utils.showErrorMessage(context, "Please Enter Promo code");
+    } else if (codeName == _promocodeTextFormField.text) {
+      Utils.showErrorMessage(context, "Promo Code is already applied");
     } else {
       applyPromoCode();
     }

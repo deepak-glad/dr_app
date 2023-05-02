@@ -39,7 +39,6 @@ class KApiBase {
   static const API_PAY_RESPONSE = BASE_URL + 'PayResponse.php';
   static var razorPayApiKey = 'paymentgateway_list';
   // 'rzp_test_ozgtkcuMPXPF9x'; //  rzp_live_trKar7jRYrGtQ6
-
 }
 
 class KApiEndPoints {

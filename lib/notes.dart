@@ -1,7 +1,5 @@
 import 'dart:convert';
 import 'package:drkashikajain/custom_view/utils.dart';
-import 'package:drkashikajain/styles.dart';
-import 'package:drkashikajain/transparent_inkwell.dart';
 import 'package:drkashikajain/utils/constants.dart';
 import 'package:drkashikajain/utils/method.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +7,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 import 'app_colors.dart';
-import 'model/demovideos.dart';
 import 'model/pdf_file_model.dart';
 
 class NotesScreen extends StatefulWidget {
@@ -189,9 +186,11 @@ class _NotesScreenState extends State<NotesScreen> {
         });
         return PdfModel.fromJson(json.decode(response.body));
       } else {
-        setState(() {
-          _isLoaded = true;
-        });
+        if (mounted) {
+          setState(() {
+            _isLoaded = true;
+          });
+        }
         Utils.showErrorMessage(context, "No Data Found");
       }
     }

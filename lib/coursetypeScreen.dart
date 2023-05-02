@@ -1,7 +1,5 @@
 import 'dart:convert';
-import 'dart:ffi';
 
-import 'package:drkashikajain/HomeScreen.dart';
 import 'package:drkashikajain/classes.dart';
 import 'package:drkashikajain/primary_button.dart';
 import 'package:drkashikajain/utils/constants.dart';
@@ -10,11 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import 'RaisedGradientButton.dart';
-import 'RegistrationScreen.dart';
 import 'app_colors.dart';
 import 'chooseplan.dart';
-import 'courselist.dart';
 import 'custom_view/utils.dart';
 import 'package:http/http.dart' as http;
 
@@ -95,7 +90,7 @@ class CourseTypeScreenState extends State<CourseTypeScreen> {
             alignment: Alignment.topLeft,
             child: Icon(
               Icons.arrow_back,
-              color: AppColors.white,
+              color: AppColors.black,
             ),
           ),
         ),
