@@ -7,15 +7,15 @@ String pdfModelToJson(PdfModel data) => json.encode(data.toJson());
 
 class PdfModel {
   PdfModel({
-    @required this.code,
-    @required this.success,
-    @required this.message,
-    @required this.pdfList,
+    required this.code,
+    required this.success,
+    required this.message,
+    required this.pdfList,
   });
 
-  String code;
-  String success;
-  String message;
+  String? code;
+  String? success;
+  String? message;
   List<PdfList> pdfList;
 
   factory PdfModel.fromJson(Map<String, dynamic> json) => PdfModel(
@@ -36,16 +36,16 @@ class PdfModel {
 
 class PdfList {
   PdfList({
-    @required this.pdfId,
-    @required this.serviceId,
-    @required this.title,
-    @required this.pdf,
+    required this.pdfId,
+    required this.serviceId,
+    required this.title,
+    required this.pdf,
   });
 
-  String pdfId;
-  String serviceId;
-  String title;
-  String pdf;
+  String? pdfId;
+  String? serviceId;
+  String? title;
+  String? pdf;
 
   factory PdfList.fromJson(Map<String, dynamic> json) => PdfList(
         pdfId: json["pdf_id"],

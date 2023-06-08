@@ -207,8 +207,8 @@ class LoginScreenState extends State<LoginScreen> {
   Future<void> loginAPI() async {
     internet = await Method.check();
     var deviceType;
-    String deviceName;
-    String identifier;
+    String? deviceName;
+    String? identifier;
     final DeviceInfoPlugin deviceInfoPlugin = new DeviceInfoPlugin();
     SharedPreferences prefs = await SharedPreferences.getInstance();
     // var deviceToken = prefs.getString('device_token');
@@ -231,14 +231,14 @@ class LoginScreenState extends State<LoginScreen> {
     setState(() {
       _isLoaded = true;
     });
-    print('devicename' + deviceName);
+    print('devicename' + deviceName!);
     print('devicetype' + deviceType);
-    print('identifier' + identifier);
+    print('identifier' + identifier!);
     print('devicetoken' + deviceToken);
     print("email_or_phone>>>>>>>>>>>" + _emailTextController.text.toString());
     print("password>>>>>>>>>>>" + _passwordTextController.text.toString());
 
-    Map<String, String> body = {
+    Map<String, String?> body = {
       'user_email': _emailTextController.text.toString(),
       'password': _passwordTextController.text.toString(),
       'device_token': deviceToken,
@@ -253,11 +253,11 @@ class LoginScreenState extends State<LoginScreen> {
       final response = await http.post(
           Uri.parse(KApiBase.BASE_URL + KApiEndPoints.API_LOGIN),
           body: body);
-      Map mapRes = json.decode(response.body.toString());
+      Map? mapRes = json.decode(response.body.toString());
       print("responseBody>>>>>>>>>>>" + mapRes.toString());
 
       if (response.statusCode == 200) {
-        if (mapRes['code'] == "200") {
+        if (mapRes!['code'] == "200") {
           setState(() {
             _isLoaded = false;
           });
@@ -318,11 +318,11 @@ class LoginScreenState extends State<LoginScreen> {
       final response = await http.post(
           Uri.parse(KApiBase.BASE_URL + KApiEndPoints.API_LOGIN),
           body: body);
-      Map mapRes = json.decode(response.body.toString());
+      Map? mapRes = json.decode(response.body.toString());
       print("responseBody>>>>>>>>>>>" + mapRes.toString());
 
       if (response.statusCode == 200) {
-        if (mapRes['code'] == "200") {
+        if (mapRes!['code'] == "200") {
           setState(() {
             _isLoaded = false;
           });

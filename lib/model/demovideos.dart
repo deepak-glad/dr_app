@@ -1,7 +1,7 @@
 class DemoVideos {
-  List<Data> data;
-  String code;
-  String message;
+  List<Data>? data;
+  String? code;
+  String? message;
 
   DemoVideos({this.data, this.code, this.message});
 
@@ -20,7 +20,7 @@ class DemoVideos {
     data['code'] = this.code;
     data['message'] = this.message;
     if (this.data != null) {
-      data['video_list'] = this.data.map((v) => v.toJson()).toList();
+      data['video_list'] = this.data!.map((v) => v.toJson()).toList();
     }
     return data;
   }
@@ -28,14 +28,14 @@ class DemoVideos {
 
 class Data {
 
-  String title;
-  String service_id;
-  String video_id;
-  String description;
-  String language;
-  String video;
-  String thumnail;
-  String content_type;
+  String? title;
+  String? service_id;
+  String? video_id;
+  String? description;
+  String? language;
+  String? video;
+  String? thumnail;
+  String? content_type;
 
   Data(
       {

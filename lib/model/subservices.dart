@@ -1,7 +1,7 @@
 class SubService {
-  List<Data> data;
-  String code;
-  String message;
+  List<Data>? data;
+  String? code;
+  String? message;
 
   SubService({this.data, this.code, this.message});
 
@@ -20,7 +20,7 @@ class SubService {
     data['code'] = this.code;
     data['message'] = this.message;
     if (this.data != null) {
-      data['SubServiceList'] = this.data.map((v) => v.toJson()).toList();
+      data['SubServiceList'] = this.data!.map((v) => v.toJson()).toList();
     }
     return data;
   }
@@ -28,10 +28,10 @@ class SubService {
 
 class Data {
 
-  String sub_category_id;
-  String service_id;
-  String image;
-  String sub_category_name;
+  String? sub_category_id;
+  String? service_id;
+  String? image;
+  String? sub_category_name;
 
   Data(
       {

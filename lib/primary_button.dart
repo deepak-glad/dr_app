@@ -8,7 +8,7 @@ import 'app_colors.dart';
 
 class PrimaryButton extends StatelessWidget {
   const PrimaryButton(
-      {@required this.buttonText, @required this.onButtonPressed});
+      {required this.buttonText, required this.onButtonPressed});
 
   final String buttonText;
   final Function onButtonPressed;
@@ -42,7 +42,7 @@ class PrimaryButton extends StatelessWidget {
 
 class SmallPrimaryButton extends StatelessWidget {
   const SmallPrimaryButton(
-      {@required this.buttonText, @required this.onButtonPressed});
+      {required this.buttonText, required this.onButtonPressed});
 
   final String buttonText;
   final Function onButtonPressed;
@@ -77,7 +77,7 @@ class SmallPrimaryButton extends StatelessWidget {
 
 class AddNewButton extends StatelessWidget {
   const AddNewButton(
-      {this.buttonText = '+ Add New', @required this.onButtonPressed});
+      {this.buttonText = '+ Add New', required this.onButtonPressed});
 
   final String buttonText;
   final Function onButtonPressed;

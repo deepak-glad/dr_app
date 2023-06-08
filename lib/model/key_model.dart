@@ -11,15 +11,15 @@ String keyModelToJson(KeyModel data) => json.encode(data.toJson());
 
 class KeyModel {
   KeyModel({
-    @required this.code,
-    @required this.success,
-    @required this.message,
-    @required this.gatewayList,
+    required this.code,
+    required this.success,
+    required this.message,
+    required this.gatewayList,
   });
 
-  String code;
-  String success;
-  String message;
+  String? code;
+  String? success;
+  String? message;
   List<GatewayList> gatewayList;
 
   factory KeyModel.fromJson(Map<String, dynamic> json) => KeyModel(
@@ -40,14 +40,14 @@ class KeyModel {
 
 class GatewayList {
   GatewayList({
-    @required this.id,
-    @required this.key,
-    @required this.secret,
+    required this.id,
+    required this.key,
+    required this.secret,
   });
 
-  String id;
-  String key;
-  String secret;
+  String? id;
+  String? key;
+  String? secret;
 
   factory GatewayList.fromJson(Map<String, dynamic> json) => GatewayList(
         id: json["id"],

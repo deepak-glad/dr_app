@@ -6,8 +6,6 @@ import 'package:drkashikajain/utils/method.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
-import 'RaisedGradientButton.dart';
-import 'RegistrationScreen.dart';
 import 'custom_view/utils.dart';
 
 class ForgetPasswordScreen extends StatefulWidget {
@@ -141,11 +139,11 @@ class ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
         final response = await http.post(
             Uri.parse(KApiBase.BASE_URL + KApiEndPoints.API_FORGOT),
             body: body);
-        Map mapRes = json.decode(response.body.toString());
+        Map? mapRes = json.decode(response.body.toString());
         print("responseBody>>>>>>>>>>>" + mapRes.toString());
 
         if (response.statusCode == 200) {
-          if (mapRes['code'] == "200") {
+          if (mapRes!['code'] == "200") {
             setState(() {
               _isLoaded = false;
             });
@@ -161,7 +159,7 @@ class ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
           throw Exception('Unable to fetch products from the REST API');
         }
       } catch (e) {
-        print("Exception rest api: " + e);
+        print("Exception rest api: " + e.toString());
       }
     }
   }

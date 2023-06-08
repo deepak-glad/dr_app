@@ -1,7 +1,7 @@
 class Services {
-  List<Data> data;
-  String code;
-  String message;
+  List<Data>? data;
+  String? code;
+  String? message;
 
   Services({this.data, this.code, this.message});
 
@@ -20,7 +20,7 @@ class Services {
     data['code'] = this.code;
     data['message'] = this.message;
     if (this.data != null) {
-      data['ServiceList'] = this.data.map((v) => v.toJson()).toList();
+      data['ServiceList'] = this.data!.map((v) => v.toJson()).toList();
     }
     return data;
   }
@@ -28,9 +28,9 @@ class Services {
 
 class Data {
 
-  String title;
-  String id;
-  String image;
+  String? title;
+  String? id;
+  String? image;
 
   Data(
       {

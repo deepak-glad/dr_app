@@ -1,20 +1,13 @@
 import 'dart:convert';
 
 import 'package:drkashikajain/model/subscription.dart';
-import 'package:drkashikajain/profile/profile.dart';
 import 'package:drkashikajain/utils/constants.dart';
 import 'package:drkashikajain/utils/method.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
-import 'DetailScreen.dart';
-import 'ForgetPasswordScreen.dart';
-import 'RaisedGradientButton.dart';
-import 'RegistrationScreen.dart';
 import 'app_colors.dart';
-import 'coursetypeScreen.dart';
-import 'model/services.dart';
 
 class MySubscriptionScreen extends StatefulWidget {
   @override
@@ -27,7 +20,7 @@ class MySubscriptionScreen extends StatefulWidget {
 class MySubscriptionScreenState extends State<MySubscriptionScreen> {
   bool internet = true;
   bool _isLoaded = false;
-  Future<Subscriptions> service;
+ late  Future<Subscriptions?> service;
 
   @override
   void initState() {
@@ -64,7 +57,7 @@ class MySubscriptionScreenState extends State<MySubscriptionScreen> {
   _homeWidgets() {
     return new ListView(
       children: <Widget>[
-        FutureBuilder<Subscriptions>(
+        FutureBuilder<Subscriptions?>(
             future: service,
             builder: (context, snapshot) {
               if (!_isLoaded) {
@@ -74,7 +67,7 @@ class MySubscriptionScreenState extends State<MySubscriptionScreen> {
                     child: ListView.builder(
                       scrollDirection: Axis.vertical,
                       shrinkWrap: true,
-                      itemCount: snapshot.data.data.length,
+                      itemCount: snapshot.data!.data!.length,
                       physics: ScrollPhysics(),
                       itemBuilder: (context, index) {
                         return Container(
@@ -102,7 +95,7 @@ class MySubscriptionScreenState extends State<MySubscriptionScreen> {
                                           topRight:
                                               const Radius.circular(100.0))),
                                   child: Text(
-                                    snapshot.data.data[index].plan_status,
+                                    snapshot.data!.data![index].plan_status!,
                                     style: TextStyle(
                                         fontSize: 10,
                                         color: AppColors.primary_color),
@@ -133,8 +126,8 @@ class MySubscriptionScreenState extends State<MySubscriptionScreen> {
                                               child: Container(
                                                 child: Text(
                                                   "Offer Name : " +
-                                                      snapshot.data.data[index]
-                                                          .plan_name,
+                                                      snapshot.data!.data![index]
+                                                          .plan_name!,
                                                   style: TextStyle(
                                                       fontSize: 14.0,
                                                       color: AppColors.white),
@@ -152,8 +145,8 @@ class MySubscriptionScreenState extends State<MySubscriptionScreen> {
                                                     right: 15),
                                                 child: Text(
                                                   "Service Name : " +
-                                                      snapshot.data.data[index]
-                                                          .service_name,
+                                                      snapshot.data!.data![index]
+                                                          .service_name!,
                                                   style: TextStyle(
                                                       fontSize: 12.0,
                                                       color: AppColors.white),
@@ -165,8 +158,8 @@ class MySubscriptionScreenState extends State<MySubscriptionScreen> {
                                                     right: 15),
                                                 child: Text(
                                                   "Rs. " +
-                                                      snapshot.data.data[index]
-                                                          .amount,
+                                                      snapshot.data!.data![index]
+                                                          .amount!,
                                                   style: TextStyle(
                                                       color: AppColors.white,
                                                       fontSize: 12),
@@ -183,8 +176,8 @@ class MySubscriptionScreenState extends State<MySubscriptionScreen> {
                                                     bottom: 10),
                                                 child: Text(
                                                   "Expire on : " +
-                                                      snapshot.data.data[index]
-                                                          .subscribe_end_date,
+                                                      snapshot.data!.data![index]
+                                                          .subscribe_end_date!,
                                                   style: TextStyle(
                                                       color: AppColors.white,
                                                       fontSize: 12),
@@ -224,7 +217,7 @@ class MySubscriptionScreenState extends State<MySubscriptionScreen> {
     );
   }
 
-  Future<Subscriptions> getData() async {
+  Future<Subscriptions?> getData() async {
     internet = await Method.check();
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
@@ -241,7 +234,7 @@ class MySubscriptionScreenState extends State<MySubscriptionScreen> {
         Uri.parse(KApiBase.BASE_URL + KApiEndPoints.MySubscriptionPlan),
         body: body);
     print("mapres" + response.toString());
-    Map mapRes = json.decode(response.body);
+    Map? mapRes = json.decode(response.body);
     print("response body" + mapRes.toString());
 
     if (response.statusCode == 200) {

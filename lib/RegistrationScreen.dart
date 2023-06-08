@@ -304,9 +304,9 @@ class RegistrationScreenState extends State<RegistrationScreen> {
     internet = await Method.check();
 
     var deviceType;
-    String deviceName;
-    String deviceVersion;
-    String identifier;
+    String? deviceName;
+    String? deviceVersion;
+    String? identifier;
     final DeviceInfoPlugin deviceInfoPlugin = new DeviceInfoPlugin();
     try {
       if (Platform.isAndroid) {
@@ -335,7 +335,7 @@ class RegistrationScreenState extends State<RegistrationScreen> {
     print("password>>>>>>>>>>>" + _passwordTextController.text.toString());
     print("full_name>>>>>>>>>>>" + _nameTextController.text.toString());
 
-    Map<String, String> body = {
+    Map<String, String?> body = {
       'first_name': _nameTextController.text.toString(),
       'last_name': "",
       'user_email': _emailTextController.text.toString(),
@@ -352,11 +352,11 @@ class RegistrationScreenState extends State<RegistrationScreen> {
             Uri.parse(KApiBase.BASE_URL + KApiEndPoints.API_SIGN_UP),
             body: body);
         print(response.body);
-        Map mapRes = json.decode(response.body);
+        Map? mapRes = json.decode(response.body);
         print("responseBody>>>>>>>>>>>" + mapRes.toString());
 
         if (response.statusCode == 200) {
-          if (mapRes['code'] == "200") {
+          if (mapRes!['code'] == "200") {
             setState(() {
               loginAPI();
             });
@@ -371,7 +371,7 @@ class RegistrationScreenState extends State<RegistrationScreen> {
           throw Exception('Unable to fetch products from the REST API');
         }
       } catch (e) {
-        print("Exception rest api: " + e);
+        print("Exception rest api: " + e.toString());
       }
     }
   }
@@ -379,8 +379,8 @@ class RegistrationScreenState extends State<RegistrationScreen> {
   Future<void> loginAPI() async {
     internet = await Method.check();
     var deviceType;
-    String deviceName;
-    String identifier;
+    String? deviceName;
+    String? identifier;
     final DeviceInfoPlugin deviceInfoPlugin = new DeviceInfoPlugin();
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
@@ -406,7 +406,7 @@ class RegistrationScreenState extends State<RegistrationScreen> {
     print("password>>>>>>>>>>>" + _passwordTextController.text.toString());
     print("full_name>>>>>>>>>>>" + _nameTextController.text.toString());
 
-    Map<String, String> body = {
+    Map<String, String?> body = {
       'user_email': _emailTextController.text.toString(),
       'password': _passwordTextController.text.toString(),
       'device_token': deviceToken.toString(),
@@ -419,11 +419,11 @@ class RegistrationScreenState extends State<RegistrationScreen> {
         final response = await http.post(
             Uri.parse(KApiBase.BASE_URL + KApiEndPoints.API_LOGIN),
             body: body);
-        Map mapRes = json.decode(response.body.toString());
+        Map? mapRes = json.decode(response.body.toString());
         print("responseBody>>>>>>>>>>>" + mapRes.toString());
 
         if (response.statusCode == 200) {
-          if (mapRes['code'] == "200") {
+          if (mapRes!['code'] == "200") {
             setState(() {
               _isLoaded = false;
             });
@@ -455,7 +455,7 @@ class RegistrationScreenState extends State<RegistrationScreen> {
           throw Exception('Unable to fetch products from the REST API');
         }
       } catch (e) {
-        print("Exception rest api: " + e);
+        print("Exception rest api: " + e.toString());
       }
     }
   }

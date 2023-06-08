@@ -4,19 +4,19 @@ import 'app_colors.dart';
 
 class TransparentInkWell extends InkWell {
   const TransparentInkWell(
-      {Key key,
-      Widget child,
-      @required GestureTapCallback onTap,
-      GestureTapCallback onDoubleTap,
-      GestureLongPressCallback onLongPress,
-      GestureTapDownCallback onTapDown,
-      GestureTapCancelCallback onTapCancel,
-      ValueChanged<bool> onHighlightChanged,
-      ValueChanged<bool> onHover,
-      InteractiveInkFeatureFactory splashFactory,
-      double radius,
-      BorderRadius borderRadius,
-      ShapeBorder customBorder,
+      {Key? key,
+      Widget? child,
+      required GestureTapCallback onTap,
+      GestureTapCallback? onDoubleTap,
+      GestureLongPressCallback? onLongPress,
+      GestureTapDownCallback? onTapDown,
+      GestureTapCancelCallback? onTapCancel,
+      ValueChanged<bool>? onHighlightChanged,
+      ValueChanged<bool>? onHover,
+      InteractiveInkFeatureFactory? splashFactory,
+      double? radius,
+      BorderRadius? borderRadius,
+      ShapeBorder? customBorder,
       bool enableFeedback: true,
       bool excludeFromSemantics: false})
       : super(

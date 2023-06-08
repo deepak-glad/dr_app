@@ -1,21 +1,23 @@
 import 'dart:convert';
+
 import 'package:drkashikajain/VideoPlayer.dart';
 import 'package:drkashikajain/utils/constants.dart';
 import 'package:drkashikajain/utils/method.dart';
 import 'package:drkashikajain/youtubePlayer.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
+
 import 'app_colors.dart';
 import 'custom_view/utils.dart';
 import 'model/demovideos.dart';
 
 class DemoVideosScreen extends StatefulWidget {
-  String service_id;
-  String lang;
+  String? service_id;
+  String? lang;
   String type;
-  String sub_category_name;
-  String sub_category_id;
+  String? sub_category_name;
+  String? sub_category_id;
 
   DemoVideosScreen(this.service_id, this.lang, this.type,
       this.sub_category_name, this.sub_category_id);
@@ -26,11 +28,11 @@ class DemoVideosScreen extends StatefulWidget {
 }
 
 class _DemoVideosScreenState extends State<DemoVideosScreen> {
-  String service_id;
-  String lang;
+  String? service_id;
+  String? lang;
   String type;
-  String sub_category_name;
-  String sub_category_id;
+  String? sub_category_name;
+  String? sub_category_id;
 
   _DemoVideosScreenState(this.service_id, this.lang, this.type,
       this.sub_category_name, this.sub_category_id);
@@ -42,7 +44,7 @@ class _DemoVideosScreenState extends State<DemoVideosScreen> {
   bool internet = true;
   bool _isLoaded = false;
   final _scaffoldKey = GlobalKey<ScaffoldState>();
-  Future<DemoVideos> demovideos;
+  late Future<DemoVideos?> demovideos;
 
   @override
   void initState() {
@@ -68,7 +70,7 @@ class _DemoVideosScreenState extends State<DemoVideosScreen> {
   _homeWidgets() {
     return ListView(
       children: [
-        FutureBuilder<DemoVideos>(
+        FutureBuilder<DemoVideos?>(
             future: demovideos,
             builder: (context, snapshot) {
               if (!_isLoaded) {
@@ -76,19 +78,19 @@ class _DemoVideosScreenState extends State<DemoVideosScreen> {
                   return ListView.builder(
                     scrollDirection: Axis.vertical,
                     shrinkWrap: true,
-                    itemCount: snapshot.data.data.length,
+                    itemCount: snapshot.data!.data!.length,
                     physics: ScrollPhysics(),
                     itemBuilder: (context, index) {
                       return GestureDetector(
                         onTap: () {
-                          if (snapshot.data.data[index].content_type
+                          if (snapshot.data!.data![index].content_type!
                                   .compareTo("youtube") !=
                               0) {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => ChewieDemo(
-                                        snapshot.data.data[index].video)));
+                                        snapshot.data!.data![index].video)));
                           } else {
                             // print(Method.getYoutubeVideoIdByURL(
                             //     snapshot.data.data[index].video));
@@ -97,7 +99,7 @@ class _DemoVideosScreenState extends State<DemoVideosScreen> {
                                 MaterialPageRoute(
                                     builder: (context) => PlayVideoFromYoutube(
                                         Method.getYoutubeVideoIdByURL(
-                                            snapshot.data.data[index].video))));
+                                            snapshot.data!.data![index].video!))));
                           }
                         },
                         child: Card(
@@ -114,10 +116,10 @@ class _DemoVideosScreenState extends State<DemoVideosScreen> {
                               height: 40.0,
                               child: FadeInImage.assetNetwork(
                                   placeholder: 'images/youtube.png',
-                                  image: snapshot.data.data[index].thumnail),
+                                  image: snapshot.data!.data![index].thumnail!),
                             ),
                             title: Text(
-                              snapshot.data.data[index].title,
+                              snapshot.data!.data![index].title!,
                               style: TextStyle(
                                   fontSize: 16.0,
                                   fontWeight: FontWeight.bold,
@@ -143,7 +145,7 @@ class _DemoVideosScreenState extends State<DemoVideosScreen> {
     );
   }
 
-  Future<DemoVideos> getData() async {
+  Future<DemoVideos?> getData() async {
     internet = await Method.check();
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
@@ -152,12 +154,12 @@ class _DemoVideosScreenState extends State<DemoVideosScreen> {
     print("authorization_key" +
         ">>>>>>>>>>>>" +
         prefs.getString(KPrefs.TOKEN).toString());
-    print("service_id" + ">>>>>>>>>>>>" + service_id);
-    print("language" + ">>>>>>>>>>>>" + lang);
+    print("service_id" + ">>>>>>>>>>>>" + service_id!);
+    print("language" + ">>>>>>>>>>>>" + lang!);
     print("video_type" + ">>>>>>>>>>>>" + type);
-    print("sub_category_id" + ">>>>>>>>>>>>" + sub_category_id);
+    print("sub_category_id" + ">>>>>>>>>>>>" + sub_category_id!);
 
-    Map<String, String> body = {
+    Map<String, String?> body = {
       'access_token': prefs.getString(KPrefs.TOKEN).toString(),
       'service_id': service_id,
       'language': lang,

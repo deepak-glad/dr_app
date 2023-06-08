@@ -6,15 +6,15 @@ import 'package:drkashikajain/profile/profile.dart';
 import 'package:drkashikajain/utils/constants.dart';
 import 'package:drkashikajain/utils/method.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'app_colors.dart';
 import 'coursetypeScreen.dart';
 import 'model/services.dart';
 
 class HomeScreen extends StatefulWidget {
-  String lang;
+  String? lang;
 
   HomeScreen(String lang) {
     this.lang = lang;
@@ -28,14 +28,14 @@ class HomeScreen extends StatefulWidget {
 }
 
 class HomeScreenState extends State<HomeScreen> {
-  String lang;
+  String? lang;
   bool internet = true;
   bool _isLoaded = false;
-  Future<Services> service;
+  late Future<Services?> service;
 
-  SharedPreferences prefs;
+  late SharedPreferences prefs;
 
-  HomeScreenState(String lang) {
+  HomeScreenState(String? lang) {
     this.lang = lang;
   }
 
@@ -114,7 +114,7 @@ class HomeScreenState extends State<HomeScreen> {
                 style: TextStyle(fontSize: 13, color: Colors.white)),
           ),
         ),
-        FutureBuilder<Services>(
+        FutureBuilder<Services?>(
             future: service,
             builder: (context, snapshot) {
               if (!_isLoaded) {
@@ -124,7 +124,7 @@ class HomeScreenState extends State<HomeScreen> {
                     child: ListView.builder(
                       scrollDirection: Axis.vertical,
                       shrinkWrap: true,
-                      itemCount: snapshot.data.data.length,
+                      itemCount: snapshot.data!.data!.length,
                       physics: ScrollPhysics(),
                       itemBuilder: (context, index) {
                         return Container(
@@ -154,7 +154,7 @@ class HomeScreenState extends State<HomeScreen> {
                                 ),*/
                               ),
                               title: Text(
-                                snapshot.data.data[index].title,
+                                snapshot.data!.data![index].title!,
                                 style: TextStyle(
                                     fontSize: 16.0,
                                     fontWeight: FontWeight.bold,
@@ -168,7 +168,7 @@ class HomeScreenState extends State<HomeScreen> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => CourseTypeScreen(
-                                        lang, snapshot.data.data[index].id)),
+                                        lang, snapshot.data!.data![index].id)),
                               ),
                             ));
                       },
@@ -192,7 +192,7 @@ class HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Future<Services> getData() async {
+  Future<Services?> getData() async {
     internet = await Method.check();
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
@@ -202,7 +202,7 @@ class HomeScreenState extends State<HomeScreen> {
         ">>>>>>>>>>>>" +
         prefs.getString(KPrefs.TOKEN).toString());
 
-    Map<String, String> body = {
+    Map<String, String?> body = {
       'access_token': prefs.getString(KPrefs.TOKEN).toString(),
       'language': lang
     };
@@ -210,7 +210,7 @@ class HomeScreenState extends State<HomeScreen> {
         Uri.parse(KApiBase.SERVICE_BASE_URL + KApiEndPoints.Get_services),
         body: body);
     print("mapres" + response.toString());
-    Map mapRes = json.decode(response.body);
+    Map? mapRes = json.decode(response.body);
     print("response body" + mapRes.toString());
 
     if (response.statusCode == 200) {
@@ -222,7 +222,7 @@ class HomeScreenState extends State<HomeScreen> {
     }
   }
 
-  Future<KeyModel> getRazorPayKey() async {
+  Future<KeyModel?> getRazorPayKey() async {
     internet = await Method.check();
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
@@ -233,9 +233,9 @@ class HomeScreenState extends State<HomeScreen> {
     if (response.statusCode == 200) {
       var data = KeyModel.fromJson(json.decode(response.body));
       var key = 'key';
-      var keyId = data.gatewayList.first.key;
+      var keyId = data.gatewayList.first.key!;
       prefs.setString(key, keyId);
-      print("deepak" + ">>>>>>>>>>>>" + prefs.get('key'));
+      print("deepak" + ">>>>>>>>>>>>" + (prefs.get('key') as String));
 
       return KeyModel.fromJson(json.decode(response.body));
     }

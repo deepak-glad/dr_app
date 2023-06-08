@@ -5,11 +5,11 @@ import 'app_colors.dart';
 import 'notes.dart';
 
 class CourseListScreen extends StatefulWidget {
-  final String service_id;
-  final String lang;
+  final String? service_id;
+  final String? lang;
   final String type;
-  final String sub_category_name;
-  final String sub_category_id;
+  final String? sub_category_name;
+  final String? sub_category_id;
 
   CourseListScreen(this.service_id, this.lang, this.type,
       this.sub_category_name, this.sub_category_id);
@@ -22,19 +22,19 @@ class CourseListScreen extends StatefulWidget {
 }
 
 class CourseListScreenState extends State<CourseListScreen> {
-  String service_id;
-  String lang;
+  String? service_id;
+  String? lang;
   String type;
-  String sub_category_name;
-  String sub_category_id;
+  String? sub_category_name;
+  String? sub_category_id;
 
-  String header;
+  String? header;
 
   CourseListScreenState(this.service_id, this.lang, this.type,
       this.sub_category_name, this.sub_category_id);
 
   bool _isLoaded = false;
-  String id;
+  String? id;
 
   @override
   void initState() {

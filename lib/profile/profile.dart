@@ -1,8 +1,8 @@
 import 'dart:convert';
 
-import 'package:drkashikajain/login/LoginScreen.dart';
 import 'package:drkashikajain/custom_view/route_animations.dart';
 import 'package:drkashikajain/custom_view/utils.dart';
+import 'package:drkashikajain/login/LoginScreen.dart';
 import 'package:drkashikajain/primary_button.dart';
 import 'package:drkashikajain/utils/constants.dart';
 import 'package:drkashikajain/utils/method.dart';
@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
+
 import '../app_colors.dart';
 import '../mysubscriptionscreen.dart';
 import '../styles.dart';
@@ -399,11 +400,11 @@ class ProfileScreenState extends State<ProfileScreen> {
       try {
         final response = await http.get(Uri.parse(
             KApiBase.SERVICE_BASE_URL + KApiEndPoints.app_dynamic_setting));
-        Map mapRes = json.decode(response.body.toString());
+        Map? mapRes = json.decode(response.body.toString());
         print("responseBody>>>>>>>>>>>" + mapRes.toString());
 
         if (response.statusCode == 200) {
-          if (mapRes['code'] == "200") {
+          if (mapRes!['code'] == "200") {
             setState(() {
               _isLoaded = false;
             });
@@ -422,7 +423,7 @@ class ProfileScreenState extends State<ProfileScreen> {
           throw Exception('Unable to fetch products from the REST API');
         }
       } catch (e) {
-        print("Exception rest api: " + e);
+        print("Exception rest api: " + e.toString());
       }
     }
   }
@@ -449,7 +450,7 @@ class ProfileScreenState extends State<ProfileScreen> {
         final response = await http.post(
             Uri.parse(KApiBase.BASE_URL + KApiEndPoints.get_profile),
             body: body);
-        Map mapRes = json.decode(response.body.toString());
+        Map? mapRes = json.decode(response.body.toString());
         print("responseBody>>>>>>>>>>>" + mapRes.toString());
 
         if (response.statusCode == 200) {
@@ -458,7 +459,7 @@ class ProfileScreenState extends State<ProfileScreen> {
             _isLoaded = false;
           });
 
-          name = mapRes['user_details']['username'];
+          name = mapRes!['user_details']['username'];
           mobile = mapRes['user_details']['user_phone'];
           email = mapRes['user_details']['user_email'];
           city = mapRes['user_details']['city_id'];
@@ -478,7 +479,7 @@ class ProfileScreenState extends State<ProfileScreen> {
           throw Exception('Unable to fetch products from the REST API');
         }
       } catch (e) {
-        print("Exception rest api: " + e);
+        print("Exception rest api: " + e.toString());
       }
     }
   }
@@ -503,7 +504,7 @@ class ProfileScreenState extends State<ProfileScreen> {
         final response = await http.post(
             Uri.parse(KApiBase.BASE_URL + KApiEndPoints.user_update_profile),
             body: body);
-        Map mapRes = json.decode(response.body.toString());
+        Map? mapRes = json.decode(response.body.toString());
         print("responseBody>>>>>>>>>>>" + mapRes.toString());
 
         if (response.statusCode == 200) {
@@ -511,12 +512,12 @@ class ProfileScreenState extends State<ProfileScreen> {
           setState(() {
             _isLoaded = false;
           });
-          Utils.showErrorMessage(context, mapRes['message']);
+          Utils.showErrorMessage(context, mapRes!['message']);
         } else {
           throw Exception('Unable to fetch products from the REST API');
         }
       } catch (e) {
-        print("Exception rest api: " + e);
+        print("Exception rest api: " + e.toString());
       }
     }
   }

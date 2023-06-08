@@ -3,13 +3,13 @@ import 'package:video_player/video_player.dart';
 
 class AdvancedOverlayWidget extends StatelessWidget {
   final VideoPlayerController controller;
-  final VoidCallback onClickedFullScreen;
+  final VoidCallback? onClickedFullScreen;
 
   static const allSpeeds = <double>[0.25, 0.5, 1, 1.5, 2, 3, 5, 10];
 
   const AdvancedOverlayWidget({
-    Key key,
-    @required this.controller,
+    Key? key,
+    required this.controller,
     this.onClickedFullScreen,
   }) : super(key: key);
 

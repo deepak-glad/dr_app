@@ -1,7 +1,7 @@
 class Subscriptions {
-  List<Data> data;
-  String code;
-  String message;
+  List<Data>? data;
+  String? code;
+  String? message;
 
   Subscriptions({this.data, this.code, this.message});
 
@@ -20,7 +20,7 @@ class Subscriptions {
     data['code'] = this.code;
     data['message'] = this.message;
     if (this.data != null) {
-      data['plan_list'] = this.data.map((v) => v.toJson()).toList();
+      data['plan_list'] = this.data!.map((v) => v.toJson()).toList();
     }
     return data;
   }
@@ -28,11 +28,11 @@ class Subscriptions {
 
 class Data {
 
-  String plan_name;
-  String service_name;
-  String amount;
-  String subscribe_end_date;
-  String plan_status;
+  String? plan_name;
+  String? service_name;
+  String? amount;
+  String? subscribe_end_date;
+  String? plan_status;
 
   Data(
       {

@@ -7,19 +7,19 @@ import 'custom_overlays.dart';
 
 // ignore: avoid_classes_with_only_static_members
 class Utils {
-  static BuildContext _loaderContext;
-  static BuildContext _loadingDialoContext;
+  static BuildContext? _loaderContext;
+  static BuildContext? _loadingDialoContext;
   static bool _isLoaderShowing = false;
   static bool _isLoadingDialogShowing = false;
-  static Timer toastTimer;
-  static OverlayEntry _overlayEntry;
+  static Timer? toastTimer;
+  static OverlayEntry? _overlayEntry;
 
 //  Checks
-  static bool isNotEmpty(String s) {
+  static bool isNotEmpty(String? s) {
     return s != null && s.trim().isNotEmpty;
   }
 
-  static bool isEmpty(String s) {
+  static bool isEmpty(String? s) {
     return !isNotEmpty(s);
   }
 
@@ -40,18 +40,18 @@ class Utils {
     showCustomToast(context, message, bgColor: AppColors.snackBarColor);
   }
 
-  static void showErrorMessage(BuildContext context, String message) {
+  static void showErrorMessage(BuildContext context, String? message) {
     showCustomToast(context, message);
   }
 
-  static void showCustomToast(BuildContext context, String message,
+  static void showCustomToast(BuildContext context, String? message,
       {Color bgColor = AppColors.snackBarRed}) {
     /* if (toastTimer == null || !toastTimer.isActive) {*/
     _overlayEntry = createOverlayEntry(context, message, bgColor);
-    Overlay.of(context).insert(_overlayEntry);
+    Overlay.of(context).insert(_overlayEntry!);
     toastTimer = Timer(const Duration(seconds: 2), () {
       if (_overlayEntry != null) {
-        _overlayEntry.remove();
+        _overlayEntry!.remove();
       }
     });
   }
@@ -106,14 +106,14 @@ class Utils {
 */
   static void hideLoader() {
     if (_isLoaderShowing && _loaderContext != null) {
-      Navigator.pop(_loaderContext);
+      Navigator.pop(_loaderContext!);
       _loaderContext = null;
     }
   }
 
   static void hideLoadingDialog() {
     if (_isLoadingDialogShowing && _loadingDialoContext != null) {
-      Navigator.pop(_loadingDialoContext);
+      Navigator.pop(_loadingDialoContext!);
       _loadingDialoContext = null;
     }
   }
@@ -128,7 +128,7 @@ class Utils {
         systemOverlayStyle: SystemUiOverlayStyle.dark,
       ),
       canvasColor: Colors.transparent,
-      primarySwatch: AppColors.primary_color,
+      primarySwatch: AppColors.primary_color as MaterialColor?,
       brightness: Brightness.light,
     );
   }
@@ -141,7 +141,7 @@ class Utils {
 
   static Future<bool> onWillPop(BuildContext context) {
     final DateTime now = DateTime.now();
-    DateTime currentBackPressTime;
+    DateTime? currentBackPressTime;
     if (currentBackPressTime == null ||
         now.difference(currentBackPressTime) > const Duration(seconds: 2)) {
       currentBackPressTime = now;

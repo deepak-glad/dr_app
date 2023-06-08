@@ -5,19 +5,19 @@ import 'package:drkashikajain/primary_button.dart';
 import 'package:drkashikajain/utils/constants.dart';
 import 'package:drkashikajain/utils/method.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'app_colors.dart';
 import 'chooseplan.dart';
 import 'custom_view/utils.dart';
-import 'package:http/http.dart' as http;
 
 class CourseTypeScreen extends StatefulWidget {
-  String lang;
-  String service_id;
+  String? lang;
+  String? service_id;
 
-  CourseTypeScreen(String lang, String service_id) {
+  CourseTypeScreen(String? lang, String? service_id) {
     this.lang = lang;
     this.service_id = service_id;
   }
@@ -30,12 +30,12 @@ class CourseTypeScreen extends StatefulWidget {
 }
 
 class CourseTypeScreenState extends State<CourseTypeScreen> {
-  String lang;
-  String service_id;
+  String? lang;
+  String? service_id;
 
-  String active;
+  String? active;
 
-  CourseTypeScreenState(String lang, String service_id) {
+  CourseTypeScreenState(String? lang, String? service_id) {
     this.lang = lang;
     this.service_id = service_id;
   }
@@ -420,11 +420,11 @@ class CourseTypeScreenState extends State<CourseTypeScreen> {
       try {
         final response = await http.get(Uri.parse(
             KApiBase.SERVICE_BASE_URL + KApiEndPoints.app_dynamic_setting));
-        Map mapRes = json.decode(response.body.toString());
+        Map? mapRes = json.decode(response.body.toString());
         print("responseBody>>>>>>>>>>>" + mapRes.toString());
 
         if (response.statusCode == 200) {
-          if (mapRes['code'] == "200") {
+          if (mapRes!['code'] == "200") {
             setState(() {
               _isLoaded = false;
             });
@@ -444,7 +444,7 @@ class CourseTypeScreenState extends State<CourseTypeScreen> {
           throw Exception('Unable to fetch products from the REST API');
         }
       } catch (e) {
-        print("Exception rest api: " + e);
+        print("Exception rest api: " + e.toString());
       }
     }
   }
@@ -462,7 +462,7 @@ class CourseTypeScreenState extends State<CourseTypeScreen> {
     } else {
       paidvisible = false;
     }
-    Map<String, String> body = {
+    Map<String, String?> body = {
       'access_token': prefs.getString(KPrefs.TOKEN).toString(),
       'service_id': service_id,
     };
@@ -472,11 +472,11 @@ class CourseTypeScreenState extends State<CourseTypeScreen> {
             Uri.parse(
                 KApiBase.SERVICE_BASE_URL + KApiEndPoints.Check_plan_expire),
             body: body);
-        Map mapRes = json.decode(response.body.toString());
+        Map? mapRes = json.decode(response.body.toString());
         print("responseBody>>>>>>>>>>>" + mapRes.toString());
 
         if (response.statusCode == 200) {
-          if (mapRes['code'] == "200") {
+          if (mapRes!['code'] == "200") {
             setState(() {
               _isLoaded = false;
             });
@@ -496,7 +496,7 @@ class CourseTypeScreenState extends State<CourseTypeScreen> {
           throw Exception('Unable to fetch products from the REST API');
         }
       } catch (e) {
-        print("Exception rest api: " + e);
+        print("Exception rest api: " + e.toString());
       }
     }
   }

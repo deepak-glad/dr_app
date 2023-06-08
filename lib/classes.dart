@@ -3,16 +3,16 @@ import 'dart:convert';
 import 'package:drkashikajain/utils/constants.dart';
 import 'package:drkashikajain/utils/method.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'app_colors.dart';
 import 'courselist.dart';
 import 'model/subservices.dart';
 
 class ClassesScreen extends StatefulWidget {
-  String lang;
-  String service_id;
+  String? lang;
+  String? service_id;
   String type;
 
   ClassesScreen(this.service_id, this.lang, this.type);
@@ -25,11 +25,11 @@ class ClassesScreen extends StatefulWidget {
 }
 
 class ClassesScreenState extends State<ClassesScreen> {
-  String lang;
+  String? lang;
   bool internet = true;
   bool _isLoaded = false;
-  Future<SubService> service;
-  String service_id;
+  late Future<SubService?> service;
+  String? service_id;
   String type;
   ClassesScreenState(this.service_id, this.lang, this.type);
 
@@ -70,12 +70,12 @@ class ClassesScreenState extends State<ClassesScreen> {
             ),
           ),
         ),
-        FutureBuilder<SubService>(
+        FutureBuilder<SubService?>(
             future: service,
             builder: (context, snapshot) {
               if (!_isLoaded) {
                 if (snapshot.hasData) {
-                  if (snapshot.data.data.isEmpty) {
+                  if (snapshot.data!.data!.isEmpty) {
                     return Method.nodata(context);
                   } else {
                     return RefreshIndicator(
@@ -83,7 +83,7 @@ class ClassesScreenState extends State<ClassesScreen> {
                       child: ListView.builder(
                         scrollDirection: Axis.vertical,
                         shrinkWrap: true,
-                        itemCount: snapshot.data.data.length,
+                        itemCount: snapshot.data!.data!.length,
                         physics: ScrollPhysics(),
                         itemBuilder: (context, index) {
                           return Container(
@@ -111,7 +111,7 @@ class ClassesScreenState extends State<ClassesScreen> {
                                 ),*/
                                 ),
                                 title: Text(
-                                  snapshot.data.data[index].sub_category_name,
+                                  snapshot.data!.data![index].sub_category_name!,
                                   style: TextStyle(
                                       fontSize: 16.0,
                                       fontWeight: FontWeight.bold,
@@ -128,9 +128,9 @@ class ClassesScreenState extends State<ClassesScreen> {
                                           service_id,
                                           lang,
                                           widget.type,
-                                          snapshot.data.data[index]
+                                          snapshot.data!.data![index]
                                               .sub_category_name,
-                                          snapshot.data.data[index]
+                                          snapshot.data!.data![index]
                                               .sub_category_id)),
                                 ),
                               ));
@@ -156,7 +156,7 @@ class ClassesScreenState extends State<ClassesScreen> {
     );
   }
 
-  Future<SubService> getData() async {
+  Future<SubService?> getData() async {
     internet = await Method.check();
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
@@ -166,7 +166,7 @@ class ClassesScreenState extends State<ClassesScreen> {
         ">>>>>>>>>>>>" +
         prefs.getString(KPrefs.TOKEN).toString());
 
-    Map<String, String> body = {
+    Map<String, String?> body = {
       'access_token': prefs.getString(KPrefs.TOKEN).toString(),
       'service_id': service_id,
       'sub_service_type': widget.type
@@ -175,7 +175,7 @@ class ClassesScreenState extends State<ClassesScreen> {
         Uri.parse(KApiBase.SERVICE_BASE_URL + KApiEndPoints.Get_sub_services),
         body: body);
     print("mapres" + response.toString());
-    Map mapRes = json.decode(response.body);
+    Map? mapRes = json.decode(response.body);
     print("response body" + mapRes.toString());
 
     if (response.statusCode == 200) {

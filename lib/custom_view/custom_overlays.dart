@@ -4,7 +4,7 @@ import '../app_colors.dart';
 import 'widget_animations.dart';
 
 OverlayEntry createOverlayEntry(
-    BuildContext context, String message, Color bgColor) {
+    BuildContext context, String? message, Color bgColor) {
   final double _screenWidth = MediaQuery.of(context).size.width;
 
   return OverlayEntry(

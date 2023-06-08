@@ -1,20 +1,22 @@
 import 'dart:convert';
+
 import 'package:drkashikajain/custom_view/utils.dart';
 import 'package:drkashikajain/utils/constants.dart';
 import 'package:drkashikajain/utils/method.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
+
 import 'app_colors.dart';
 import 'model/pdf_file_model.dart';
 
 class NotesScreen extends StatefulWidget {
-  String service_id;
-  String lang;
+  String? service_id;
+  String? lang;
   String type;
-  String sub_category_name;
-  String sub_category_id;
+  String? sub_category_name;
+  String? sub_category_id;
 
   NotesScreen(this.service_id, this.lang, this.type, this.sub_category_name,
       this.sub_category_id);
@@ -24,12 +26,12 @@ class NotesScreen extends StatefulWidget {
 }
 
 class _NotesScreenState extends State<NotesScreen> {
-  String service_id;
-  String lang;
+  String? service_id;
+  String? lang;
   String type;
-  String sub_category_name;
-  String sub_category_id;
-  Future<PdfModel> demovideos;
+  String? sub_category_name;
+  String? sub_category_id;
+  late Future<PdfModel?> demovideos;
 
   _NotesScreenState(this.service_id, this.lang, this.type,
       this.sub_category_name, this.sub_category_id);
@@ -40,12 +42,12 @@ class _NotesScreenState extends State<NotesScreen> {
   bool internet = true;
   bool _isLoaded = false;
   final _scaffoldKey = GlobalKey<ScaffoldState>();
-  void _navigateToPage({String title, Widget child}) {
+  void _navigateToPage({String? title, Widget? child}) {
     Navigator.push(
       context,
       MaterialPageRoute(
         builder: (context) => Scaffold(
-          appBar: AppBar(title: Text(title)),
+          appBar: AppBar(title: Text(title!)),
           body: Center(child: child),
         ),
       ),
@@ -77,7 +79,7 @@ class _NotesScreenState extends State<NotesScreen> {
   _homeWidgets() {
     return ListView(
       children: [
-        FutureBuilder<PdfModel>(
+        FutureBuilder<PdfModel?>(
             future: demovideos,
             builder: (context, snapshot) {
               if (!_isLoaded) {
@@ -86,7 +88,7 @@ class _NotesScreenState extends State<NotesScreen> {
                   return ListView.builder(
                     scrollDirection: Axis.vertical,
                     shrinkWrap: true,
-                    itemCount: snapshot.data.pdfList.length,
+                    itemCount: snapshot.data!.pdfList.length,
                     physics: ScrollPhysics(),
                     itemBuilder: (context, index) {
                       return Card(
@@ -109,7 +111,7 @@ class _NotesScreenState extends State<NotesScreen> {
                                         'https://w7.pngwing.com/pngs/466/409/png-transparent-pdf-computer-icons-adobe-acrobat-adobe-reader-others-miscellaneous-text-logo-thumbnail.png'),
                               ),
                               title: Text(
-                                snapshot.data.pdfList[index].title,
+                                snapshot.data!.pdfList[index].title!,
                                 style: TextStyle(
                                     fontSize: 16.0,
                                     fontWeight: FontWeight.bold,
@@ -121,9 +123,9 @@ class _NotesScreenState extends State<NotesScreen> {
                               ),
                               onTap: () {
                                 _navigateToPage(
-                                    title: snapshot.data.pdfList[index].title,
+                                    title: snapshot.data!.pdfList[index].title,
                                     child: SfPdfViewer.network(
-                                        snapshot.data.pdfList[index].pdf)
+                                        snapshot.data!.pdfList[index].pdf!)
 
                                     //  PDF.network(
                                     //     snapshot.data.pdfList[index].pdf),
@@ -144,7 +146,7 @@ class _NotesScreenState extends State<NotesScreen> {
     );
   }
 
-  Future<PdfModel> getData() async {
+  Future<PdfModel?> getData() async {
     internet = await Method.check();
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
@@ -153,17 +155,17 @@ class _NotesScreenState extends State<NotesScreen> {
     print("authorization_key" +
         ">>>>>>>>>>>>" +
         prefs.getString(KPrefs.TOKEN).toString());
-    print('service_id' + service_id);
+    print('service_id' + service_id!);
     print(lang);
     print(type);
-    print('sub_c' + sub_category_id);
+    print('sub_c' + sub_category_id!);
     // var body = {
     //   'topic_id': service_id,
     // };
     // final response = await http.post(
     //     'https://flawlessindia.co.in/drpanel/Course_api/Get_Course_PDF',
     //     body: body);
-    Map<String, String> body = {
+    Map<String, String?> body = {
       // 'access_token': prefs.getString(KPrefs.TOKEN).toString(),
       'service_id': service_id,
       'language': lang,

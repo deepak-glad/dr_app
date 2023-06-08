@@ -1,7 +1,7 @@
 class PlanModel {
-  List<Data> data;
-  String code;
-  String message;
+  List<Data>? data;
+  String? code;
+  String? message;
 
   PlanModel({this.data, this.code, this.message});
 
@@ -20,7 +20,7 @@ class PlanModel {
     data['code'] = this.code;
     data['message'] = this.message;
     if (this.data != null) {
-      data['PackageList'] = this.data.map((v) => v.toJson()).toList();
+      data['PackageList'] = this.data!.map((v) => v.toJson()).toList();
     }
     return data;
   }
@@ -28,13 +28,13 @@ class PlanModel {
 
 class Data {
 
-  String title;
-  String id;
-  String image;
-  String amount;
-  String description;
-  String valid_from;
-  String status;
+  String? title;
+  String? id;
+  String? image;
+  String? amount;
+  String? description;
+  String? valid_from;
+  String? status;
 
   Data(
       {

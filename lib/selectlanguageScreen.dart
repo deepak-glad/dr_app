@@ -1,10 +1,7 @@
 import 'dart:convert';
-import 'dart:ffi';
 import 'dart:io';
 
-import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:drkashikajain/HomeScreen.dart';
-import 'package:drkashikajain/primary_button.dart';
 import 'package:drkashikajain/utils/constants.dart';
 import 'package:drkashikajain/utils/method.dart';
 import 'package:flutter/material.dart';
@@ -12,8 +9,6 @@ import 'package:flutter_windowmanager/flutter_windowmanager.dart';
 import 'package:http/http.dart' as http;
 import 'package:url_launcher/url_launcher.dart';
 
-import 'RaisedGradientButton.dart';
-import 'RegistrationScreen.dart';
 import 'app_colors.dart';
 import 'custom_view/utils.dart';
 
@@ -291,7 +286,7 @@ class SelectLanguageScreenState extends State<SelectLanguageScreen> {
     );
   }
 
-  Widget continueButton(String mobile, String lan) {
+  Widget continueButton(String? mobile, String lan) {
     return TextButton(
         child: Text(
           '$lan:  +91 $mobile',
@@ -327,11 +322,11 @@ class SelectLanguageScreenState extends State<SelectLanguageScreen> {
       try {
         final response = await http.get(Uri.parse(
             KApiBase.SERVICE_BASE_URL + KApiEndPoints.app_dynamic_setting));
-        Map mapRes = json.decode(response.body.toString());
+        Map? mapRes = json.decode(response.body.toString());
         print("responseBody>>>>>>>>>>>" + mapRes.toString());
 
         if (response.statusCode == 200) {
-          if (mapRes['code'] == "200") {
+          if (mapRes!['code'] == "200") {
             setState(() {
               _isLoaded = false;
             });
@@ -351,7 +346,7 @@ class SelectLanguageScreenState extends State<SelectLanguageScreen> {
           throw Exception('Unable to fetch products from the REST API');
         }
       } catch (e) {
-        print("Exception rest api: " + e);
+        print("Exception rest api: " + e.toString());
       }
     }
   }

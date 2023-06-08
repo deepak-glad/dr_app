@@ -1,10 +1,13 @@
 import 'package:drkashikajain/custom_view/utils.dart';
 import 'package:flutter/material.dart';
 
-class BasePageRouteBuilder extends PageRouteBuilder {
-  BasePageRouteBuilder({this.routeName});
+ 
 
-  final String routeName;
+class BasePageRouteBuilder extends PageRouteBuilder {
+  final String? routeName;
+
+  BasePageRouteBuilder ({this.routeName, required RoutePageBuilder pageBuilder}) : super(pageBuilder: pageBuilder);
+
 
   @override
   RouteSettings get settings {
@@ -19,7 +22,7 @@ class BasePageRouteBuilder extends PageRouteBuilder {
 }
 
 class RouteAnimationNone extends PageRouteBuilder {
-  RouteAnimationNone({@required this.widget})
+  RouteAnimationNone({required this.widget})
       : super(pageBuilder: (BuildContext context, Animation<double> animation,
             Animation<double> secondaryAnimation) {
           return widget;
@@ -35,7 +38,7 @@ class RouteAnimationNone extends PageRouteBuilder {
 }
 
 class RouteAnimationNoneWithDuration extends PageRouteBuilder {
-  RouteAnimationNoneWithDuration({@required this.widget, @required this.animDuration})
+  RouteAnimationNoneWithDuration({required this.widget, required this.animDuration})
       : super(pageBuilder: (BuildContext context, Animation<double> animation,
             Animation<double> secondaryAnimation) {
           return widget;
@@ -55,7 +58,7 @@ class RouteAnimationSlideFromRight extends PageRouteBuilder {
   RouteAnimationSlideFromRight({this.widget, this.routeName})
       : super(pageBuilder: (BuildContext context, Animation<double> animation,
             Animation<double> secondaryAnimation) {
-          return widget;
+          return widget!;
         }, transitionsBuilder: (BuildContext context, Animation<double> animation,
             Animation<double> secondaryAnimation, Widget child) {
           return SlideTransition(
@@ -67,8 +70,8 @@ class RouteAnimationSlideFromRight extends PageRouteBuilder {
           );
         });
 
-  final Widget widget;
-  final String routeName;
+  final Widget? widget;
+  final String? routeName;
 
   @override
   RouteSettings get settings {
@@ -96,7 +99,7 @@ class RouteAnimationFadeIn extends PageRouteBuilder {
         });
 
   final Widget widget;
-  final String routeName;
+  final String? routeName;
   final bool shouldMaintainState;
 
   @override
@@ -117,13 +120,13 @@ class RouteAnimationFadeIn extends PageRouteBuilder {
 }
 
 class RouteAnimationSlideFromBottom extends PageRouteBuilder {
-  final Widget widget;
-  final String routeName;
+  final Widget? widget;
+  final String? routeName;
 
   RouteAnimationSlideFromBottom({this.widget, this.routeName})
       : super(pageBuilder: (BuildContext context, Animation<double> animation,
             Animation<double> secondaryAnimation) {
-          return widget;
+          return widget!;
         }, transitionsBuilder: (BuildContext context, Animation<double> animation,
             Animation<double> secondaryAnimation, Widget child) {
           return SlideTransition(

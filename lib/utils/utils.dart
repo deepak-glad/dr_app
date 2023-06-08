@@ -11,12 +11,12 @@ import 'constants.dart';
 
 // ignore: avoid_classes_with_only_static_members
 class Utils {
-  static BuildContext _loaderContext;
-  static BuildContext _loadingDialoContext;
+  static BuildContext? _loaderContext;
+  static BuildContext? _loadingDialoContext;
   static bool _isLoaderShowing = false;
   static bool _isLoadingDialogShowing = false;
-  static Timer toastTimer;
-  static OverlayEntry _overlayEntry;
+  static Timer? toastTimer;
+  static OverlayEntry? _overlayEntry;
 
 //  Checks
   static bool isNotEmpty(String s) {
@@ -54,7 +54,7 @@ class Utils {
     showCustomToast(context, message, bgColor: AppColors.snackBarColor);
   }
 
-  static void showErrorMessage(BuildContext context, String message) {
+  static void showErrorMessage(BuildContext context, String? message) {
     showCustomToast(context, message);
   }
 
@@ -63,14 +63,14 @@ class Utils {
     showCustomToast(context, message);
   }
 
-  static void showCustomToast(BuildContext context, String message,
+  static void showCustomToast(BuildContext context, String? message,
       {Color bgColor = AppColors.primaryColor}) {
-    if (toastTimer == null || !toastTimer.isActive) {
+    if (toastTimer == null || !toastTimer!.isActive) {
       _overlayEntry = createOverlayEntry(context, message, bgColor);
-      Overlay.of(context).insert(_overlayEntry);
+      Overlay.of(context).insert(_overlayEntry!);
       toastTimer = Timer(const Duration(seconds: 5), () {
         if (_overlayEntry != null) {
-          _overlayEntry.remove();
+          _overlayEntry!.remove();
         }
       });
     }
@@ -78,14 +78,14 @@ class Utils {
 
   static void hideLoader() {
     if (_isLoaderShowing && _loaderContext != null) {
-      Navigator.pop(_loaderContext);
+      Navigator.pop(_loaderContext!);
       _loaderContext = null;
     }
   }
 
   static void hideLoadingDialog() {
     if (_isLoadingDialogShowing && _loadingDialoContext != null) {
-      Navigator.pop(_loadingDialoContext);
+      Navigator.pop(_loadingDialoContext!);
       _loadingDialoContext = null;
     }
   }
@@ -102,7 +102,7 @@ class Utils {
 
   static Future<bool> onWillPop(BuildContext context) {
     final DateTime now = DateTime.now();
-    DateTime currentBackPressTime;
+    DateTime? currentBackPressTime;
     if (currentBackPressTime == null ||
         now.difference(currentBackPressTime) > const Duration(seconds: 2)) {
       currentBackPressTime = now;
@@ -112,7 +112,7 @@ class Utils {
     return Future.value(true);
   }
 
-  Future<String> sessionCheck() async {
+  Future<String?> sessionCheck() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
     prefs.getString(SharedPrefsKeys.USER_ID);
@@ -120,7 +120,7 @@ class Utils {
     return prefs.getString(SharedPrefsKeys.USER_ID);
   }
 
-  Future<String> sessionAccessKey() async {
+  Future<String?> sessionAccessKey() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
     prefs.getString(SharedPrefsKeys.USER_ACCESS_KEY);
@@ -128,7 +128,7 @@ class Utils {
     return prefs.getString(SharedPrefsKeys.USER_ACCESS_KEY);
   }
 
-  Future<int> sessionCartCount() async {
+  Future<int?> sessionCartCount() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
     prefs.getInt(SharedPrefsKeys.CART_ITEM_COUNT);
@@ -193,16 +193,16 @@ class Utils {
 }
 
 class Debouncer {
-  final int milliseconds;
-  VoidCallback action;
-  Timer _timer;
+  final int? milliseconds;
+  VoidCallback? action;
+  Timer? _timer;
 
   Debouncer({this.milliseconds});
 
   run(VoidCallback action) {
     if (_timer != null) {
-      _timer.cancel();
+      _timer!.cancel();
     }
-    _timer = Timer(Duration(milliseconds: milliseconds), action);
+    _timer = Timer(Duration(milliseconds: milliseconds!), action);
   }
 }

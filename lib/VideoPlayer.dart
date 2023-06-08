@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:video_player/video_player.dart';
 
 class ChewieDemo extends StatefulWidget {
-  String video;
+  String? video;
   ChewieDemo(this.video);
 
   // ignore: use_key_in_widget_constructors
@@ -16,10 +16,10 @@ class ChewieDemo extends StatefulWidget {
 }
 
 class _ChewieDemoState extends State<ChewieDemo> {
-  String video;
+  String? video;
   _ChewieDemoState(this.video);
-  VideoPlayerController _videoPlayerController1;
-  ChewieController _chewieController;
+  late VideoPlayerController _videoPlayerController1;
+  ChewieController? _chewieController;
 
   @override
   void initState() {
@@ -34,21 +34,21 @@ class _ChewieDemoState extends State<ChewieDemo> {
   }
 
   Future<void> initializePlayer() async {
-    _videoPlayerController1 = VideoPlayerController.network(video);
+    _videoPlayerController1 = VideoPlayerController.network(video!);
     await Future.wait([
       _videoPlayerController1.initialize(),
     ]);
     _chewieController = ChewieController(
         deviceOrientationsAfterFullScreen: [DeviceOrientation.portraitUp],
         videoPlayerController: _videoPlayerController1,
-        aspectRatio: _videoPlayerController1.value?.aspectRatio,
+        aspectRatio: _videoPlayerController1.value.aspectRatio,
         autoPlay: true,
         looping: true,
         routePageBuilder: (BuildContext context, Animation<double> animation,
             Animation<double> secondAnimation, provider) {
           return AnimatedBuilder(
             animation: animation,
-            builder: (BuildContext context, Widget child) {
+            builder: (BuildContext context, Widget? child) {
               return Scaffold(
                 // resizeToAvoidBottomPadding: false,
                 body: Container(
@@ -87,10 +87,10 @@ class _ChewieDemoState extends State<ChewieDemo> {
               Expanded(
                 child: Center(
                   child: _chewieController != null &&
-                          _chewieController
+                          _chewieController!
                               .videoPlayerController.value.isInitialized
                       ? Chewie(
-                          controller: _chewieController,
+                          controller: _chewieController!,
                         )
                       : Column(
                           mainAxisAlignment: MainAxisAlignment.center,

@@ -8,6 +8,7 @@ import 'package:drkashikajain/selectlanguageScreen.dart';
 import 'package:drkashikajain/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
 import 'custom_view/route_animations.dart';
 
 class SplashPage extends StatefulWidget {
@@ -17,11 +18,11 @@ class SplashPage extends StatefulWidget {
 
 class _SplashPageState extends State<SplashPage> {
   var splashDuration = 2000;
-  double screenHeight;
-  double screenWidth;
+  double? screenHeight;
+  double? screenWidth;
 
   @override
-  Future<void> initState() {
+  Future<void> initState() async {
     super.initState();
     _checkRealDevice();
     startCountdownTimer();

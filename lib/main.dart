@@ -19,7 +19,7 @@ void main() async {
   messaging = FirebaseMessaging.instance;
   messaging.getToken().then((value) {
     print(value);
-    prefs.setString('device_token', value);
+    prefs.setString('device_token', value!);
   });
   messaging.setForegroundNotificationPresentationOptions();
   AwesomeNotifications().initialize('resource://drawable/new_logo', [
@@ -36,7 +36,7 @@ void main() async {
   FirebaseMessaging.onMessage.listen((RemoteMessage message) {
     print("message recieved");
     // var id = new DateTime.now().millisecondsSinceEpoch.remainder(1);
-    int id = Random().nextInt(pow(2, 31) - 1);
+    int id = Random().nextInt(pow(2, 31) - 1 as int);
     AwesomeNotifications().createNotification(
         content: NotificationContent(
             displayOnForeground: true,
@@ -64,7 +64,7 @@ void main() async {
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   print("Handling a background message: ${message.messageId}");
   print(message.data);
-  int id = Random().nextInt(pow(2, 31) - 1);
+  int id = Random().nextInt(pow(2, 31) - 1 as int);
   //firebase push notification
   // AwesomeNotifications().createNotificationFromJsonData(message.data);
   AwesomeNotifications().createNotification(
@@ -82,7 +82,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
         builder: (context, child) {
           return MediaQuery(
-            child: child,
+            child: child!,
             data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
           );
         },

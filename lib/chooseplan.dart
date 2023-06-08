@@ -7,17 +7,18 @@ import 'package:drkashikajain/utils/method.dart';
 import 'package:drkashikajain/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:http/http.dart' as http;
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:http/http.dart' as http;
+
 import 'app_colors.dart';
 import 'model/plans.dart';
 import 'terms_condition.dart';
 
 // ignore: must_be_immutable
 class ChoosePlanScreen extends StatefulWidget {
-  String service_id;
-  String lang;
+  String? service_id;
+  String? lang;
   String type;
 
   ChoosePlanScreen(this.service_id, this.lang, this.type);
@@ -28,32 +29,32 @@ class ChoosePlanScreen extends StatefulWidget {
 }
 
 class _ChoosePlanScreenState extends State<ChoosePlanScreen> {
-  String service_id;
-  String lang;
+  String? service_id;
+  String? lang;
   String type;
-  String plan_id = "";
-  String valid;
-  String title;
+  String? plan_id = "";
+  String? valid;
+  String? title;
   double amount = 0.0;
   double discount = 0.0;
   var _promocodeTextFormField;
-  double promo_amount;
+  late double promo_amount;
   var transectionId;
   bool isTermsSelected = false;
 
   _ChoosePlanScreenState(this.service_id, this.lang, this.type);
 
-  String userId;
-  String addressId;
-  int value;
+  String? userId;
+  String? addressId;
+  int? value;
 
   // AddressBloc addressBloc;
   int listIndex = 0;
   bool internet = true;
   bool checkedValue = false;
   bool _isLoaded = false;
-  Future<PlanModel> planlist;
-  Razorpay _razorpay;
+  late Future<PlanModel?> planlist;
+  late Razorpay _razorpay;
 
   @override
   void initState() {
@@ -344,7 +345,7 @@ class _ChoosePlanScreenState extends State<ChoosePlanScreen> {
           ),
           Container(
               margin: EdgeInsets.only(top: 20),
-              child: FutureBuilder<PlanModel>(
+              child: FutureBuilder<PlanModel?>(
                   future: planlist,
                   builder: (context, snapshot) {
                     // print(widget.service_id);
@@ -356,7 +357,7 @@ class _ChoosePlanScreenState extends State<ChoosePlanScreen> {
                             onRefresh: getPlanData,
                             child: ListView.builder(
                                 shrinkWrap: true,
-                                itemCount: snapshot.data.data.length,
+                                itemCount: snapshot.data!.data!.length,
                                 physics: AlwaysScrollableScrollPhysics(),
                                 itemBuilder: (BuildContext context, int index) {
                                   return Container(
@@ -370,24 +371,24 @@ class _ChoosePlanScreenState extends State<ChoosePlanScreen> {
                                               child: RadioListTile(
                                                   value: index,
                                                   title: Text(snapshot
-                                                      .data.data[index].title),
+                                                      .data!.data![index].title!),
                                                   groupValue: value,
-                                                  onChanged: (ind) {
+                                                  onChanged: (dynamic ind) {
                                                     setState(() {
                                                       value = ind;
                                                       plan_id = snapshot
-                                                          .data.data[index].id;
+                                                          .data!.data![index].id;
                                                       valid = snapshot
-                                                          .data
-                                                          .data[index]
+                                                          .data!
+                                                          .data![index]
                                                           .valid_from;
-                                                      title = snapshot.data
-                                                          .data[index].title;
+                                                      title = snapshot.data!
+                                                          .data![index].title;
                                                       amount = double.parse(
                                                           snapshot
-                                                              .data
-                                                              .data[index]
-                                                              .amount);
+                                                              .data!
+                                                              .data![index]
+                                                              .amount!);
                                                       print(valid);
 
                                                       /*    address_id = snapshot
@@ -405,8 +406,8 @@ class _ChoosePlanScreenState extends State<ChoosePlanScreen> {
                                                     EdgeInsets.only(right: 15),
                                                 child: Text(
                                                   "Rs. " +
-                                                      snapshot.data.data[index]
-                                                          .amount,
+                                                      snapshot.data!.data![index]
+                                                          .amount!,
                                                   style: TextStyle(
                                                       fontSize: 16,
                                                       color: AppColors
@@ -489,7 +490,7 @@ class _ChoosePlanScreenState extends State<ChoosePlanScreen> {
 
   bool _isEmpty = false;
 
-  Future<PlanModel> getPlanData() async {
+  Future<PlanModel?> getPlanData() async {
     print(lang);
     internet = await Method.check();
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -500,7 +501,7 @@ class _ChoosePlanScreenState extends State<ChoosePlanScreen> {
         ">>>>>>>>>>>>" +
         prefs.getString(KPrefs.TOKEN).toString());
 
-    Map<String, String> body = {
+    Map<String, String?> body = {
       'access_token': prefs.getString(KPrefs.TOKEN).toString(),
       'service_id': service_id,
       'language': lang
@@ -527,7 +528,7 @@ class _ChoosePlanScreenState extends State<ChoosePlanScreen> {
   }
 
   // bool _isPromoCodeApplied = false;
-  var codeName = '';
+  String? codeName = '';
 
   Future<void> applyPromoCode() async {
     internet = await Method.check();
@@ -540,7 +541,7 @@ class _ChoosePlanScreenState extends State<ChoosePlanScreen> {
         prefs.getString(KPrefs.TOKEN).toString());
     print(_promocodeTextFormField.text);
 
-    Map<String, String> body = {
+    Map<String, String?> body = {
       'access_token': prefs.getString(KPrefs.TOKEN).toString(),
       'service_id': service_id,
       'promo_code': _promocodeTextFormField.text,
@@ -549,7 +550,7 @@ class _ChoosePlanScreenState extends State<ChoosePlanScreen> {
         Uri.parse(KApiBase.SERVICE_BASE_URL + KApiEndPoints.CheckPromoCode),
         body: body);
     print("mapres" + response.toString());
-    Map mapRes = json.decode(response.body);
+    Map? mapRes = json.decode(response.body);
     print("response body" + mapRes.toString());
 
     if (response.statusCode == 200) {
@@ -558,7 +559,7 @@ class _ChoosePlanScreenState extends State<ChoosePlanScreen> {
       //     _isPromoCodeApplied = true;
       //   });
       // }
-      if (mapRes['code'] == '200') {
+      if (mapRes!['code'] == '200') {
         setState(() {
           _isLoaded = false;
 
@@ -580,7 +581,7 @@ class _ChoosePlanScreenState extends State<ChoosePlanScreen> {
         Utils.showErrorMessage(context, mapRes['message']);
       }
     } else {
-      Utils.showErrorMessage(context, mapRes['message']);
+      Utils.showErrorMessage(context, mapRes!['message']);
     }
   }
 
@@ -600,7 +601,7 @@ class _ChoosePlanScreenState extends State<ChoosePlanScreen> {
     try {
       _razorpay.open(options);
     } catch (e) {
-      debugPrint(e);
+      debugPrint(e.toString());
     }
   }
 
@@ -640,14 +641,14 @@ class _ChoosePlanScreenState extends State<ChoosePlanScreen> {
     print("authorization_key" +
         ">>>>>>>>>>>>" +
         prefs.getString(KPrefs.TOKEN).toString());
-    print("service_id" + ">>" + service_id);
-    print("plan_id" + ">>" + plan_id);
-    print("title" + ">>" + title);
+    print("service_id" + ">>" + service_id!);
+    print("plan_id" + ">>" + plan_id!);
+    print("title" + ">>" + title!);
     print("amount" + ">>" + amount.toString());
-    print("valid_from" + ">>" + valid);
+    print("valid_from" + ">>" + valid!);
     print("transection_id" + ">>" + transectionId.toString());
 
-    Map<String, String> body = {
+    Map<String, String?> body = {
       'access_token': prefs.getString(KPrefs.TOKEN).toString(),
       'service_id': service_id,
       'plan_id': plan_id,
@@ -662,11 +663,11 @@ class _ChoosePlanScreenState extends State<ChoosePlanScreen> {
             KApiBase.SERVICE_BASE_URL + KApiEndPoints.PurchasePackagePlan),
         body: body);
     print("mapres" + response.toString());
-    Map mapRes = json.decode(response.body);
+    Map? mapRes = json.decode(response.body);
     print("response body" + mapRes.toString());
 
     if (response.statusCode == 200) {
-      if (mapRes['code'] == "200") {
+      if (mapRes!['code'] == "200") {
         Utils.showErrorMessage(context, mapRes['message']);
         Navigator.pop(context);
         setState(() {
@@ -682,7 +683,7 @@ class _ChoosePlanScreenState extends State<ChoosePlanScreen> {
   }
 
   _continueButtonTap() {
-    if (plan_id.isEmpty) {
+    if (plan_id!.isEmpty) {
       Utils.showErrorMessage(context, "Please Select Offer");
     } else if (_promocodeTextFormField.text.isEmpty) {
       Utils.showErrorMessage(context, "Please Enter Promo code");
@@ -695,7 +696,7 @@ class _ChoosePlanScreenState extends State<ChoosePlanScreen> {
 
   _payButtonTap() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    if (plan_id.isEmpty) {
+    if (plan_id!.isEmpty) {
       Utils.showErrorMessage(context, "Please Select Offer");
     } else if (!isTermsSelected) {
       Utils.showErrorMessage(context,
