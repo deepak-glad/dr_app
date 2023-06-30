@@ -73,8 +73,10 @@ class _DemoVideosScreenState extends State<DemoVideosScreen> {
         FutureBuilder<DemoVideos?>(
             future: demovideos,
             builder: (context, snapshot) {
-              if (!_isLoaded) {
-                if (snapshot.hasData) {
+              if(snapshot.connectionState== ConnectionState.waiting || _isLoaded){
+                      return Method.loadingView(context);
+              }
+                else if (snapshot.hasData) {
                   return ListView.builder(
                     scrollDirection: Axis.vertical,
                     shrinkWrap: true,
@@ -134,12 +136,16 @@ class _DemoVideosScreenState extends State<DemoVideosScreen> {
                       );
                     },
                   );
-                } else {
+                } 
+                // else if (_isLoaded){
+                //   return Method.loadingView(context);
+                // }
+                else {
                   return Method.nodata(context);
                 }
-              } else {
-                return Method.nodata(context);
-              }
+              // } else {
+              //   return Method.loadingView(context);
+              // }
             })
       ],
     );
