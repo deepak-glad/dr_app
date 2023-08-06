@@ -6,7 +6,7 @@ import 'package:drkashikajain/primary_button.dart';
 import 'package:drkashikajain/selectlanguageScreen.dart';
 import 'package:drkashikajain/utils/constants.dart';
 import 'package:drkashikajain/utils/method.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
+// import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
@@ -39,11 +39,11 @@ class RegistrationScreenState extends State<RegistrationScreen> {
   @override
   void initState() {
     super.initState();
-    FirebaseMessaging messaging;
-    messaging = FirebaseMessaging.instance;
-    messaging.getToken().then((value) {
-      deviceToken = value;
-    });
+    // FirebaseMessaging messaging;
+    // messaging = FirebaseMessaging.instance;
+    // messaging.getToken().then((value) {
+    //   deviceToken = value;
+    // });
     _nameTextController = TextEditingController();
     _emailTextController = TextEditingController();
     _cityTextController = TextEditingController();

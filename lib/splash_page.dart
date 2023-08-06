@@ -22,10 +22,17 @@ class _SplashPageState extends State<SplashPage> {
   double? screenWidth;
 
   @override
-  Future<void> initState() async {
+  void initState()  {
     super.initState();
-    _checkRealDevice();
-    startCountdownTimer();
+    onInit();
+   
+  }
+
+
+  onInit(){
+   _checkRealDevice();
+   startCountdownTimer();
+    
   }
 
   @override

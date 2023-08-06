@@ -14,17 +14,15 @@ import 'custom_view/utils.dart';
 
 class SelectLanguageScreen extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() {
-    // TODO: implement createState
-    return SelectLanguageScreenState();
-  }
+  State<StatefulWidget> createState()=> SelectLanguageScreenState();
+  
 }
 
 class SelectLanguageScreenState extends State<SelectLanguageScreen> {
   bool internet = true;
   bool _isLoaded = false;
-  var hindiMobile;
-  var englishmobile;
+  String? hindiMobile= '7017088338';
+  String? englishmobile= '9897121440';
   var fb;
   var twitter;
   var insta;

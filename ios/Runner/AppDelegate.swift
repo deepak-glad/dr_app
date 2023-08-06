@@ -1,6 +1,5 @@
 import UIKit
 import Flutter
-import Firebase
 
 @UIApplicationMain
 @objc class AppDelegate: FlutterAppDelegate {
@@ -20,7 +19,7 @@ import Firebase
         // 3
         prepareMethodHandler(deviceChannel: deviceChannel)
 
-    FirebaseApp.configure()
+    // FirebaseApp.configure()
     self.window.makeSecure() 
     GeneratedPluginRegistrant.register(with: self)
     return super.application(application, didFinishLaunchingWithOptions: launchOptions)

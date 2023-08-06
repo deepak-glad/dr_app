@@ -6,14 +6,13 @@ import 'package:drkashikajain/primary_button.dart';
 import 'package:drkashikajain/selectlanguageScreen.dart';
 import 'package:drkashikajain/utils/constants.dart';
 import 'package:drkashikajain/utils/method.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
+// import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
+
 import '../ForgetPasswordScreen.dart';
-import '../HomeScreen.dart';
-import '../RaisedGradientButton.dart';
 import '../RegistrationScreen.dart';
 import '../custom_view/route_animations.dart';
 import '../custom_view/utils.dart';
@@ -34,11 +33,11 @@ class LoginScreenState extends State<LoginScreen> {
   var deviceToken;
   @override
   void initState() {
-    FirebaseMessaging messaging;
-    messaging = FirebaseMessaging.instance;
-    messaging.getToken().then((value) {
-      deviceToken = value;
-    });
+    // FirebaseMessaging messaging;
+    // messaging = FirebaseMessaging.instance;
+    // messaging.getToken().then((value) {
+    //   deviceToken = value;
+    // });
     super.initState();
     _emailTextController = TextEditingController();
     _passwordTextController = TextEditingController();
@@ -234,14 +233,13 @@ class LoginScreenState extends State<LoginScreen> {
     print('devicename' + deviceName!);
     print('devicetype' + deviceType);
     print('identifier' + identifier!);
-    print('devicetoken' + deviceToken);
     print("email_or_phone>>>>>>>>>>>" + _emailTextController.text.toString());
     print("password>>>>>>>>>>>" + _passwordTextController.text.toString());
 
     Map<String, String?> body = {
       'user_email': _emailTextController.text.toString(),
       'password': _passwordTextController.text.toString(),
-      'device_token': deviceToken,
+      'device_token': deviceToken.toString()??"",
       'device_type': deviceType,
       'device_name': deviceName,
       'device_id': identifier,
