@@ -83,6 +83,9 @@ class _DemoVideosScreenState extends State<DemoVideosScreen> {
                     itemCount: snapshot.data!.data!.length,
                     physics: ScrollPhysics(),
                     itemBuilder: (context, index) {
+                            print('yadav  ${Method.getYoutubeVideoIdByURL(
+                                            snapshot.data!.data![index].video!)}');
+
                       return GestureDetector(
                         onTap: () {
                           if (snapshot.data!.data![index].content_type!
@@ -94,14 +97,12 @@ class _DemoVideosScreenState extends State<DemoVideosScreen> {
                                     builder: (context) => ChewieDemo(
                                         snapshot.data!.data![index].video)));
                           } else {
-                            // print(Method.getYoutubeVideoIdByURL(
-                            //     snapshot.data.data[index].video));
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => PlayVideoFromYoutube(
-                                        Method.getYoutubeVideoIdByURL(
-                                            snapshot.data!.data![index].video!))));
+                                        // Method.getYoutubeVideoIdByURL(
+                                            snapshot.data!.data![index].video!)));
                           }
                         },
                         child: Card(

@@ -12,14 +12,10 @@ class PlayVideoFromYoutube extends StatefulWidget {
 }
 
 class _PlayVideoFromVimeoIdState extends State<PlayVideoFromYoutube> {
-  late PodPlayerController controller;
+  late final PodPlayerController controller;
   @override
   void initState() {
-    controller = PodPlayerController(
-        playVideoFrom: PlayVideoFrom.youtube(widget.urls,
-            videoPlayerOptions: VideoPlayerOptions()),
-        podPlayerConfig: const PodPlayerConfig(
-            forcedVideoFocus: true, videoQualityPriority: [360]))..initialise();
+    init();
     super.initState();
   }
 
@@ -27,6 +23,15 @@ class _PlayVideoFromVimeoIdState extends State<PlayVideoFromYoutube> {
   void dispose() {
     controller.dispose();
     super.dispose();
+  }
+
+  init(){
+    controller = PodPlayerController(
+    playVideoFrom: PlayVideoFrom.youtube(widget.urls,
+    videoPlayerOptions: VideoPlayerOptions()),
+    podPlayerConfig: const PodPlayerConfig(forcedVideoFocus: true, videoQualityPriority: [360,720]))
+    ..initialise();
+    controller.initialise();
   }
 
   @override
@@ -43,43 +48,8 @@ class _PlayVideoFromVimeoIdState extends State<PlayVideoFromYoutube> {
     super.didChangeDependencies();
   }
 
-  // String valueNative = '';
-  // var platform = MethodChannel('flutter.native/helper');
-  // static const platformChannel = MethodChannel('flutter.methodChannel/iOS');
-  // Future<void> changeColor() async {
-  //   var fromNative;
-  //   if (Platform.isAndroid) {
-  //     fromNative = await platform.invokeMethod('getData', null);
-  //   } else {
-  //     fromNative = await platformChannel.invokeMethod('getDataIOs');
-  //   }
-  //   // await Permission.microphone.request().then((value) async {
-  //   //   print('dkkk${value.toString()}');
-  //   //   if (value == PermissionStatus.granted) {
-  //   //     // Permission granted, disable it
-  //   //     await Permission.microphone.status.isDenied;
-  //   //   }
-  //   // });
-  //   setState(() {
-  //     valueNative = fromNative;
-  //   });
-  //   if (valueNative == '2') {
-  //     controller.mute();
-  //   } else {
-  //     controller.unMute();
-  //   }
-  // }
-
   @override
-  Widget build(BuildContext context) {
-    // controller.addListener(checkIsFinished);
-    // final ValueNotifier<bool> _isVideoFinished = useState(false);
-    //
-    // void checkIsFinished() {
-    //   _isVideoFinished.value = controller.isInitialised &&
-    //       controller.currentVideoPosition ==
-    //           controller.totalVideoLength;
-    // }
+  Widget build(BuildContext context) { 
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.black,
@@ -97,6 +67,7 @@ class _PlayVideoFromVimeoIdState extends State<PlayVideoFromYoutube> {
             mainAxisAlignment: MainAxisAlignment.center,
             // alignment: Alignment.bottomCenter,
             children: [
+              
               PodVideoPlayer(
                 podProgressBarConfig: PodProgressBarConfig(
                     playingBarColor: Colors.blue,
