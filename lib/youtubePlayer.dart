@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:pod_player/pod_player.dart';
+import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class PlayVideoFromYoutube extends StatefulWidget {
   final String urls;
@@ -12,7 +12,9 @@ class PlayVideoFromYoutube extends StatefulWidget {
 }
 
 class _PlayVideoFromVimeoIdState extends State<PlayVideoFromYoutube> {
-  late final PodPlayerController controller;
+  // late final PodPlayerController controller;
+YoutubePlayerController ? controller;
+bool isFullScreen=false;
   @override
   void initState() {
     init();
@@ -21,29 +23,42 @@ class _PlayVideoFromVimeoIdState extends State<PlayVideoFromYoutube> {
 
   @override
   void dispose() {
-    controller.dispose();
+    controller?.dispose();
+    // SystemChrome.setPreferredOrientations(
+    //         [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
+            SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: SystemUiOverlay.values);
     super.dispose();
   }
 
+  // init(){
+  //   controller = PodPlayerController(
+  //   playVideoFrom: PlayVideoFrom.youtube(widget.urls,
+  //   videoPlayerOptions: VideoPlayerOptions()),
+  //   podPlayerConfig: const PodPlayerConfig(forcedVideoFocus: true, videoQualityPriority: [360,720]))
+  //   ..initialise();
+  //   controller.initialise();
+  // }
+
+
   init(){
-    controller = PodPlayerController(
-    playVideoFrom: PlayVideoFrom.youtube(widget.urls,
-    videoPlayerOptions: VideoPlayerOptions()),
-    podPlayerConfig: const PodPlayerConfig(forcedVideoFocus: true, videoQualityPriority: [360,720]))
-    ..initialise();
-    controller.initialise();
+    controller = YoutubePlayerController(
+    initialVideoId: YoutubePlayer.convertUrlToId('${widget.urls}?modestbranding=1')??"",
+    flags:const YoutubePlayerFlags(
+        autoPlay: true,
+        mute: true,
+    ));
   }
 
   @override
   void didChangeDependencies() {
-    controller.addListener(() {
-      if (controller.isInitialised &&
-          controller.currentVideoPosition == controller.totalVideoLength) {
-        SystemChrome.setPreferredOrientations(
-            [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
-        Navigator.of(context).pop(context);
-      }
-    });
+    // controller?.addListener(() {
+    //   if (controller.isInitialised &&
+    //       controller.currentVideoPosition == controller.totalVideoLength) {
+        // SystemChrome.setPreferredOrientations(
+        //     [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
+    //     Navigator.of(context).pop(context);
+    //   }
+    // });
 
     super.didChangeDependencies();
   }
@@ -51,7 +66,8 @@ class _PlayVideoFromVimeoIdState extends State<PlayVideoFromYoutube> {
   @override
   Widget build(BuildContext context) { 
     return Scaffold(
-      appBar: AppBar(
+
+      appBar:isFullScreen?null: AppBar(
         backgroundColor: Colors.black,
         title: const Text(''),
         leading: IconButton(
@@ -63,28 +79,57 @@ class _PlayVideoFromVimeoIdState extends State<PlayVideoFromYoutube> {
       ),
       body: Container(
         color: Colors.black,
-        child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+        child: Stack(
+          alignment: Alignment.bottomCenter,
+            // mainAxisAlignment: MainAxisAlignment.center,
             // alignment: Alignment.bottomCenter,
             children: [
               
-              PodVideoPlayer(
-                podProgressBarConfig: PodProgressBarConfig(
-                    playingBarColor: Colors.blue,
-                    bufferedBarColor: Colors.grey,
-                    backgroundColor: Colors.white,
-                    circleHandlerColor: Colors.blue),
-                controller: controller,
+              // PodVideoPlayer(
+              //   podProgressBarConfig: PodProgressBarConfig(
+              //       playingBarColor: Colors.blue,
+              //       bufferedBarColor: Colors.grey,
+              //       backgroundColor: Colors.white,
+              //       circleHandlerColor: Colors.blue),
+              //   controller: controller,
 
-                matchVideoAspectRatioToFrame: true,
-                matchFrameAspectRatioToVideo: true,
-                // overlayBuilder:(options) {
+              //   matchVideoAspectRatioToFrame: true,
+              //   matchFrameAspectRatioToVideo: true,
+              //   // overlayBuilder:(options) {
 
-                // },
-              ),
+              //   // },
+              // ),
+
+               Center(
+                 child: YoutubePlayerBuilder(
+                  onEnterFullScreen:() {
+                     setState(() {
+                    isFullScreen=true;    
+                    }); },
+                  onExitFullScreen: () {
+                     setState(() {
+                    isFullScreen=false;                     
+                    }); },
+                  player: YoutubePlayer(
+                  controller:controller!,
+                  ),
+                  builder: (context, player){
+                      return Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                         children: [
+                          player
+                        ],
+                      );}
+                      ),
+               ),
+               if(!isFullScreen)
               TextButton.icon(
                   onPressed: () {
-                    controller.enableFullScreen();
+                    controller!.toggleFullScreenMode();
+                    setState(() {
+                    isFullScreen=true;
+                      
+                    });
                   },
                   label: Text(
                     'Full Screen',
