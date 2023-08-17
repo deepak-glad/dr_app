@@ -12,14 +12,14 @@
     android:usesCleartextTraffic="true"
     android:allowAudioPlaybackCapture="false"
   >
-    <meta-data
+    <!-- <meta-data
       android:name="com.google.firebase.messaging.default_notification_icon"
       android:resource="@drawable/launcher"
     />
     <meta-data
       android:name="com.google.firebase.messaging.default_notification_color"
       android:resource="@color/colorAccent"
-    />
+    /> -->
     
         <activity
       android:name=".MainActivity"

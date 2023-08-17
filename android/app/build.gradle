@@ -82,7 +82,7 @@ flutter {
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'com.android.support:multidex:2.0.1'
-    implementation 'com.google.firebase:firebase-inappmessaging-display:19.1.5'
+    // implementation 'com.google.firebase:firebase-inappmessaging-display:19.1.5'
 }
 
 apply plugin: 'com.google.gms.google-services'
