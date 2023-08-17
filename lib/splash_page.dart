@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:drkashikajain/login/LoginScreen.dart';
+import 'package:drkashikajain/no_data_found.dart';
 import 'package:drkashikajain/selectlanguageScreen.dart';
 import 'package:drkashikajain/utils/constants.dart';
 import 'package:flutter/material.dart';
@@ -98,10 +99,9 @@ class _SplashPageState extends State<SplashPage> {
 
   Future<void> navigateToPage() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    // if (!isRealDevice) {
-    //   Navigator.pushAndRemoveUntil(context, RouteAnimationSlideFromRight(widget: RealDevice(), routeName: ""),(Route<dynamic> route) => false);
-    // } else
-     if (prefs.getString(KPrefs.USER_ID) != null) {
+    if (!isRealDevice) {
+      Navigator.pushAndRemoveUntil(context, RouteAnimationSlideFromRight(widget: RealDevice(), routeName: ""),(Route<dynamic> route) => false);
+    } else if (prefs.getString(KPrefs.USER_ID) != null) {
       Navigator.pushAndRemoveUntil(context, RouteAnimationSlideFromRight(widget: SelectLanguageScreen(), routeName: ""),(Route<dynamic> route) => false);
     } else {
       Navigator.pushAndRemoveUntil(context,RouteAnimationSlideFromRight(widget: LoginScreen(), routeName: ""),(Route<dynamic> route) => false);

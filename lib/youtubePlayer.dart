@@ -24,9 +24,7 @@ bool isFullScreen=false;
   @override
   void dispose() {
     controller?.dispose();
-    // SystemChrome.setPreferredOrientations(
-    //         [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
-            SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: SystemUiOverlay.values);
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: SystemUiOverlay.values);
     super.dispose();
   }
 
@@ -42,10 +40,12 @@ bool isFullScreen=false;
 
   init(){
     controller = YoutubePlayerController(
-    initialVideoId: YoutubePlayer.convertUrlToId('${widget.urls}?modestbranding=1')??"",
+    initialVideoId: YoutubePlayer.convertUrlToId(widget.urls)??"",
     flags:const YoutubePlayerFlags(
         autoPlay: true,
-        mute: true,
+        forceHD:true,
+        mute: false,
+        hideThumbnail:true,
     ));
   }
 
@@ -102,6 +102,7 @@ bool isFullScreen=false;
 
                Center(
                  child: YoutubePlayerBuilder(
+                  
                   onEnterFullScreen:() {
                      setState(() {
                     isFullScreen=true;    
@@ -112,6 +113,11 @@ bool isFullScreen=false;
                     }); },
                   player: YoutubePlayer(
                   controller:controller!,
+                  onEnded:(metaData) {
+                    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: SystemUiOverlay.values);
+                    Navigator.pop(context);
+
+                  },
                   ),
                   builder: (context, player){
                       return Column(

@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:drkashikajain/VideoPlayer.dart';
@@ -5,6 +6,7 @@ import 'package:drkashikajain/utils/constants.dart';
 import 'package:drkashikajain/utils/method.dart';
 import 'package:drkashikajain/youtubePlayer.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -102,7 +104,11 @@ class _DemoVideosScreenState extends State<DemoVideosScreen> {
                                 MaterialPageRoute(
                                     builder: (context) => PlayVideoFromYoutube(
                                         // Method.getYoutubeVideoIdByURL(
-                                            snapshot.data!.data![index].video!)));
+                                            snapshot.data!.data![index].video!))).then((value) {
+                                              print('deepak$value');
+                                             SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: SystemUiOverlay.values);
+                                            });
+
                           }
                         },
                         child: Card(
