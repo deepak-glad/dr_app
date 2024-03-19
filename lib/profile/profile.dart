@@ -7,6 +7,7 @@ import 'package:drkashikajain/primary_button.dart';
 import 'package:drkashikajain/utils/constants.dart';
 import 'package:drkashikajain/utils/method.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -55,20 +56,18 @@ class ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      body: SafeArea(
-        child: Container(
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage("images/back.png"),
-              fit: BoxFit.cover,
-            ),
+      body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("images/back.png"),
+            fit: BoxFit.cover,
           ),
-          child: Form(
-            child: ListView(
-              shrinkWrap: false,
-              physics: const AlwaysScrollableScrollPhysics(),
-              children: <Widget>[_loginWidgeta()],
-            ),
+        ),
+        child: Form(
+          child: ListView(
+            shrinkWrap: false,
+            physics: const AlwaysScrollableScrollPhysics(),
+            children: <Widget>[_loginWidgeta()],
           ),
         ),
       ),
@@ -96,14 +95,23 @@ class ProfileScreenState extends State<ProfileScreen> {
               ),
             ),
             GestureDetector(
-              onTap: () {
-                _showLogoutDialog();
-              },
+              onTap: () => _showLogoutDialog(),
               child: Container(
                 margin: EdgeInsets.only(top: 20, right: 20, left: 15),
                 alignment: Alignment.topRight,
                 child: Icon(
                   Icons.power_settings_new_outlined,
+                  color: AppColors.white,
+                ),
+              ),
+            ),
+              GestureDetector(
+              onTap: () => _showDeleteDialog(),
+              child: Container(
+                margin: EdgeInsets.only(top: 20, right: 20, left: 15),
+                alignment: Alignment.topRight,
+                child: Icon(
+                  Icons.delete,
                   color: AppColors.white,
                 ),
               ),
@@ -374,6 +382,31 @@ class ProfileScreenState extends State<ProfileScreen> {
       },
     );
   }
+   _showDeleteDialog() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Delete', style: TextStyle(fontSize: 22.0, fontWeight: FontWeight.w700,color: AppColors.snackBarRed)),
+          content: Text('Are you sure you want to delete account?',
+              style: tsMediumTextGrey40Primary16),
+          contentTextStyle: tsMediumTextGrey40Primary16,
+          actions: <Widget>[
+            TextButton(
+                child: Text('Yes', style: tsMediumTextDarkGrey16),
+                onPressed: ()  => deleteAccount()),
+            TextButton(
+              child: Text('No', style: tsMediumTextDarkGrey16),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
 
   void navigateToPage() {
     Navigator.pushAndRemoveUntil(
@@ -419,6 +452,52 @@ class ProfileScreenState extends State<ProfileScreen> {
             });
             Utils.showErrorMessage(context, mapRes['message']);
           }
+        } else {
+          throw Exception('Unable to fetch products from the REST API');
+        }
+      } catch (e) {
+        print("Exception rest api: " + e.toString());
+      }
+    }
+  }
+
+
+    Future<void> deleteAccount() async {
+    internet = await Method.check();
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+   
+    setState(() {
+      _isLoaded = true;
+    });
+
+    if (internet) {
+      try {
+        Map<String, String> body = {
+          'access_token': prefs.getString(KPrefs.TOKEN).toString(),
+        };
+        final response = await http.post(
+            Uri.parse(KApiBase.BASE_URL + KApiEndPoints.deleteUserAccount),
+            body: body);
+        Map? mapRes = json.decode(response.body.toString());
+        print("responseBody>>>>>>>>>>>" + mapRes.toString());
+
+        if (response.statusCode == 200) {
+          //  if (mapRes['code'] == "200") {
+          setState(() {
+            _isLoaded = false;
+          });
+ SharedPreferences preferences =
+                      await SharedPreferences.getInstance();
+                  await preferences.clear();
+                  //await preferences.commit();
+                  navigateToPage();
+
+          /* } else {
+            setState(() {
+              _isLoaded = false;
+            });
+            Utils.showErrorMessage(context, mapRes['message']);
+          }*/
         } else {
           throw Exception('Unable to fetch products from the REST API');
         }

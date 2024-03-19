@@ -1,3 +1,4 @@
+import 'package:drkashikajain/app_colors.dart';
 import 'package:drkashikajain/splash_page.dart';
 // import 'package:firebase_core/firebase_core.dart';
 // import 'package:firebase_messaging/firebase_messaging.dart';
@@ -72,7 +73,19 @@ void main() async {
 //           body: message.data['body']));
 // }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> with WidgetsBindingObserver{
+    @override
+  void initState() {
+    WidgetsBinding.instance.addObserver(this);
+    // SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp, DeviceOrientation.portraitUp]);
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(statusBarColor: AppColors.primaryColor));
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

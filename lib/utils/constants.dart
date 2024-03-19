@@ -59,6 +59,7 @@ class KApiEndPoints {
   static const API_SIGN_UP = 'sign_up';
   static const CheckPromoCode = 'CheckPromoCode';
   static const PurchasePackagePlan = 'PurchasePackagePlan';
+  static const deleteUserAccount = 'deleteUserAccount';
 
   static const update_password = 'api/user/password/update';
 }

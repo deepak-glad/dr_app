@@ -85,9 +85,7 @@ class _DemoVideosScreenState extends State<DemoVideosScreen> {
                     itemCount: snapshot.data!.data!.length,
                     physics: ScrollPhysics(),
                     itemBuilder: (context, index) {
-                            print('yadav  ${Method.getYoutubeVideoIdByURL(
-                                            snapshot.data!.data![index].video!)}');
-
+                          
                       return GestureDetector(
                         onTap: () {
                           if (snapshot.data!.data![index].content_type!

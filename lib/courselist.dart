@@ -53,6 +53,7 @@ class CourseListScreenState extends State<CourseListScreen> {
     return new Scaffold(
         appBar: AppBar(
           elevation: 0,
+          backgroundColor: AppColors.primaryColor,
         ),
         body: _isLoaded
             ? Center(
