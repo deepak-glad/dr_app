@@ -240,5 +240,6 @@ class MySubscriptionScreenState extends State<MySubscriptionScreen> {
 
       return Subscriptions.fromJson(json.decode(response.body));
     }
+    return null;
   }
 }

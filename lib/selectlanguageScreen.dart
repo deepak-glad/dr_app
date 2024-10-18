@@ -3,7 +3,6 @@ import 'dart:io';
 
 import 'package:drkashikajain/HomeScreen.dart';
 import 'package:drkashikajain/utils/constants.dart';
-import 'package:drkashikajain/utils/method.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_windowmanager/flutter_windowmanager.dart';
 import 'package:http/http.dart' as http;

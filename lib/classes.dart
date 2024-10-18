@@ -183,5 +183,6 @@ class ClassesScreenState extends State<ClassesScreen> {
 
       return SubService.fromJson(json.decode(response.body));
     }
+    return null;
   }
 }

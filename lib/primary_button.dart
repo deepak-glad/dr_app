@@ -1,7 +1,6 @@
 import 'package:drkashikajain/strings.dart';
 import 'package:drkashikajain/styles.dart';
 import 'package:drkashikajain/transparent_inkwell.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'app_colors.dart';

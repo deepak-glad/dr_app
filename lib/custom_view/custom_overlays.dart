@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../app_colors.dart';
-import 'widget_animations.dart';
 
 OverlayEntry createOverlayEntry(
     BuildContext context, String? message, Color bgColor) {

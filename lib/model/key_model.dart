@@ -2,7 +2,6 @@
 //
 //     final keyModel = keyModelFromJson(jsonString);
 
-import 'package:meta/meta.dart';
 import 'dart:convert';
 
 KeyModel keyModelFromJson(String str) => KeyModel.fromJson(json.decode(str));

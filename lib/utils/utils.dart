@@ -20,7 +20,7 @@ class Utils {
 
 //  Checks
   static bool isNotEmpty(String s) {
-    return s != null && s.trim().isNotEmpty;
+    return s.trim().isNotEmpty;
   }
 
   static Future<bool> check() async {
@@ -38,7 +38,7 @@ class Utils {
   }
 
   static bool isListNotEmpty(List<dynamic> list) {
-    return list != null && list.isNotEmpty;
+    return list.isNotEmpty;
   }
 
   //  Views

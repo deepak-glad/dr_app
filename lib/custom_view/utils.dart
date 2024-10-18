@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../app_colors.dart';
@@ -24,7 +23,7 @@ class Utils {
   }
 
   static bool isListNotEmpty(List<dynamic> list) {
-    return list != null && list.isNotEmpty;
+    return list.isNotEmpty;
   }
 
   //  Views

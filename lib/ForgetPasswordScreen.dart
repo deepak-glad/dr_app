@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:drkashikajain/primary_button.dart';
 import 'package:drkashikajain/utils/constants.dart';
-import 'package:drkashikajain/utils/method.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 

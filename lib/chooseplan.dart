@@ -523,6 +523,7 @@ class _ChoosePlanScreenState extends State<ChoosePlanScreen> {
 
       return PlanModel.fromJson(json.decode(response.body));
     }
+    return null;
   }
 
   // bool _isPromoCodeApplied = false;

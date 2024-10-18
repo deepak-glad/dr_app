@@ -17,8 +17,8 @@ class TransparentInkWell extends InkWell {
       double? radius,
       BorderRadius? borderRadius,
       ShapeBorder? customBorder,
-      bool enableFeedback: true,
-      bool excludeFromSemantics: false})
+      bool enableFeedback = true,
+      bool excludeFromSemantics = false})
       : super(
           key: key,
           child: child,

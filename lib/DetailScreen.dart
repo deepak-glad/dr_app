@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'ForgetPasswordScreen.dart';
-import 'RaisedGradientButton.dart';
-import 'RegistrationScreen.dart';
 
 class DetailScreen extends StatefulWidget {
   @override

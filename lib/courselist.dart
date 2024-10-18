@@ -1,5 +1,4 @@
 import 'package:drkashikajain/demovideo.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'app_colors.dart';
 import 'notes.dart';

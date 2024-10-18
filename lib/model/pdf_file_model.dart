@@ -1,4 +1,3 @@
-import 'package:meta/meta.dart';
 import 'dart:convert';
 
 PdfModel pdfModelFromJson(String str) => PdfModel.fromJson(json.decode(str));

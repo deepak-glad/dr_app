@@ -218,6 +218,7 @@ class HomeScreenState extends State<HomeScreen> {
 
       return Services.fromJson(json.decode(response.body));
     }
+    return null;
   }
 
   Future<KeyModel?> getRazorPayKey() async {
@@ -236,5 +237,6 @@ class HomeScreenState extends State<HomeScreen> {
 
       return KeyModel.fromJson(json.decode(response.body));
     }
+    return null;
   }
 }

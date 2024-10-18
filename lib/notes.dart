@@ -195,5 +195,6 @@ class _NotesScreenState extends State<NotesScreen> {
         Utils.showErrorMessage(context, "No Data Found");
       }
     }
+    return null;
   }
 }
