@@ -40,7 +40,6 @@ class CourseTypeScreenState extends State<CourseTypeScreen> {
     this.service_id = service_id;
   }
 
-  bool internet = true;
   bool _isLoaded = false;
   bool paidvisible = false;
   var hindiMobile;
@@ -411,12 +410,10 @@ class CourseTypeScreenState extends State<CourseTypeScreen> {
   }
 
   Future<void> getData() async {
-    internet = await Method.check();
     setState(() {
       _isLoaded = true;
     });
 
-    if (internet != null && internet) {
       try {
         final response = await http.get(Uri.parse(
             KApiBase.SERVICE_BASE_URL + KApiEndPoints.app_dynamic_setting));
@@ -446,11 +443,10 @@ class CourseTypeScreenState extends State<CourseTypeScreen> {
       } catch (e) {
         print("Exception rest api: " + e.toString());
       }
-    }
+    
   }
 
   Future<void> getPlanStatus() async {
-    internet = await Method.check();
     setState(() {
       _isLoaded = true;
     });
@@ -466,7 +462,6 @@ class CourseTypeScreenState extends State<CourseTypeScreen> {
       'access_token': prefs.getString(KPrefs.TOKEN).toString(),
       'service_id': service_id,
     };
-    if (internet != null && internet) {
       try {
         final response = await http.post(
             Uri.parse(
@@ -493,11 +488,16 @@ class CourseTypeScreenState extends State<CourseTypeScreen> {
             // Utils.showErrorMessage(context, mapRes['message']);
           }
         } else {
+            setState(() {
+              _isLoaded = false;
+            });
           throw Exception('Unable to fetch products from the REST API');
         }
       } catch (e) {
+          setState(() {
+              _isLoaded = false;
+            });
         print("Exception rest api: " + e.toString());
-      }
     }
   }
 

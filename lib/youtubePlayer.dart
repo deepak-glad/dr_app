@@ -1,3 +1,4 @@
+import 'package:drkashikajain/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
@@ -74,7 +75,7 @@ bool isFullScreen=false;
           onPressed: () {
             Navigator.pop(context);
           },
-          icon: Icon(Icons.close),
+          icon: Icon(Icons.close,color: AppColors.white),
         ),
       ),
       body: Container(

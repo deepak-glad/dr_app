@@ -50,7 +50,6 @@ class _ChoosePlanScreenState extends State<ChoosePlanScreen> {
 
   // AddressBloc addressBloc;
   int listIndex = 0;
-  bool internet = true;
   bool checkedValue = false;
   bool _isLoaded = false;
   late Future<PlanModel?> planlist;
@@ -492,7 +491,6 @@ class _ChoosePlanScreenState extends State<ChoosePlanScreen> {
 
   Future<PlanModel?> getPlanData() async {
     print(lang);
-    internet = await Method.check();
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
       _isLoaded = true;
@@ -531,7 +529,6 @@ class _ChoosePlanScreenState extends State<ChoosePlanScreen> {
   String? codeName = '';
 
   Future<void> applyPromoCode() async {
-    internet = await Method.check();
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
       _isLoaded = true;
@@ -633,7 +630,6 @@ class _ChoosePlanScreenState extends State<ChoosePlanScreen> {
   }
 
   Future<void> confirmPayment() async {
-    internet = await Method.check();
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
       _isLoaded = true;

@@ -39,7 +39,6 @@ class _NotesScreenState extends State<NotesScreen> {
   final TextEditingController _followingTextEditingController =
       TextEditingController();
   bool isUserSearching = false;
-  bool internet = true;
   bool _isLoaded = false;
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   void _navigateToPage({String? title, Widget? child}) {
@@ -147,7 +146,7 @@ class _NotesScreenState extends State<NotesScreen> {
   }
 
   Future<PdfModel?> getData() async {
-    internet = await Method.check();
+    
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
       _isLoaded = true;

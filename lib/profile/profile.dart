@@ -25,7 +25,6 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class ProfileScreenState extends State<ProfileScreen> {
-  bool internet = true;
   bool _isLoaded = false;
   bool paidvisible = false;
   bool isEdit = false;
@@ -424,12 +423,10 @@ class ProfileScreenState extends State<ProfileScreen> {
   }
 
   Future<void> getData() async {
-    internet = await Method.check();
     setState(() {
       _isLoaded = true;
     });
 
-    if (internet != null && internet) {
       try {
         final response = await http.get(Uri.parse(
             KApiBase.SERVICE_BASE_URL + KApiEndPoints.app_dynamic_setting));
@@ -453,24 +450,28 @@ class ProfileScreenState extends State<ProfileScreen> {
             Utils.showErrorMessage(context, mapRes['message']);
           }
         } else {
+           setState(() {
+              _isLoaded = false;
+            });
           throw Exception('Unable to fetch products from the REST API');
         }
       } catch (e) {
+         setState(() {
+              _isLoaded = false;
+            });
         print("Exception rest api: " + e.toString());
       }
-    }
+    
   }
 
 
     Future<void> deleteAccount() async {
-    internet = await Method.check();
     SharedPreferences prefs = await SharedPreferences.getInstance();
    
     setState(() {
       _isLoaded = true;
     });
 
-    if (internet) {
       try {
         Map<String, String> body = {
           'access_token': prefs.getString(KPrefs.TOKEN).toString(),
@@ -503,12 +504,10 @@ class ProfileScreenState extends State<ProfileScreen> {
         }
       } catch (e) {
         print("Exception rest api: " + e.toString());
-      }
     }
   }
 
   Future<void> getProfile() async {
-    internet = await Method.check();
     SharedPreferences prefs = await SharedPreferences.getInstance();
     if (prefs.getString(KPrefs.USER_ID).toString() == "425") {
       setState(() {
@@ -521,7 +520,6 @@ class ProfileScreenState extends State<ProfileScreen> {
       _isLoaded = true;
     });
 
-    if (internet != null && internet) {
       try {
         Map<String, String> body = {
           'access_token': prefs.getString(KPrefs.TOKEN).toString(),
@@ -559,19 +557,16 @@ class ProfileScreenState extends State<ProfileScreen> {
         }
       } catch (e) {
         print("Exception rest api: " + e.toString());
-      }
-    }
+  }
   }
 
   Future<void> updateProfile() async {
-    internet = await Method.check();
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
     setState(() {
       _isLoaded = true;
     });
 
-    if (internet != null && internet) {
       try {
         Map<String, String> body = {
           'access_token': prefs.getString(KPrefs.TOKEN).toString(),
@@ -593,12 +588,17 @@ class ProfileScreenState extends State<ProfileScreen> {
           });
           Utils.showErrorMessage(context, mapRes!['message']);
         } else {
+           setState(() {
+            _isLoaded = false;
+          });
           throw Exception('Unable to fetch products from the REST API');
         }
       } catch (e) {
+         setState(() {
+            _isLoaded = false;
+          });
         print("Exception rest api: " + e.toString());
       }
-    }
   }
 
   _loginButtonTapped() {

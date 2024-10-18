@@ -25,7 +25,6 @@ class LoginScreen extends StatefulWidget {
 }
 
 class LoginScreenState extends State<LoginScreen> {
-  bool internet = true;
   bool _isLoaded = false;
   var _emailTextController;
   var _passwordTextController;
@@ -204,14 +203,13 @@ class LoginScreenState extends State<LoginScreen> {
   }
 
   Future<void> loginAPI() async {
-    internet = await Method.check();
+  try {
     var deviceType;
     String? deviceName;
     String? identifier;
     final DeviceInfoPlugin deviceInfoPlugin = new DeviceInfoPlugin();
     SharedPreferences prefs = await SharedPreferences.getInstance();
     // var deviceToken = prefs.getString('device_token');
-    try {
       if (Platform.isAndroid) {
         var build = await deviceInfoPlugin.androidInfo;
         deviceType = 'android';
@@ -223,9 +221,7 @@ class LoginScreenState extends State<LoginScreen> {
         deviceName = data.name;
         identifier = data.identifierForVendor; //UUID for iOS
       }
-    } on PlatformException {
-      print('Failed to get platform version');
-    }
+     
 
     setState(() {
       _isLoaded = true;
@@ -237,17 +233,16 @@ class LoginScreenState extends State<LoginScreen> {
     print("password>>>>>>>>>>>" + _passwordTextController.text.toString());
 
     Map<String, String?> body = {
-      'user_email': _emailTextController.text.toString(),
-      'password': _passwordTextController.text.toString(),
-      'device_token': deviceToken.toString()??"",
-      'device_type': deviceType,
-      'device_name': deviceName,
-      'device_id': identifier,
+      "user_email": _emailTextController.text.toString(),
+      "password": _passwordTextController.text.toString(),
+      "device_token": deviceToken.toString()??"",
+      "device_type": deviceType,
+      "device_name": deviceName,
+      "device_id": identifier,
     };
-    if (internet != null && internet) {
-/*
-      try {
-*/
+    // if (internet != null && internet) {
+
+
       final response = await http.post(
           Uri.parse(KApiBase.BASE_URL + KApiEndPoints.API_LOGIN),
           body: body);
@@ -285,16 +280,21 @@ class LoginScreenState extends State<LoginScreen> {
           Utils.showErrorMessage(context, mapRes['message']);
         }
       } else {
+         setState(() {
+            _isLoaded = false;
+          });
         throw Exception('Unable to fetch products from the REST API');
       }
-      /*} catch (e) {
-        print("Exception rest api: " + e);
-      }*/
-    }
+      } catch (e) {
+         setState(() {
+            _isLoaded = false;
+          });
+        print("Exception rest api: " + e.toString());
+      }
+    
   }
 
   Future<void> skipAPI() async {
-    internet = await Method.check();
     setState(() {
       _isLoaded = true;
     });
@@ -309,7 +309,6 @@ class LoginScreenState extends State<LoginScreen> {
       'device_name': "PPP",
       'device_id': "android_id",
     };
-    if (internet != null && internet) {
 /*
       try {
 */
@@ -350,8 +349,11 @@ class LoginScreenState extends State<LoginScreen> {
           // Utils.showErrorMessage(context, mapRes['message']);
         }
       } else {
+         setState(() {
+            _isLoaded = false;
+          });
         throw Exception('Unable to fetch products from the REST API');
-      }
+      
       /*} catch (e) {
         print("Exception rest api: " + e);
       }*/

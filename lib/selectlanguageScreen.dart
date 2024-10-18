@@ -19,7 +19,6 @@ class SelectLanguageScreen extends StatefulWidget {
 }
 
 class SelectLanguageScreenState extends State<SelectLanguageScreen> {
-  bool internet = true;
   bool _isLoaded = false;
   String? hindiMobile= '7017088338';
   String? englishmobile= '9897121440';
@@ -311,12 +310,10 @@ class SelectLanguageScreenState extends State<SelectLanguageScreen> {
   }
 
   Future<void> getData() async {
-    internet = await Method.check();
     setState(() {
       _isLoaded = true;
     });
 
-    if (internet != null && internet) {
       try {
         final response = await http.get(Uri.parse(
             KApiBase.SERVICE_BASE_URL + KApiEndPoints.app_dynamic_setting));
@@ -346,7 +343,7 @@ class SelectLanguageScreenState extends State<SelectLanguageScreen> {
       } catch (e) {
         print("Exception rest api: " + e.toString());
       }
-    }
+    
   }
 
   launchURL(String url) async {

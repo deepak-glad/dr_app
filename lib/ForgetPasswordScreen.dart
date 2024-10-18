@@ -17,7 +17,6 @@ class ForgetPasswordScreen extends StatefulWidget {
 }
 
 class ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
-  bool internet = true;
   bool _isLoaded = false;
 
   var _EmailTextController;
@@ -125,7 +124,6 @@ class ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
   }
 
   Future<void> forgotAPI() async {
-    internet = await Method.check();
     setState(() {
       _isLoaded = true;
     });
@@ -134,7 +132,7 @@ class ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
     Map<String, String> body = {
       'user_email': _EmailTextController.text.toString(),
     };
-    if (internet != null && internet) {
+    // if (internet != null && internet) {
       try {
         final response = await http.post(
             Uri.parse(KApiBase.BASE_URL + KApiEndPoints.API_FORGOT),
@@ -156,12 +154,18 @@ class ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
             Utils.showErrorMessage(context, mapRes['message']);
           }
         } else {
+           setState(() {
+              _isLoaded = false;
+            });
           throw Exception('Unable to fetch products from the REST API');
         }
       } catch (e) {
+         setState(() {
+              _isLoaded = false;
+            });
         print("Exception rest api: " + e.toString());
       }
-    }
+    // }
   }
 
   BoxDecoration myBoxDecoration() {

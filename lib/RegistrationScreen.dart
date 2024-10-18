@@ -5,8 +5,6 @@ import 'package:device_info_plus/device_info_plus.dart';
 import 'package:drkashikajain/primary_button.dart';
 import 'package:drkashikajain/selectlanguageScreen.dart';
 import 'package:drkashikajain/utils/constants.dart';
-import 'package:drkashikajain/utils/method.dart';
-// import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
@@ -24,7 +22,6 @@ class RegistrationScreen extends StatefulWidget {
 }
 
 class RegistrationScreenState extends State<RegistrationScreen> {
-  bool internet = true;
   bool _isLoaded = false;
   var _nameTextController;
   var _emailTextController;
@@ -54,7 +51,6 @@ class RegistrationScreenState extends State<RegistrationScreen> {
 
   @override
   Widget build(BuildContext context) {
-    print(internet);
     return new Scaffold(
         body: Container(
           decoration: BoxDecoration(
@@ -301,7 +297,6 @@ class RegistrationScreenState extends State<RegistrationScreen> {
   }
 
   Future<void> apihit() async {
-    internet = await Method.check();
 
     var deviceType;
     String? deviceName;
@@ -346,7 +341,6 @@ class RegistrationScreenState extends State<RegistrationScreen> {
       'device_token': deviceToken.toString(),
       'device_type': deviceType,
     };
-    if (internet != null && internet) {
       try {
         final response = await http.post(
             Uri.parse(KApiBase.BASE_URL + KApiEndPoints.API_SIGN_UP),
@@ -368,16 +362,21 @@ class RegistrationScreenState extends State<RegistrationScreen> {
             Utils.showErrorMessage(context, mapRes['message']);
           }
         } else {
+           setState(() {
+              _isLoaded = false;
+            });
           throw Exception('Unable to fetch products from the REST API');
         }
       } catch (e) {
+         setState(() {
+              _isLoaded = false;
+            });
         print("Exception rest api: " + e.toString());
       }
-    }
+    
   }
 
   Future<void> loginAPI() async {
-    internet = await Method.check();
     var deviceType;
     String? deviceName;
     String? identifier;
@@ -414,7 +413,6 @@ class RegistrationScreenState extends State<RegistrationScreen> {
       'device_name': deviceName,
       'device_id': identifier,
     };
-    if (internet != null && internet) {
       try {
         final response = await http.post(
             Uri.parse(KApiBase.BASE_URL + KApiEndPoints.API_LOGIN),
@@ -452,13 +450,19 @@ class RegistrationScreenState extends State<RegistrationScreen> {
             Utils.showErrorMessage(context, mapRes['message']);
           }
         } else {
+           setState(() {
+              _isLoaded = false;
+            });
           throw Exception('Unable to fetch products from the REST API');
         }
       } catch (e) {
+         setState(() {
+              _isLoaded = false;
+            });
         print("Exception rest api: " + e.toString());
       }
     }
-  }
+  
 }
 
 class NoLeadingSpaceFormatter extends TextInputFormatter {

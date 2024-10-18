@@ -43,7 +43,6 @@ class _DemoVideosScreenState extends State<DemoVideosScreen> {
   final TextEditingController _followingTextEditingController =
       TextEditingController();
   bool isUserSearching = false;
-  bool internet = true;
   bool _isLoaded = false;
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   late Future<DemoVideos?> demovideos;
@@ -157,7 +156,6 @@ class _DemoVideosScreenState extends State<DemoVideosScreen> {
   }
 
   Future<DemoVideos?> getData() async {
-    internet = await Method.check();
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
       _isLoaded = true;

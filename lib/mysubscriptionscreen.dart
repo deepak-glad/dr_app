@@ -18,7 +18,6 @@ class MySubscriptionScreen extends StatefulWidget {
 }
 
 class MySubscriptionScreenState extends State<MySubscriptionScreen> {
-  bool internet = true;
   bool _isLoaded = false;
  late  Future<Subscriptions?> service;
 
@@ -144,9 +143,7 @@ class MySubscriptionScreenState extends State<MySubscriptionScreen> {
                                                     left: 15,
                                                     right: 15),
                                                 child: Text(
-                                                  "Service Name : " +
-                                                      snapshot.data!.data![index]
-                                                          .service_name!,
+                                                  "Service Name : ${snapshot.data?.data?[index].service_name??""}",
                                                   style: TextStyle(
                                                       fontSize: 12.0,
                                                       color: AppColors.white),
@@ -218,7 +215,6 @@ class MySubscriptionScreenState extends State<MySubscriptionScreen> {
   }
 
   Future<Subscriptions?> getData() async {
-    internet = await Method.check();
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
       _isLoaded = true;

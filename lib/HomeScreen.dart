@@ -29,7 +29,6 @@ class HomeScreen extends StatefulWidget {
 
 class HomeScreenState extends State<HomeScreen> {
   String? lang;
-  bool internet = true;
   bool _isLoaded = false;
   late Future<Services?> service;
 
@@ -193,7 +192,6 @@ class HomeScreenState extends State<HomeScreen> {
   }
 
   Future<Services?> getData() async {
-    internet = await Method.check();
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
       _isLoaded = true;
@@ -223,7 +221,6 @@ class HomeScreenState extends State<HomeScreen> {
   }
 
   Future<KeyModel?> getRazorPayKey() async {
-    internet = await Method.check();
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
     final response = await http.get(

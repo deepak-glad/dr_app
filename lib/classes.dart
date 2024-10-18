@@ -26,7 +26,6 @@ class ClassesScreen extends StatefulWidget {
 
 class ClassesScreenState extends State<ClassesScreen> {
   String? lang;
-  bool internet = true;
   bool _isLoaded = false;
   late Future<SubService?> service;
   String? service_id;
@@ -157,7 +156,6 @@ class ClassesScreenState extends State<ClassesScreen> {
   }
 
   Future<SubService?> getData() async {
-    internet = await Method.check();
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
       _isLoaded = true;

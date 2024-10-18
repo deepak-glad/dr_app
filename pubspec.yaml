@@ -15,7 +15,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 1.3.2+24
+version: 1.3.3+26
 
 environment:
   sdk: '>=2.17.0 <3.0.0'
@@ -24,26 +24,26 @@ dependencies:
   flutter:
     sdk: flutter
 
-  connectivity_plus: ^4.0.1
-  shared_preferences: ^2.1.1
-  http: ^0.13.6
-  url_launcher: ^6.1.11
+  connectivity_plus: ^6.1.0
+  shared_preferences: ^2.3.2
+  http: ^1.2.2
+  url_launcher: ^6.3.1
   video_player: ^2.6.0
   chewie: ^1.5.0
   flutter_svg: ^2.0.5
-  razorpay_flutter: ^1.3.4
+  razorpay_flutter: ^1.3.7
   fluttertoast: ^8.2.2
-  pod_player: ^0.1.5
+  pod_player: ^0.2.2
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.5
   flutter_windowmanager: ^0.2.0
-  device_info_plus: ^8.2.2
+  device_info_plus: ^10.1.0
   flutter_launcher_icons: ^0.13.1
-  syncfusion_flutter_pdfviewer: ^21.2.3
+  syncfusion_flutter_pdfviewer: ^26.1.42
   webview_flutter_plus: ^0.3.0+2 
   permission_handler: ^10.2.0 
-  youtube_player_flutter: ^8.1.2
+  youtube_player_flutter: ^9.1.1
 
 flutter_icons:
   android: 'launcher_icon'
